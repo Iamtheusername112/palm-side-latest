@@ -10,11 +10,11 @@ export async function GET(request) {
 
     // Return user data (without sensitive session info)
     return Response.json({
-      id: session.user.id,
-      email: session.user.email,
-      firstName: session.user.firstName,
-      lastName: session.user.lastName,
-      picture: session.user.picture,
+      id: session.admin.id,
+      email: session.admin.email,
+      firstName: session.admin.firstName,
+      lastName: session.admin.lastName,
+      picture: session.admin.picture,
     })
   } catch (error) {
     console.error('Error getting user data:', error)

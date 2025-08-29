@@ -14,7 +14,7 @@ export async function GET(request) {
     const userData = await verifyKindeAuth(code)
 
     // Create a secure session for the authenticated user
-    await createSession(userData)
+    await createSession(userData, request)
 
     // Redirect to admin dashboard after successful authentication
     return Response.redirect(new URL('/admin', request.url))

@@ -14,7 +14,11 @@ export function middleware(request) {
     try {
       // Verify session is valid (basic check)
       const sessionData = JSON.parse(adminSession.value)
-      if (!sessionData.user || !sessionData.expires) {
+      if (
+        !sessionData.adminId ||
+        !sessionData.expires ||
+        !sessionData.sessionToken
+      ) {
         throw new Error('Invalid session data')
       }
 

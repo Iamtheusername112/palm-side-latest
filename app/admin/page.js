@@ -175,6 +175,14 @@ const AdminDashboard = () => {
               </div>
 
               <button
+                onClick={() => router.push('/admin/settings')}
+                className='text-gray-600 hover:text-gray-800 transition-colors duration-300 flex items-center'
+              >
+                <Settings className='h-4 w-4 mr-2' />
+                Settings
+              </button>
+
+              <button
                 onClick={handleSignOut}
                 disabled={isLoggingOut}
                 className='text-gray-600 hover:text-gray-800 transition-colors duration-300 flex items-center disabled:opacity-50 disabled:cursor-not-allowed'
