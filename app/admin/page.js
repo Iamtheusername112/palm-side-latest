@@ -17,22 +17,30 @@ import {
 const AdminDashboard = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    // Check if user is authenticated
-    const checkAuth = async () => {
+    // Get user data from the server-side session
+    const fetchUserData = async () => {
       try {
-        // For now, we'll simulate authentication check
-        // In production, you'd verify the session with Kinde
+        const response = await fetch('/api/auth/me')
+        if (response.ok) {
+          const userData = await response.json()
+          setUser(userData)
+        } else {
+          // If not authenticated, redirect to sign-in
+          router.push('/sign-in')
+          return
+        }
         setIsLoading(false)
       } catch (error) {
-        console.error('Auth check failed:', error)
+        console.error('Failed to fetch user data:', error)
         router.push('/sign-in')
       }
     }
 
-    checkAuth()
+    fetchUserData()
   }, [router])
 
   if (isLoading) {
@@ -47,12 +55,26 @@ const AdminDashboard = () => {
   }
 
   const handleSignOut = async () => {
+    if (isLoggingOut) return // Prevent multiple clicks
+
+    setIsLoggingOut(true)
     try {
-      await fetch('/api/auth/logout')
-      router.push('/')
+      const response = await fetch('/api/auth/logout')
+      const data = await response.json()
+
+      if (data.success) {
+        // First redirect to Kinde logout to clear their session
+        window.location.href = data.logoutUrl
+      } else {
+        // If logout failed, just redirect to home
+        router.push('/')
+      }
     } catch (error) {
       console.error('Logout failed:', error)
+      // If there's an error, redirect to home
       router.push('/')
+    } finally {
+      setIsLoggingOut(false)
     }
   }
 
@@ -134,12 +156,31 @@ const AdminDashboard = () => {
                 <Plus className='h-4 w-4 mr-2' />
                 Add Property
               </button>
+
+              {/* User Profile */}
+              <div className='flex items-center space-x-3'>
+                {user?.picture && (
+                  <img
+                    src={user.picture}
+                    alt={`${user.firstName} ${user.lastName}`}
+                    className='w-8 h-8 rounded-full'
+                  />
+                )}
+                <div className='text-right'>
+                  <p className='text-sm font-medium text-gray-900'>
+                    {user?.firstName} {user?.lastName}
+                  </p>
+                  <p className='text-xs text-gray-500'>{user?.email}</p>
+                </div>
+              </div>
+
               <button
                 onClick={handleSignOut}
-                className='text-gray-600 hover:text-gray-800 transition-colors duration-300 flex items-center'
+                disabled={isLoggingOut}
+                className='text-gray-600 hover:text-gray-800 transition-colors duration-300 flex items-center disabled:opacity-50 disabled:cursor-not-allowed'
               >
                 <LogOut className='h-4 w-4 mr-2' />
-                Sign Out
+                {isLoggingOut ? 'Signing Out...' : 'Sign Out'}
               </button>
             </div>
           </div>
@@ -150,7 +191,7 @@ const AdminDashboard = () => {
         {/* Welcome Section */}
         <div className='mb-8'>
           <h1 className='text-3xl font-bold text-gray-900'>
-            Welcome back, Admin!
+            Welcome back, {user?.firstName || 'Admin'}!
           </h1>
           <p className='text-gray-600 mt-2'>
             Here's what's happening with your real estate business today.

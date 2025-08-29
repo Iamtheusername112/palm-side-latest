@@ -1,13 +1,28 @@
+import { destroySession } from '../../../../lib/auth.js'
+
 export async function GET(request) {
   try {
-    // Redirect to Kinde logout
-    const kindeLogoutUrl = `https://francis.kinde.com/logout?redirect=${encodeURIComponent(
-      'http://localhost:3000'
-    )}`
+    // Destroy the current session
+    await destroySession()
 
-    return Response.redirect(kindeLogoutUrl)
+    // Return success response instead of redirecting
+    return Response.json({
+      success: true,
+      message: 'Logged out successfully',
+      logoutUrl: `https://francis.kinde.com/logout?redirect=${encodeURIComponent(
+        'http://localhost:3000'
+      )}`,
+    })
   } catch (error) {
     console.error('Kinde logout error:', error)
-    return new Response('Logout failed', { status: 500 })
+
+    // Return error response
+    return Response.json(
+      {
+        success: false,
+        message: 'Logout failed',
+      },
+      { status: 500 }
+    )
   }
 }
