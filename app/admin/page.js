@@ -1,6 +1,5 @@
 'use client'
 
-// import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import {
@@ -16,17 +15,25 @@ import {
 } from 'lucide-react'
 
 const AdminDashboard = () => {
-  // const { isLoaded, isSignedIn, user } = useUser()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false) // Set to false to skip loading
+  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState(null)
 
-  // useEffect(() => {
-  //   if (isLoaded && !isSignedIn) {
-  //     router.push('/sign-in')
-  //   } else if (isLoaded && isSignedIn) {
-  //     setIsLoading(false)
-  //   }
-  // }, [isLoaded, isSignedIn, router])
+  useEffect(() => {
+    // Check if user is authenticated
+    const checkAuth = async () => {
+      try {
+        // For now, we'll simulate authentication check
+        // In production, you'd verify the session with Kinde
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Auth check failed:', error)
+        router.push('/sign-in')
+      }
+    }
+
+    checkAuth()
+  }, [router])
 
   if (isLoading) {
     return (
@@ -39,13 +46,14 @@ const AdminDashboard = () => {
     )
   }
 
-  // if (!isSignedIn) {
-  //   return null
-  // }
-
   const handleSignOut = async () => {
-    // Handle sign out logic here
-    router.push('/')
+    try {
+      await fetch('/api/auth/logout')
+      router.push('/')
+    } catch (error) {
+      console.error('Logout failed:', error)
+      router.push('/')
+    }
   }
 
   const stats = [
@@ -142,7 +150,7 @@ const AdminDashboard = () => {
         {/* Welcome Section */}
         <div className='mb-8'>
           <h1 className='text-3xl font-bold text-gray-900'>
-            Welcome back, {/* user?.firstName || 'Admin' */}!
+            Welcome back, Admin!
           </h1>
           <p className='text-gray-600 mt-2'>
             Here's what's happening with your real estate business today.
