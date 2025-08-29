@@ -1,14 +1,17 @@
 import { NextResponse } from 'next/server'
 
 export function middleware(request) {
-  // Protect admin routes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
+  // Protect admin routes (but not admin-auth routes)
+  if (
+    request.nextUrl.pathname.startsWith('/admin') &&
+    !request.nextUrl.pathname.startsWith('/admin-auth')
+  ) {
     // Check for admin session cookie
     const adminSession = request.cookies.get('admin_session')
 
     if (!adminSession) {
-      // Redirect to sign-in if no session
-      return NextResponse.redirect(new URL('/sign-in', request.url))
+      // Redirect to admin auth login if no session
+      return NextResponse.redirect(new URL('/admin-auth/login', request.url))
     }
 
     try {
@@ -25,7 +28,9 @@ export function middleware(request) {
       // Check if session has expired
       if (new Date(sessionData.expires) < new Date()) {
         // Clear expired session and redirect
-        const response = NextResponse.redirect(new URL('/sign-in', request.url))
+        const response = NextResponse.redirect(
+          new URL('/admin-auth/login', request.url)
+        )
         response.cookies.delete('admin_session')
         return response
       }
@@ -33,8 +38,10 @@ export function middleware(request) {
       // Session is valid, allow access
       return NextResponse.next()
     } catch (error) {
-      // Invalid session, redirect to sign-in
-      const response = NextResponse.redirect(new URL('/sign-in', request.url))
+      // Invalid session, redirect to admin auth login
+      const response = NextResponse.redirect(
+        new URL('/admin-auth/login', request.url)
+      )
       response.cookies.delete('admin_session')
       return response
     }

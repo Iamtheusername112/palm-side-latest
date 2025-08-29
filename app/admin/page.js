@@ -24,19 +24,19 @@ const AdminDashboard = () => {
     // Get user data from the server-side session
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/auth/me')
+        const response = await fetch('/api/admin/me')
         if (response.ok) {
           const userData = await response.json()
           setUser(userData)
         } else {
-          // If not authenticated, redirect to sign-in
-          router.push('/sign-in')
+          // If not authenticated, redirect to admin auth login
+          router.push('/admin-auth/login')
           return
         }
         setIsLoading(false)
       } catch (error) {
         console.error('Failed to fetch user data:', error)
-        router.push('/sign-in')
+        router.push('/admin-auth/login')
       }
     }
 
@@ -59,20 +59,22 @@ const AdminDashboard = () => {
 
     setIsLoggingOut(true)
     try {
-      const response = await fetch('/api/auth/logout')
+      const response = await fetch('/api/admin/logout', {
+        method: 'POST',
+      })
       const data = await response.json()
 
       if (data.success) {
-        // First redirect to Kinde logout to clear their session
-        window.location.href = data.logoutUrl
+        // Redirect to admin auth login page
+        router.push('/admin-auth/login')
       } else {
-        // If logout failed, just redirect to home
-        router.push('/')
+        // If logout failed, just redirect to admin auth login
+        router.push('/admin-auth/login')
       }
     } catch (error) {
       console.error('Logout failed:', error)
-      // If there's an error, redirect to home
-      router.push('/')
+      // If there's an error, redirect to admin auth login
+      router.push('/admin-auth/login')
     } finally {
       setIsLoggingOut(false)
     }

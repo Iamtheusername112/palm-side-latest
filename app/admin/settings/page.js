@@ -14,12 +14,17 @@ const AdminSettings = () => {
     lastName: '',
     email: '',
   })
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  })
   const [message, setMessage] = useState({ type: '', text: '' })
 
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await fetch('/api/auth/me')
+        const response = await fetch('/api/admin/me')
         if (response.ok) {
           const adminData = await response.json()
           setAdmin(adminData)
@@ -29,13 +34,13 @@ const AdminSettings = () => {
             email: adminData.email || '',
           })
         } else {
-          router.push('/sign-in')
+          router.push('/admin-auth/login')
           return
         }
         setIsLoading(false)
       } catch (error) {
         console.error('Failed to fetch admin data:', error)
-        router.push('/sign-in')
+        router.push('/admin-auth/login')
       }
     }
 
@@ -45,6 +50,14 @@ const AdminSettings = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target
+    setPasswordData((prev) => ({
       ...prev,
       [name]: value,
     }))
@@ -88,6 +101,71 @@ const AdminSettings = () => {
     }
   }
 
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault()
+    setIsSaving(true)
+    setMessage({ type: '', text: '' })
+
+    // Validate passwords
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setMessage({
+        type: 'error',
+        text: 'New passwords do not match',
+      })
+      setIsSaving(false)
+      return
+    }
+
+    if (passwordData.newPassword.length < 8) {
+      setMessage({
+        type: 'error',
+        text: 'New password must be at least 8 characters long',
+      })
+      setIsSaving(false)
+      return
+    }
+
+    try {
+      const response = await fetch('/api/admin/change-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMessage({
+          type: 'success',
+          text: 'Password change request logged successfully!',
+        })
+        // Clear password fields
+        setPasswordData({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        })
+      } else {
+        setMessage({
+          type: 'error',
+          text: data.message || 'Failed to change password',
+        })
+      }
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: 'An error occurred while changing password',
+      })
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   if (isLoading) {
     return (
       <div className='min-h-screen bg-gray-50 flex items-center justify-center'>
@@ -101,7 +179,6 @@ const AdminSettings = () => {
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      {/* Header */}
       <header className='bg-white shadow-sm border-b'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16'>
@@ -224,7 +301,7 @@ const AdminSettings = () => {
                 className='w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent'
               />
               <p className='text-sm text-gray-500 mt-1'>
-                This email will be used for authentication with Kinde
+                This email will be used for admin authentication
               </p>
             </div>
 
@@ -240,6 +317,96 @@ const AdminSettings = () => {
               >
                 <Save className='h-4 w-4 mr-2' />
                 {isSaving ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Password Change Form */}
+        <div className='mt-8 bg-white rounded-lg shadow-sm border'>
+          <div className='px-6 py-4 border-b'>
+            <h3 className='text-lg font-semibold text-gray-900 flex items-center'>
+              <Shield className='h-5 w-5 mr-2' />
+              Change Password
+            </h3>
+            <p className='text-sm text-gray-600 mt-1'>
+              Update your login password for enhanced security
+            </p>
+          </div>
+
+          <form onSubmit={handlePasswordSubmit} className='p-6 space-y-6'>
+            <div>
+              <label
+                htmlFor='currentPassword'
+                className='block text-sm font-medium text-gray-700 mb-2'
+              >
+                Current Password
+              </label>
+              <input
+                type='password'
+                id='currentPassword'
+                name='currentPassword'
+                value={passwordData.currentPassword}
+                onChange={handlePasswordChange}
+                required
+                className='w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                placeholder='Enter your current password'
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <div>
+                <label
+                  htmlFor='newPassword'
+                  className='block text-sm font-medium text-gray-700 mb-2'
+                >
+                  New Password
+                </label>
+                <input
+                  type='password'
+                  id='newPassword'
+                  name='newPassword'
+                  value={passwordData.newPassword}
+                  onChange={handlePasswordChange}
+                  required
+                  minLength={8}
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  placeholder='Enter new password (min 8 characters)'
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor='confirmPassword'
+                  className='block text-sm font-medium text-gray-700 mb-2'
+                >
+                  Confirm New Password
+                </label>
+                <input
+                  type='password'
+                  id='confirmPassword'
+                  name='confirmPassword'
+                  value={passwordData.confirmPassword}
+                  onChange={handlePasswordChange}
+                  required
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  placeholder='Confirm new password'
+                />
+              </div>
+            </div>
+
+            <div className='flex items-center justify-between pt-4 border-t'>
+              <div className='flex items-center text-sm text-gray-600'>
+                <Shield className='h-4 w-4 mr-2' />
+                <span>Password must be at least 8 characters long</span>
+              </div>
+              <button
+                type='submit'
+                disabled={isSaving}
+                className='bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white px-6 py-2 rounded-md font-medium transition-colors duration-300 flex items-center'
+              >
+                <Save className='h-4 w-4 mr-2' />
+                {isSaving ? 'Changing Password...' : 'Change Password'}
               </button>
             </div>
           </form>

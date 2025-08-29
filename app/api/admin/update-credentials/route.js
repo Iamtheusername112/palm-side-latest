@@ -1,12 +1,34 @@
-import { getSession } from '../../../../lib/auth.js'
-import { AdminUserManager } from '../../../../lib/admin-db.js'
+import { cookies } from 'next/headers'
+import { PasswordAuthManager } from '../../../../lib/password-auth.js'
+import { neon } from '@neondatabase/serverless'
 
 export async function PUT(request) {
   try {
-    // Verify authentication
-    const session = await getSession()
-    if (!session) {
+    // Verify authentication using session cookie
+    const cookieStore = await cookies()
+    const adminSession = cookieStore.get('admin_session')
+
+    if (!adminSession) {
       return new Response('Unauthorized', { status: 401 })
+    }
+
+    try {
+      const sessionData = JSON.parse(adminSession.value)
+
+      if (!sessionData.adminId || !sessionData.sessionToken) {
+        return new Response('Invalid session', { status: 401 })
+      }
+
+      // Validate session with database
+      const admin = await PasswordAuthManager.validateSession(
+        sessionData.sessionToken
+      )
+
+      if (!admin) {
+        return new Response('Session expired', { status: 401 })
+      }
+    } catch (error) {
+      return new Response('Invalid session data', { status: 401 })
     }
 
     // Get request body
@@ -31,19 +53,20 @@ export async function PUT(request) {
       return new Response('Invalid email format', { status: 400 })
     }
 
-    // Update admin credentials
-    const updatedAdmin = await AdminUserManager.updateAdminCredentials(
-      session.admin.id,
-      {
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        email: email.trim().toLowerCase(),
-      }
-    )
+    // Update admin credentials in database
+    const db = neon(process.env.DATABASE_URL)
+    await db`
+      UPDATE admin_users SET 
+        first_name = ${firstName.trim()},
+        last_name = ${lastName.trim()},
+        email = ${email.trim().toLowerCase()},
+        updated_at = ${new Date()}
+      WHERE id = ${sessionData.adminId}
+    `
 
     // Log the activity
-    await AdminUserManager.logActivity(
-      session.admin.id,
+    await PasswordAuthManager.logActivity(
+      sessionData.adminId,
       'credentials_updated',
       {
         ipAddress:
@@ -59,10 +82,10 @@ export async function PUT(request) {
       success: true,
       message: 'Credentials updated successfully',
       admin: {
-        id: updatedAdmin.id,
-        firstName: updatedAdmin.firstName,
-        lastName: updatedAdmin.lastName,
-        email: updatedAdmin.email,
+        id: sessionData.adminId,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim().toLowerCase(),
       },
     })
   } catch (error) {

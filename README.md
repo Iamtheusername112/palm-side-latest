@@ -1,47 +1,36 @@
-# Palmside Real Estate App
+# Palmside Real Estate Admin Dashboard
 
-A modern, full-stack real estate application built with Next.js 15, featuring a beautiful frontend and secure admin dashboard.
+A modern, secure admin dashboard for real estate management built with Next.js 15 and PostgreSQL.
 
-## Features
+## 🚀 Features
 
-### Frontend
+- **Secure Admin Authentication**: Password-based authentication with session management
+- **Real Estate Management**: Properties, clients, inquiries, and services
+- **Modern UI**: Beautiful, responsive dashboard built with Tailwind CSS
+- **Database Integration**: PostgreSQL with Neon serverless database
+- **Security Features**: Password expiration, account lockout, activity logging
 
-- **Modern Navbar** with Palmside logo and navigation links
-- **Hero Section** with sliding images and visual storytelling
-- **Services Dropdown** with 5 company services
-- **Responsive Footer** with contact info and social media links
-- **Beautiful UI** built with Tailwind CSS v4
+## 🛠️ Tech Stack
 
-### Backend
+- **Frontend**: Next.js 15, React, Tailwind CSS
+- **Backend**: Next.js API Routes, Node.js
+- **Database**: PostgreSQL (Neon)
+- **Authentication**: Custom password-based system with bcrypt
+- **Styling**: Tailwind CSS, Lucide React icons
 
-- **Secure Authentication** using Clerk for admin access
-- **Database Integration** with Neon PostgreSQL and Drizzle ORM
-- **Admin Dashboard** with property management capabilities
-- **Protected Routes** for admin-only access
-
-## Tech Stack
-
-- **Frontend**: Next.js 15, React 19, Tailwind CSS v4
-- **Authentication**: Clerk
-- **Database**: Neon PostgreSQL
-- **ORM**: Drizzle
-- **Styling**: Tailwind CSS, Framer Motion
-- **Icons**: Lucide React
-
-## Prerequisites
+## 📋 Prerequisites
 
 - Node.js 18+
 - npm or yarn
-- Neon PostgreSQL database account
-- Clerk account for authentication
+- PostgreSQL database (Neon recommended)
 
-## Installation
+## 🔧 Installation
 
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
-   cd latest-palm-side-app
+   git clone https://github.com/Iamtheusername112/palm-side-latest.git
+   cd palm-side-latest
    ```
 
 2. **Install dependencies**
@@ -51,146 +40,129 @@ A modern, full-stack real estate application built with Next.js 15, featuring a 
    ```
 
 3. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
-
-   ```env
-   # Clerk Authentication
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-   CLERK_SECRET_KEY=your_clerk_secret_key_here
-
-   # Database
-   DATABASE_URL=your_neon_database_url_here
-   ```
-
-4. **Set up Clerk Authentication**
-
-   - Go to [clerk.com](https://clerk.com) and create an account
-   - Create a new application
-   - Copy your publishable key and secret key to `.env.local`
-   - Configure your application settings
-
-5. **Set up Neon Database**
-   - Go to [neon.tech](https://neon.tech) and create an account
-   - Create a new project
-   - Copy your database connection string to `.env.local`
-
-## Database Setup
-
-1. **Generate database schema**
 
    ```bash
-   npm run db:generate
+   # Copy the example environment file
+   cp env.example .env.local
+
+   # Edit .env.local with your actual values
+   nano .env.local
    ```
 
-2. **Run migrations**
+4. **Set up the database**
 
    ```bash
+   # Run database migrations
    npm run db:migrate
+
+   # Create the first admin user
+   node setup-admin.js
    ```
 
-3. **View database in Drizzle Studio** (optional)
-   ```bash
-   npm run db:studio
-   ```
-
-## Running the Application
-
-1. **Development mode**
-
+5. **Start the development server**
    ```bash
    npm run dev
    ```
 
-2. **Build for production**
-   ```bash
-   npm run build
-   npm start
-   ```
+## 🔐 Environment Variables
 
-## Project Structure
+Create a `.env.local` file with the following variables:
+
+```bash
+# Database Configuration
+DATABASE_URL="postgresql://username:password@hostname/database?sslmode=require"
+
+# Admin Authentication (CHANGE THESE IN PRODUCTION!)
+ADMIN_EMAIL="your-admin-email@example.com"
+ADMIN_PASSWORD="your-secure-password-here"
+
+# Next.js Configuration
+NODE_ENV="development"
+```
+
+### ⚠️ Security Notes
+
+- **NEVER commit `.env.local` or `.env` files to version control**
+- **Change default admin credentials immediately after setup**
+- **Use strong, unique passwords in production**
+- **Keep your database URL private**
+
+## 🗄️ Database Setup
+
+1. **Create a PostgreSQL database** (Neon recommended for serverless)
+2. **Run migrations**: `npm run db:migrate`
+3. **Create admin user**: `node setup-admin.js`
+
+## 👤 Admin Access
+
+After setup, access the admin dashboard at:
+
+- **Login**: `/admin-auth/login`
+- **Dashboard**: `/admin`
+- **Settings**: `/admin/settings`
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push
+
+### Other Platforms
+
+1. Build the project: `npm run build`
+2. Set environment variables
+3. Deploy the `.next` folder
+
+## 📁 Project Structure
 
 ```
-latest-palm-side-app/
-├── app/
-│   ├── admin/              # Admin dashboard (protected)
-│   ├── components/         # Reusable components
-│   │   ├── Navbar.js      # Navigation component
-│   │   ├── Hero.js        # Hero section with slides
-│   │   └── Footer.js      # Footer component
-│   ├── sign-in/           # Authentication pages
-│   ├── globals.css        # Global styles
-│   ├── layout.js          # Root layout
-│   └── page.js            # Home page
-├── lib/
-│   ├── db.js              # Database connection
+├── app/                    # Next.js app directory
+│   ├── admin/             # Admin dashboard routes
+│   ├── admin-auth/        # Admin authentication routes
+│   └── api/               # API routes
+├── lib/                   # Utility libraries
+│   ├── password-auth.js   # Authentication logic
 │   └── schema.js          # Database schema
-├── middleware.js           # Clerk authentication middleware
-├── drizzle.config.js       # Drizzle configuration
-└── package.json
+├── drizzle/               # Database migrations
+└── public/                # Static assets
 ```
 
-## Admin Access
+## 🔒 Security Features
 
-- **URL**: `/admin`
-- **Authentication**: Required (Clerk)
-- **Features**: Property management, client management, analytics
+- **Password Hashing**: bcrypt with 12 salt rounds
+- **Session Management**: Secure HTTP-only cookies
+- **Account Lockout**: 5 failed attempts = 15 min lockout
+- **Password Expiration**: 30-day password rotation
+- **Activity Logging**: Audit trail for all admin actions
 
-## Customization
+## 🐛 Troubleshooting
 
-### Adding New Properties
+### Common Issues
 
-1. Access the admin dashboard
-2. Use the "Add Property" button
-3. Fill in property details
-4. Save to database
+1. **"Cannot read properties of undefined"**
 
-### Modifying Services
+   - Check that all environment variables are set
+   - Verify database connection
 
-Edit the services array in `app/components/Navbar.js`:
+2. **"Invalid credentials"**
 
-```javascript
-const services = [
-  'Property Management',
-  'Real Estate Investment',
-  'Property Development',
-  'Consulting Services',
-  'Legal Services',
-]
-```
+   - Ensure admin user was created with `setup-admin.js`
+   - Check database connection
 
-### Styling
+3. **"Module not found"**
+   - Run `npm install` to install dependencies
+   - Check Node.js version (18+ required)
 
-- Main styles are in `app/globals.css`
-- Component-specific styles use Tailwind CSS classes
-- Custom animations are defined in CSS
+## 📝 License
 
-## Deployment
+This project is proprietary software. All rights reserved.
 
-1. **Build the application**
+## 🤝 Support
 
-   ```bash
-   npm run build
-   ```
-
-2. **Deploy to your preferred platform** (Vercel, Netlify, etc.)
-
-3. **Set environment variables** in your deployment platform
-
-4. **Run database migrations** on your production database
-
-## Support
-
-For issues or questions:
-
-- Check the documentation
-- Review the code structure
-- Ensure all environment variables are set correctly
-
-## License
-
-This project is private and proprietary to Palmside Real Estate.
+For support or questions, please contact the development team.
 
 ---
 
-**Built with ❤️ for Palmside Real Estate**
-# palm-side-latest
+**⚠️ IMPORTANT**: Remember to change the default admin credentials before deploying to production!
