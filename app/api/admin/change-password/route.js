@@ -11,8 +11,9 @@ export async function PUT(request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
+    let sessionData
     try {
-      const sessionData = JSON.parse(adminSession.value)
+      sessionData = JSON.parse(adminSession.value)
 
       if (!sessionData.adminId || !sessionData.sessionToken) {
         return new Response('Invalid session', { status: 401 })
