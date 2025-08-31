@@ -14,7 +14,7 @@ const ContactPage = () => {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('')
 
   // Services for the subject dropdown
   const services = [
@@ -61,24 +61,42 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+    setSubmitStatus('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
-    }, 3000)
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        })
+        // Reset form after successful submission
+        setTimeout(() => {
+          setSubmitStatus('')
+        }, 5000)
+      } else {
+        setSubmitStatus('error')
+        console.error('Submission error:', result.error)
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      console.error('Submission error:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -143,7 +161,7 @@ const ContactPage = () => {
               </p>
             </div>
 
-            {isSubmitted ? (
+            {submitStatus === 'success' ? (
               <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
                 <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold text-green-800 mb-2">
@@ -151,6 +169,18 @@ const ContactPage = () => {
                 </h3>
                 <p className="text-green-600">
                   Thank you for contacting us. We'll get back to you soon.
+                </p>
+              </div>
+            ) : submitStatus === 'error' ? (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-8 text-center">
+                <div className="h-16 w-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">⚠️</span>
+                </div>
+                <h3 className="text-2xl font-semibold text-red-800 mb-2">
+                  Submission Failed
+                </h3>
+                <p className="text-red-600">
+                  There was an error sending your message. Please try again.
                 </p>
               </div>
             ) : (

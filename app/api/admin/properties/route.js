@@ -1,0 +1,147 @@
+import { NextResponse } from 'next/server'
+import { db } from '../../../../lib/db'
+import { properties } from '../../../../lib/schema'
+import { desc, eq, asc, like, and, gte, lte } from 'drizzle-orm'
+
+export async function GET(request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '20')
+    const type = searchParams.get('type')
+    const status = searchParams.get('status')
+    const location = searchParams.get('location')
+    const sortBy = searchParams.get('sortBy') || 'createdAt'
+    const sortOrder = searchParams.get('sortOrder') || 'desc'
+    const offset = (page - 1) * limit
+
+    // Build query based on filters
+    let query = db.select().from(properties)
+    let whereConditions = []
+
+    if (type && type !== 'all') {
+      whereConditions.push(eq(properties.propertyType, type))
+    }
+    
+    if (status && status !== 'all') {
+      whereConditions.push(eq(properties.status, status))
+    }
+    
+    if (location && location !== 'all') {
+      whereConditions.push(like(properties.location, `%${location}%`))
+    }
+
+    // Apply where conditions if any
+    if (whereConditions.length > 0) {
+      query = query.where(and(...whereConditions))
+    }
+
+    // Get total count for pagination
+    let countQuery = db.select({ count: db.fn.count() }).from(properties)
+    if (whereConditions.length > 0) {
+      countQuery = countQuery.where(and(...whereConditions))
+    }
+    const countResult = await countQuery
+    const totalCount = countResult[0]?.count || 0
+
+    // Apply sorting
+    if (sortBy === 'price') {
+      query = sortOrder === 'desc' 
+        ? query.orderBy(desc(properties.price))
+        : query.orderBy(asc(properties.price))
+    } else if (sortBy === 'title') {
+      query = sortOrder === 'desc' 
+        ? query.orderBy(desc(properties.title))
+        : query.orderBy(asc(properties.title))
+    } else if (sortBy === 'location') {
+      query = sortOrder === 'desc' 
+        ? query.orderBy(desc(properties.location))
+        : query.orderBy(asc(properties.location))
+    } else {
+      // Default sort by createdAt
+      query = sortOrder === 'desc' 
+        ? query.orderBy(desc(properties.createdAt))
+        : query.orderBy(asc(properties.createdAt))
+    }
+
+    // Get properties with pagination
+    const propertiesList = await query
+      .limit(limit)
+      .offset(offset)
+
+    return NextResponse.json({
+      success: true,
+      properties: propertiesList,
+      pagination: {
+        page,
+        limit,
+        total: Number(totalCount),
+        totalPages: Math.ceil(Number(totalCount) / limit)
+      }
+    })
+
+  } catch (error) {
+    console.error('Error fetching properties:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json()
+    const { 
+      title, 
+      description, 
+      price, 
+      location, 
+      propertyType, 
+      status,
+      bedrooms,
+      bathrooms,
+      squareFeet,
+      features,
+      images
+    } = body
+
+    // Basic validation
+    if (!title || !price || !location || !status) {
+      return NextResponse.json(
+        { error: 'Missing required fields: title, price, location, status' },
+        { status: 400 }
+      )
+    }
+
+    // Insert new property
+    const [newProperty] = await db.insert(properties).values({
+      title,
+      description: description || null,
+      price: parseFloat(price),
+      location,
+      propertyType: propertyType || null,
+      status,
+      bedrooms: bedrooms ? parseInt(bedrooms) : null,
+      bathrooms: bathrooms ? parseInt(bathrooms) : null,
+      squareFeet: squareFeet ? parseInt(squareFeet) : null,
+      features: features ? JSON.stringify(features) : null,
+      images: images ? JSON.stringify(images) : null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }).returning()
+
+    return NextResponse.json({
+      success: true,
+      message: 'Property created successfully',
+      property: newProperty
+    }, { status: 201 })
+
+  } catch (error) {
+    console.error('Error creating property:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
