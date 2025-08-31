@@ -2,18 +2,60 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { ChevronDown, Menu, X, Home, Building2, TrendingUp, Briefcase, Globe, Waves, Sparkles } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../../components/ui/dropdown-menu'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
 
   const services = [
-    'Property Management',
-    'Real Estate Investment',
-    'Property Development',
-    'Consulting Services',
-    'Legal Services',
+    {
+      name: 'Property Management',
+      description: 'Comprehensive property management services',
+      icon: Building2,
+      href: '/services/property-management'
+    },
+    {
+      name: 'Real Estate Investment',
+      description: 'Strategic investment opportunities',
+      icon: TrendingUp,
+      href: '/services/real-estate-investment'
+    },
+    {
+      name: 'Property Development',
+      description: 'Custom development solutions',
+      icon: Sparkles,
+      href: '/services/property-development'
+    },
+    {
+      name: 'Consulting Services',
+      description: 'Expert real estate consulting',
+      icon: Briefcase,
+      href: '/services/consulting-services'
+    },
+    {
+      name: 'Legal Services',
+      description: 'Real estate legal expertise',
+      icon: Globe,
+      href: '/services/legal-services'
+    },
+  ]
+
+  const properties = [
+    'Luxury Homes',
+    'Investment Properties',
+    'Commercial Real Estate',
+    'Beachfront Properties',
+    'New Developments',
+    'International Properties',
   ]
 
   return (
@@ -42,49 +84,75 @@ const Navbar = () => {
                 Home
               </Link>
 
-              {/* Services Dropdown */}
-              <div className='relative'>
-                <button
-                  onMouseEnter={() => setIsServicesOpen(true)}
-                  onMouseLeave={() => setIsServicesOpen(false)}
-                  className='text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center'
-                >
-                  Services
-                  <ChevronDown className='ml-1 h-4 w-4' />
-                </button>
+                             {/* Services Dropdown */}
+               <div className='relative'>
+                 <button
+                   onMouseEnter={() => setIsServicesOpen(true)}
+                   onMouseLeave={() => setIsServicesOpen(false)}
+                   className='text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center'
+                 >
+                   Services
+                   <ChevronDown className='ml-1 h-4 w-4' />
+                 </button>
 
-                {isServicesOpen && (
-                  <div
+                                   <div
                     onMouseEnter={() => setIsServicesOpen(true)}
                     onMouseLeave={() => setIsServicesOpen(false)}
-                    className='absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-50'
+                    className={`absolute left-0 mt-2 w-80 bg-white border border-gray-200 shadow-xl rounded-lg z-50 transition-all duration-300 ease-out transform ${
+                      isServicesOpen 
+                        ? 'opacity-100 translate-y-0 scale-100' 
+                        : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
+                    }`}
                   >
-                    {services.map((service, index) => (
-                      <Link
-                        key={index}
-                        href={`/services/${service
-                          .toLowerCase()
-                          .replace(/\s+/g, '-')}`}
-                        className='block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors'
-                      >
-                        {service}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+                     <div className="p-3 border-b border-gray-200">
+                       <h3 className="text-gray-900 font-semibold text-sm">
+                         Our Services
+                       </h3>
+                     </div>
+                     <div className="p-1">
+                       {services.map((service, index) => {
+                         const IconComponent = service.icon
+                         return (
+                           <Link
+                             key={index}
+                             href={service.href}
+                             className="flex items-start gap-3 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors cursor-pointer"
+                           >
+                             <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
+                               <IconComponent className="h-4 w-4 text-white" />
+                             </div>
+                             <div className="flex-1 min-w-0">
+                               <p className="text-sm font-medium text-gray-900 leading-none">
+                                 {service.name}
+                               </p>
+                               <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                                 {service.description}
+                               </p>
+                             </div>
+                           </Link>
+                         )
+                       })}
+                     </div>
+                   </div>
+               </div>
 
-              <Link
-                href='/properties'
-                className='text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors'
-              >
-                Properties
-              </Link>
+                             <Link
+                 href='/properties'
+                 className='text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors'
+               >
+                 Properties
+               </Link>
               <Link
                 href='/about'
                 className='text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors'
               >
                 About Us
+              </Link>
+              <Link
+                href='/contact'
+                className='text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors'
+              >
+                Contact Us
               </Link>
             </div>
           </div>
@@ -119,17 +187,19 @@ const Navbar = () => {
               <div className='text-gray-700 px-3 py-2 text-base font-medium'>
                 Services
               </div>
-              {services.map((service, index) => (
-                <Link
-                  key={index}
-                  href={`/services/${service
-                    .toLowerCase()
-                    .replace(/\s+/g, '-')}`}
-                  className='text-gray-600 hover:text-blue-600 block px-6 py-2 rounded-md text-sm'
-                >
-                  {service}
-                </Link>
-              ))}
+              {services.map((service, index) => {
+                const IconComponent = service.icon
+                return (
+                  <Link
+                    key={index}
+                    href={service.href}
+                    className='text-gray-600 hover:text-blue-600 block px-6 py-2 rounded-md text-sm flex items-center gap-2'
+                  >
+                    <IconComponent className="h-4 w-4" />
+                    {service.name}
+                  </Link>
+                )
+              })}
             </div>
             <Link
               href='/properties'
@@ -142,6 +212,12 @@ const Navbar = () => {
               className='text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium'
             >
               About Us
+            </Link>
+            <Link
+              href='/contact'
+              className='text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium'
+            >
+              Contact Us
             </Link>
           </div>
         </div>
