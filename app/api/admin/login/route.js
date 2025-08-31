@@ -42,7 +42,7 @@ export async function POST(request) {
         lastName: admin.last_name,
         role: admin.role,
         sessionToken: session.session_token,
-        expires: session.expires_at.toISOString(),
+        expires: new Date(session.expires_at).toISOString(),
       }),
       {
         httpOnly: true,
