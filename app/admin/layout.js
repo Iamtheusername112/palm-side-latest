@@ -2,6 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { PasswordAuthManager } from '../../lib/password-auth.js'
 import AdminSidebar from '../components/AdminSidebar.js'
+import AccessibilitySettings from '../components/AccessibilitySettings.js'
 
 export default async function AdminLayout({ children }) {
   // Check for admin session cookie
@@ -31,11 +32,10 @@ export default async function AdminLayout({ children }) {
 
     // Session is valid, render admin layout with sidebar
     return (
-      <div className="flex h-screen bg-gray-50">
+      <div className='flex h-screen bg-gray-50'>
         <AdminSidebar />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {children}
-        </div>
+        <div className='flex-1 flex flex-col overflow-hidden'>{children}</div>
+        <AccessibilitySettings />
       </div>
     )
   } catch (error) {

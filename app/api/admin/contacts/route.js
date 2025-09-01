@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '../../../../lib/db'
 import { contacts } from '../../../../lib/schema'
-import { desc, eq, count } from 'drizzle-orm'
+import { desc, eq, count, or, ilike } from 'drizzle-orm'
 import { cookies } from 'next/headers'
 import { PasswordAuthManager } from '../../../../lib/password-auth.js'
 
@@ -36,21 +36,51 @@ export async function GET(request) {
     }
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
+    const search = searchParams.get('search')
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
     const offset = (page - 1) * limit
 
     // Build query based on filters
     let query = db.select().from(contacts)
+    let whereConditions = []
 
+    // Add status filter
     if (status && status !== 'all') {
-      query = query.where(eq(contacts.status, status))
+      whereConditions.push(eq(contacts.status, status))
+    }
+
+    // Add search filter
+    if (search && search.trim()) {
+      const searchTerm = `%${search.trim()}%`
+      whereConditions.push(
+        or(
+          ilike(contacts.name, searchTerm),
+          ilike(contacts.email, searchTerm),
+          ilike(contacts.subject, searchTerm),
+          ilike(contacts.message, searchTerm),
+          ilike(contacts.phone, searchTerm)
+        )
+      )
+    }
+
+    // Apply all conditions
+    if (whereConditions.length > 0) {
+      query = query.where(
+        whereConditions.length === 1
+          ? whereConditions[0]
+          : or(...whereConditions)
+      )
     }
 
     // Get total count for pagination
     let countQuery = db.select({ count: count() }).from(contacts)
-    if (status && status !== 'all') {
-      countQuery = countQuery.where(eq(contacts.status, status))
+    if (whereConditions.length > 0) {
+      countQuery = countQuery.where(
+        whereConditions.length === 1
+          ? whereConditions[0]
+          : or(...whereConditions)
+      )
     }
     const countResult = await countQuery
     const totalCount = countResult[0]?.count || 0

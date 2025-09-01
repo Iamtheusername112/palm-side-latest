@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useContactContext } from '../../contexts/ContactContext'
 import {
   Mail,
@@ -27,23 +27,47 @@ const AdminContactsPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [totalContacts, setTotalContacts] = useState(0)
   const [selectedContact, setSelectedContact] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [updating, setUpdating] = useState(false)
+  const [searchLoading, setSearchLoading] = useState(false)
   const { updateContactCounts, fetchContactCounts } = useContactContext()
 
   useEffect(() => {
     fetchContacts()
   }, [selectedStatus, currentPage])
 
+  // Debounced search effect
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchTerm !== '') {
+        setCurrentPage(1) // Reset to first page when searching
+        fetchContacts()
+      } else if (searchTerm === '') {
+        setCurrentPage(1) // Reset to first page when clearing search
+        fetchContacts()
+      }
+    }, 500) // 500ms debounce
+
+    return () => clearTimeout(timeoutId)
+  }, [searchTerm])
+
   const fetchContacts = async () => {
     try {
       setLoading(true)
+      setSearchLoading(searchTerm !== '')
+
       const params = new URLSearchParams({
         status: selectedStatus,
         page: currentPage.toString(),
         limit: '20',
       })
+
+      // Add search parameter if search term exists
+      if (searchTerm && searchTerm.trim()) {
+        params.append('search', searchTerm.trim())
+      }
 
       const response = await fetch(`/api/admin/contacts?${params}`)
       const data = await response.json()
@@ -51,11 +75,13 @@ const AdminContactsPage = () => {
       if (data.success) {
         setContacts(data.contacts)
         setTotalPages(data.pagination.totalPages)
+        setTotalContacts(data.pagination.total)
       }
     } catch (error) {
       console.error('Error fetching contacts:', error)
     } finally {
       setLoading(false)
+      setSearchLoading(false)
     }
   }
 
@@ -136,6 +162,11 @@ const AdminContactsPage = () => {
     })
   }
 
+  const clearSearch = () => {
+    setSearchTerm('')
+    setCurrentPage(1)
+  }
+
   if (loading) {
     return (
       <div className='flex-1 flex items-center justify-center bg-gray-50'>
@@ -154,10 +185,10 @@ const AdminContactsPage = () => {
         <div className='px-6 py-4'>
           <div className='flex items-center justify-between'>
             <div>
-              <h1 className='text-2xl font-bold text-gray-900'>
+              <h1 className='text-3xl font-bold text-gray-900'>
                 Contact Submissions
               </h1>
-              <p className='text-gray-600 mt-1'>
+              <p className='text-lg text-gray-700 mt-2'>
                 Manage and respond to contact form submissions
               </p>
             </div>
@@ -173,22 +204,48 @@ const AdminContactsPage = () => {
             <div className='flex flex-col sm:flex-row gap-4'>
               <div className='flex-1'>
                 <div className='relative'>
-                  <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4' />
+                  <Search
+                    className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 ${
+                      searchLoading
+                        ? 'text-blue-500 animate-pulse'
+                        : 'text-gray-400'
+                    }`}
+                  />
                   <input
                     type='text'
-                    placeholder='Search contacts...'
+                    placeholder='Search by name, email, subject, message, or phone...'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className='w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                    className='w-full pl-10 pr-12 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                   />
+                  {searchTerm && (
+                    <button
+                      onClick={clearSearch}
+                      className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200'
+                      title='Clear search'
+                    >
+                      <XCircle className='h-4 w-4' />
+                    </button>
+                  )}
                 </div>
+                {searchTerm && (
+                  <div className='mt-2 text-base text-gray-700'>
+                    Searching for:{' '}
+                    <span className='font-medium text-gray-900'>
+                      "{searchTerm}"
+                    </span>
+                    {searchLoading && (
+                      <span className='ml-2 text-blue-600'>Searching...</span>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className='flex gap-3'>
                 <select
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
-                  className='px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  className='px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                 >
                   <option value='all'>All Status</option>
                   <option value='new'>New</option>
@@ -199,10 +256,11 @@ const AdminContactsPage = () => {
 
                 <button
                   onClick={fetchContacts}
-                  className='px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center'
+                  disabled={loading}
+                  className='px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   <Filter className='h-4 w-4 mr-2' />
-                  Apply Filters
+                  {loading ? 'Loading...' : 'Apply Filters'}
                 </button>
               </div>
             </div>
@@ -211,115 +269,165 @@ const AdminContactsPage = () => {
           {/* Contacts Table */}
           <div className='bg-white rounded-lg shadow-sm border overflow-hidden'>
             <div className='px-6 py-4 border-b border-gray-200'>
-              <h2 className='text-lg font-semibold text-gray-900'>
-                Contact Submissions ({contacts.length})
-              </h2>
+              <div className='flex items-center justify-between'>
+                <h2 className='text-xl font-semibold text-gray-900'>
+                  Contact Submissions
+                </h2>
+                <div className='text-base text-gray-700'>
+                  {searchTerm ? (
+                    <>
+                      {totalContacts} result{totalContacts !== 1 ? 's' : ''}{' '}
+                      found for "{searchTerm}"
+                    </>
+                  ) : (
+                    <>
+                      {totalContacts} total contact
+                      {totalContacts !== 1 ? 's' : ''}
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className='overflow-x-auto'>
               <table className='min-w-full divide-y divide-gray-200'>
                 <thead className='bg-gray-50'>
                   <tr>
-                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    <th className='px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider'>
                       Contact
                     </th>
-                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    <th className='px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider'>
                       Subject
                     </th>
-                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    <th className='px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider'>
                       Status
                     </th>
-                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    <th className='px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider'>
                       Date
                     </th>
-                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    <th className='px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider'>
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className='bg-white divide-y divide-gray-200'>
-                  {contacts.map((contact) => (
-                    <tr key={contact.id} className='hover:bg-gray-50'>
-                      <td className='px-6 py-4 whitespace-nowrap'>
-                        <div className='flex items-center'>
-                          <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center'>
-                            <span className='text-blue-600 font-medium text-sm'>
-                              {contact.name?.charAt(0) || '?'}
-                            </span>
-                          </div>
-                          <div className='ml-4'>
-                            <div className='text-sm font-medium text-gray-900'>
-                              {contact.name || 'Unknown'}
+                  {contacts.length > 0 ? (
+                    contacts.map((contact) => (
+                      <tr key={contact.id} className='hover:bg-gray-50'>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <div className='flex items-center'>
+                            <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center'>
+                              <span className='text-blue-600 font-medium text-base'>
+                                {contact.name?.charAt(0) || '?'}
+                              </span>
                             </div>
-                            <div className='text-sm text-gray-500'>
-                              {contact.email || 'No email'}
+                            <div className='ml-4'>
+                              <div className='text-base font-medium text-gray-900'>
+                                {contact.name || 'Unknown'}
+                              </div>
+                              <div className='text-base text-gray-600'>
+                                {contact.email || 'No email'}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className='px-6 py-4 whitespace-nowrap'>
-                        <div className='text-sm text-gray-900'>
-                          {contact.subject || 'No subject'}
-                        </div>
-                        <div className='text-sm text-gray-500'>
-                          {contact.message?.substring(0, 50)}...
-                        </div>
-                      </td>
-                      <td className='px-6 py-4 whitespace-nowrap'>
-                        <div className='flex items-center space-x-2'>
-                          {contact.status === 'new' ? (
-                            <span className='inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800'>
-                              <span className='w-2 h-2 bg-red-500 rounded-full mr-1'></span>
-                              New
-                            </span>
-                          ) : (
-                            <span
-                              className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
-                                contact.status
-                              )}`}
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <div className='text-base text-gray-900'>
+                            {contact.subject || 'No subject'}
+                          </div>
+                          <div className='text-base text-gray-600'>
+                            {contact.message?.substring(0, 50)}...
+                          </div>
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <div className='flex items-center space-x-2'>
+                            {contact.status === 'new' ? (
+                              <span className='inline-flex items-center px-3 py-1.5 text-sm font-semibold rounded-full bg-red-100 text-red-800'>
+                                <span className='w-2 h-2 bg-red-500 rounded-full mr-1.5'></span>
+                                New
+                              </span>
+                            ) : (
+                              <span
+                                className={`inline-flex px-3 py-1.5 text-sm font-semibold rounded-full ${getStatusColor(
+                                  contact.status
+                                )}`}
+                              >
+                                {contact.status}
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap text-base text-gray-600'>
+                          {formatDate(contact.createdAt)}
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap text-base font-medium'>
+                          <div className='flex space-x-2'>
+                            <button
+                              onClick={() => {
+                                setSelectedContact(contact)
+                                setShowModal(true)
+                              }}
+                              className='text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50'
+                              title='View Details'
                             >
-                              {contact.status}
-                            </span>
+                              <Eye className='h-4 w-4' />
+                            </button>
+                            <button
+                              onClick={() =>
+                                updateContact(contact.id, { status: 'read' })
+                              }
+                              className='text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-50'
+                              title='Mark as Read'
+                            >
+                              <CheckCircle className='h-4 w-4' />
+                            </button>
+                            <button
+                              onClick={() =>
+                                updateContact(contact.id, {
+                                  status: 'responded',
+                                })
+                              }
+                              className='text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50'
+                              title='Mark as Responded'
+                            >
+                              <MessageSquare className='h-4 w-4' />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className='px-6 py-12 text-center'>
+                        <div className='flex flex-col items-center'>
+                          <Search className='h-12 w-12 text-gray-400 mb-4' />
+                          <h3 className='text-xl font-medium text-gray-900 mb-3'>
+                            {searchTerm
+                              ? 'No contacts found'
+                              : 'No contacts available'}
+                          </h3>
+                          <p className='text-lg text-gray-700 mb-4'>
+                            {searchTerm ? (
+                              <>
+                                No contacts match your search for "{searchTerm}
+                                ". Try adjusting your search terms or filters.
+                              </>
+                            ) : (
+                              'There are no contact submissions to display.'
+                            )}
+                          </p>
+                          {searchTerm && (
+                            <button
+                              onClick={clearSearch}
+                              className='px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200'
+                            >
+                              Clear Search
+                            </button>
                           )}
                         </div>
                       </td>
-                      <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                        {formatDate(contact.createdAt)}
-                      </td>
-                      <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                        <div className='flex space-x-2'>
-                          <button
-                            onClick={() => {
-                              setSelectedContact(contact)
-                              setShowModal(true)
-                            }}
-                            className='text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50'
-                            title='View Details'
-                          >
-                            <Eye className='h-4 w-4' />
-                          </button>
-                          <button
-                            onClick={() =>
-                              updateContact(contact.id, { status: 'read' })
-                            }
-                            className='text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-50'
-                            title='Mark as Read'
-                          >
-                            <CheckCircle className='h-4 w-4' />
-                          </button>
-                          <button
-                            onClick={() =>
-                              updateContact(contact.id, { status: 'responded' })
-                            }
-                            className='text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50'
-                            title='Mark as Responded'
-                          >
-                            <MessageSquare className='h-4 w-4' />
-                          </button>
-                        </div>
-                      </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -328,16 +436,26 @@ const AdminContactsPage = () => {
             {totalPages > 1 && (
               <div className='px-6 py-4 border-t border-gray-200'>
                 <div className='flex items-center justify-between'>
-                  <div className='text-sm text-gray-700'>
-                    Page {currentPage} of {totalPages}
+                  <div className='text-base text-gray-700'>
+                    {searchTerm ? (
+                      <>
+                        Showing {(currentPage - 1) * 20 + 1} to{' '}
+                        {Math.min(currentPage * 20, totalContacts)} of{' '}
+                        {totalContacts} results
+                      </>
+                    ) : (
+                      <>
+                        Page {currentPage} of {totalPages}
+                      </>
+                    )}
                   </div>
                   <div className='flex space-x-2'>
                     <button
                       onClick={() =>
                         setCurrentPage(Math.max(1, currentPage - 1))
                       }
-                      disabled={currentPage === 1}
-                      className='px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50'
+                      disabled={currentPage === 1 || loading}
+                      className='px-4 py-2 border border-gray-300 rounded-md text-base disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors duration-200'
                     >
                       Previous
                     </button>
@@ -345,8 +463,8 @@ const AdminContactsPage = () => {
                       onClick={() =>
                         setCurrentPage(Math.min(totalPages, currentPage + 1))
                       }
-                      disabled={currentPage === totalPages}
-                      className='px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50'
+                      disabled={currentPage === totalPages || loading}
+                      className='px-4 py-2 border border-gray-300 rounded-md text-base disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors duration-200'
                     >
                       Next
                     </button>

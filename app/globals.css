@@ -63,3 +63,78 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Accessibility Improvements */
+.high-contrast {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+}
+
+.high-contrast .text-gray-500 {
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
+.high-contrast .text-gray-600 {
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
+.high-contrast .text-gray-700 {
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
+.high-contrast .border-gray-200 {
+  border-color: rgb(0 0 0 / var(--tw-border-opacity)) !important;
+}
+
+.high-contrast .border-gray-300 {
+  border-color: rgb(0 0 0 / var(--tw-border-opacity)) !important;
+}
+
+.high-contrast .bg-gray-50 {
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+}
+
+.high-contrast .bg-gray-100 {
+  background-color: rgb(240 240 240 / var(--tw-bg-opacity)) !important;
+}
+
+/* Larger touch targets for better accessibility */
+.high-contrast button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.high-contrast input {
+  min-height: 44px;
+}
+
+.high-contrast select {
+  min-height: 44px;
+}
+
+/* Enhanced focus indicators */
+.high-contrast *:focus {
+  outline: 3px solid #0066cc !important;
+  outline-offset: 2px !important;
+}
+
+/* Font size adjustments */
+.font-xs {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+.font-sm {
+  font-size: 0.875rem !important; /* 14px */
+}
+
+.font-base {
+  font-size: 1rem !important; /* 16px */
+}
+
+.font-lg {
+  font-size: 1.125rem !important; /* 18px */
+}
+
+.font-xl {
+  font-size: 1.25rem !important; /* 20px */
+}
