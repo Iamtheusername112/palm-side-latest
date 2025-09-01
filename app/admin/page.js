@@ -99,6 +99,12 @@ const AdminDashboard = () => {
   const [recentProperties, setRecentProperties] = useState([])
   const [recentContacts, setRecentContacts] = useState([])
   const [recentActivities, setRecentActivities] = useState([])
+  const [activitiesPagination, setActivitiesPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: 0,
+    totalPages: 0,
+  })
   const [propertyStats, setPropertyStats] = useState({
     byType: [],
     byLocation: [],
@@ -299,9 +305,11 @@ const AdminDashboard = () => {
     }
   }
 
-  const fetchRecentActivities = async () => {
+  const fetchRecentActivities = async (page = 1) => {
     try {
-      const response = await fetch('/api/admin/activities')
+      const response = await fetch(
+        `/api/admin/activities?page=${page}&limit=10`
+      )
       if (response.ok) {
         const data = await response.json()
         if (data.success) {
@@ -312,16 +320,36 @@ const AdminDashboard = () => {
             icon: getActivityIcon(activity.icon),
           }))
           setRecentActivities(transformedActivities)
+          setActivitiesPagination(
+            data.pagination || {
+              page: 1,
+              limit: 10,
+              total: 0,
+              totalPages: 0,
+            }
+          )
         }
       } else {
         console.error('Failed to fetch activities:', response.statusText)
         // Fallback to empty array if API fails
         setRecentActivities([])
+        setActivitiesPagination({
+          page: 1,
+          limit: 10,
+          total: 0,
+          totalPages: 0,
+        })
       }
     } catch (error) {
       console.error('Failed to fetch recent activities:', error)
       // Fallback to empty array if API fails
       setRecentActivities([])
+      setActivitiesPagination({
+        page: 1,
+        limit: 10,
+        total: 0,
+        totalPages: 0,
+      })
     }
   }
 
@@ -487,35 +515,118 @@ const AdminDashboard = () => {
                   <h3 className='text-lg font-semibold text-gray-900'>
                     Recent Activities
                   </h3>
+                  <div className='text-sm text-gray-500'>
+                    {activitiesPagination.total} total activities
+                  </div>
                 </div>
                 <div className='p-6'>
                   <div className='space-y-4'>
-                    {recentActivities.map((activity) => (
-                      <div
-                        key={activity.id}
-                        className='flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0'
-                      >
-                        <div className='flex items-center'>
-                          <div
-                            className={`p-2 rounded-full bg-gray-100 ${activity.color} mr-3`}
-                          >
-                            <activity.icon className='h-4 w-4' />
+                    {recentActivities.length > 0 ? (
+                      recentActivities.map((activity) => (
+                        <div
+                          key={activity.id}
+                          className='flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0'
+                        >
+                          <div className='flex items-center'>
+                            <div
+                              className={`p-2 rounded-full bg-gray-100 ${activity.color} mr-3`}
+                            >
+                              <activity.icon className='h-4 w-4' />
+                            </div>
+                            <div>
+                              <p className='font-medium text-gray-900'>
+                                {activity.action}
+                              </p>
+                              <p className='text-sm text-gray-600'>
+                                {activity.property || activity.contact}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className='font-medium text-gray-900'>
-                              {activity.action}
-                            </p>
-                            <p className='text-sm text-gray-600'>
-                              {activity.property || activity.contact}
-                            </p>
-                          </div>
+                          <span className='text-sm text-gray-500'>
+                            {activity.time}
+                          </span>
                         </div>
-                        <span className='text-sm text-gray-500'>
-                          {activity.time}
-                        </span>
+                      ))
+                    ) : (
+                      <div className='text-center py-8'>
+                        <Activity className='h-12 w-12 text-gray-400 mx-auto mb-4' />
+                        <p className='text-gray-600'>No activities found</p>
                       </div>
-                    ))}
+                    )}
                   </div>
+
+                  {/* Pagination Controls */}
+                  {activitiesPagination.totalPages > 1 && (
+                    <div className='mt-6 flex items-center justify-between'>
+                      <div className='text-sm text-gray-600'>
+                        Showing{' '}
+                        {(activitiesPagination.page - 1) *
+                          activitiesPagination.limit +
+                          1}{' '}
+                        to{' '}
+                        {Math.min(
+                          activitiesPagination.page *
+                            activitiesPagination.limit,
+                          activitiesPagination.total
+                        )}{' '}
+                        of {activitiesPagination.total} activities
+                      </div>
+                      <div className='flex items-center space-x-2'>
+                        <button
+                          onClick={() =>
+                            fetchRecentActivities(activitiesPagination.page - 1)
+                          }
+                          disabled={activitiesPagination.page <= 1}
+                          className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200'
+                        >
+                          Previous
+                        </button>
+                        <div className='flex items-center space-x-1'>
+                          {Array.from(
+                            {
+                              length: Math.min(
+                                5,
+                                activitiesPagination.totalPages
+                              ),
+                            },
+                            (_, i) => {
+                              const pageNum = i + 1
+                              return (
+                                <button
+                                  key={pageNum}
+                                  onClick={() => fetchRecentActivities(pageNum)}
+                                  className={`px-3 py-1 text-sm rounded-md transition-colors duration-200 ${
+                                    activitiesPagination.page === pageNum
+                                      ? 'bg-blue-600 text-white'
+                                      : 'border border-gray-300 hover:bg-gray-50'
+                                  }`}
+                                >
+                                  {pageNum}
+                                </button>
+                              )
+                            }
+                          )}
+                          {activitiesPagination.totalPages > 5 && (
+                            <span className='px-2 text-sm text-gray-500'>
+                              ...
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          onClick={() =>
+                            fetchRecentActivities(activitiesPagination.page + 1)
+                          }
+                          disabled={
+                            activitiesPagination.page >=
+                            activitiesPagination.totalPages
+                          }
+                          className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200'
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

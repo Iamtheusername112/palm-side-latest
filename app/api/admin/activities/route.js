@@ -1,23 +1,35 @@
 import { NextResponse } from 'next/server'
 import { db } from '../../../../lib/db'
 import { properties, contacts } from '../../../../lib/schema'
-import { desc, limit } from 'drizzle-orm'
+import { desc, limit, count } from 'drizzle-orm'
 
 export async function GET(request) {
   try {
-    // Get recent properties (last 5)
+    const { searchParams } = new URL(request.url)
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '10')
+    const offset = (page - 1) * limit
+
+    // Get total count of properties and contacts
+    const [propertyCount] = await db.select({ count: count() }).from(properties)
+    const [contactCount] = await db.select({ count: count() }).from(contacts)
+    const totalItems = propertyCount.count + contactCount.count
+
+    // Get properties with pagination
     const recentProperties = await db
       .select()
       .from(properties)
       .orderBy(desc(properties.createdAt))
-      .limit(5)
+      .limit(limit)
+      .offset(offset)
 
-    // Get recent contacts (last 5)
+    // Get contacts with pagination
     const recentContacts = await db
       .select()
       .from(contacts)
       .orderBy(desc(contacts.createdAt))
-      .limit(5)
+      .limit(limit)
+      .offset(offset)
 
     // Combine and format activities
     const activities = []
@@ -50,13 +62,18 @@ export async function GET(request) {
       })
     })
 
-    // Sort by time (most recent first) and take top 10
+    // Sort by time (most recent first)
     activities.sort((a, b) => new Date(b.time) - new Date(a.time))
-    const recentActivities = activities.slice(0, 10)
 
     return NextResponse.json({
       success: true,
-      activities: recentActivities,
+      activities: activities,
+      pagination: {
+        page,
+        limit,
+        total: totalItems,
+        totalPages: Math.ceil(totalItems / limit),
+      },
     })
   } catch (error) {
     console.error('Error fetching recent activities:', error)
