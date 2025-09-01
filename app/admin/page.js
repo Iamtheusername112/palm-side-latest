@@ -98,6 +98,20 @@ const AdminDashboard = () => {
 
   const [recentProperties, setRecentProperties] = useState([])
   const [recentContacts, setRecentContacts] = useState([])
+  const [propertiesPagination, setPropertiesPagination] = useState({
+    page: 1,
+    limit: 5,
+    total: 0,
+    totalPages: 0,
+  })
+  const [contactsPagination, setContactsPagination] = useState({
+    page: 1,
+    limit: 5,
+    total: 0,
+    totalPages: 0,
+  })
+  const [isLoadingProperties, setIsLoadingProperties] = useState(false)
+  const [isLoadingContacts, setIsLoadingContacts] = useState(false)
   const [recentActivities, setRecentActivities] = useState([])
   const [activitiesPagination, setActivitiesPagination] = useState({
     page: 1,
@@ -207,27 +221,63 @@ const AdminDashboard = () => {
     }
   }
 
-  const fetchRecentProperties = async () => {
+  const fetchRecentProperties = async (page = 1) => {
     try {
-      const response = await fetch('/api/admin/properties?limit=5')
+      setIsLoadingProperties(true)
+      const response = await fetch(`/api/admin/properties?page=${page}&limit=5`)
       if (response.ok) {
         const data = await response.json()
         setRecentProperties(data.properties || [])
+        setPropertiesPagination(
+          data.pagination || {
+            page: 1,
+            limit: 5,
+            total: 0,
+            totalPages: 0,
+          }
+        )
       }
     } catch (error) {
       console.error('Failed to fetch recent properties:', error)
+      setRecentProperties([])
+      setPropertiesPagination({
+        page: 1,
+        limit: 5,
+        total: 0,
+        totalPages: 0,
+      })
+    } finally {
+      setIsLoadingProperties(false)
     }
   }
 
-  const fetchRecentContacts = async () => {
+  const fetchRecentContacts = async (page = 1) => {
     try {
-      const response = await fetch('/api/admin/contacts?limit=5')
+      setIsLoadingContacts(true)
+      const response = await fetch(`/api/admin/contacts?page=${page}&limit=5`)
       if (response.ok) {
         const data = await response.json()
         setRecentContacts(data.contacts || [])
+        setContactsPagination(
+          data.pagination || {
+            page: 1,
+            limit: 5,
+            total: 0,
+            totalPages: 0,
+          }
+        )
       }
     } catch (error) {
       console.error('Failed to fetch recent contacts:', error)
+      setRecentContacts([])
+      setContactsPagination({
+        page: 1,
+        limit: 5,
+        total: 0,
+        totalPages: 0,
+      })
+    } finally {
+      setIsLoadingContacts(false)
     }
   }
 
@@ -754,47 +804,184 @@ const AdminDashboard = () => {
                 <h3 className='text-lg font-semibold text-gray-900'>
                   Recent Properties
                 </h3>
-                <button
-                  onClick={() => router.push('/admin/properties')}
-                  className='text-blue-600 hover:text-blue-700 font-medium text-sm'
-                >
-                  View all
-                </button>
+                <div className='flex items-center space-x-3'>
+                  <div className='text-sm text-gray-500'>
+                    {propertiesPagination.total} total
+                  </div>
+                  <button
+                    onClick={() => router.push('/admin/properties')}
+                    className='text-blue-600 hover:text-blue-700 font-medium text-sm'
+                  >
+                    View all
+                  </button>
+                </div>
               </div>
               <div className='p-6'>
-                {recentProperties.length > 0 ? (
-                  <div className='space-y-4'>
-                    {recentProperties.map((property) => (
-                      <div
-                        key={property.id}
-                        className='flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0'
-                      >
-                        <div className='flex items-center'>
-                          <div className='w-12 h-12 bg-gray-200 rounded-lg mr-3'></div>
-                          <div>
-                            <p className='font-medium text-gray-900'>
-                              {property.title}
-                            </p>
-                            <p className='text-sm text-gray-600'>
-                              {property.location}
-                            </p>
+                <div className='relative'>
+                  {/* Loading Overlay */}
+                  {isLoadingProperties && (
+                    <div className='absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
+                      <div className='flex items-center space-x-2'>
+                        <div className='animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600'></div>
+                        <span className='text-sm text-gray-600'>
+                          Loading properties...
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Fixed height container for consistent card size */}
+                  <div className='h-80 overflow-hidden'>
+                    <div
+                      className={`space-y-0 transition-opacity duration-300 ${
+                        isLoadingProperties ? 'opacity-50' : 'opacity-100'
+                      }`}
+                    >
+                      {recentProperties.length > 0 ? (
+                        // Always show exactly 5 slots, fill with properties or empty slots
+                        Array.from({ length: 5 }, (_, index) => {
+                          const property = recentProperties[index]
+                          return property ? (
+                            <div
+                              key={property.id}
+                              className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50/50 min-h-[64px]'
+                            >
+                              <div className='flex items-center'>
+                                <div className='w-12 h-12 bg-gray-200 rounded-lg mr-3'></div>
+                                <div>
+                                  <p className='font-medium text-gray-900'>
+                                    {property.title}
+                                  </p>
+                                  <p className='text-sm text-gray-600'>
+                                    {property.location}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className='text-right'>
+                                <p className='font-medium text-gray-900'>
+                                  ${property.price?.toLocaleString()}
+                                </p>
+                                <p className='text-sm text-gray-600'>
+                                  {property.status}
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            // Empty slot to maintain consistent height
+                            <div
+                              key={`empty-${index}`}
+                              className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 min-h-[64px]'
+                            >
+                              <div className='flex items-center'>
+                                <div className='w-12 h-12 bg-gray-100 rounded-lg mr-3'></div>
+                                <div>
+                                  <p className='font-medium text-gray-300'>
+                                    &nbsp;
+                                  </p>
+                                  <p className='text-sm text-gray-300'>
+                                    &nbsp;
+                                  </p>
+                                </div>
+                              </div>
+                              <div className='text-right'>
+                                <p className='font-medium text-gray-300'>
+                                  &nbsp;
+                                </p>
+                                <p className='text-sm text-gray-300'>&nbsp;</p>
+                              </div>
+                            </div>
+                          )
+                        })
+                      ) : (
+                        <div className='flex items-center justify-center h-80'>
+                          <div className='text-center'>
+                            <Building2 className='h-12 w-12 text-gray-400 mx-auto mb-4' />
+                            <p className='text-gray-600'>No properties found</p>
                           </div>
                         </div>
-                        <div className='text-right'>
-                          <p className='font-medium text-gray-900'>
-                            ${property.price?.toLocaleString()}
-                          </p>
-                          <p className='text-sm text-gray-600'>
-                            {property.status}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                      )}
+                    </div>
                   </div>
-                ) : (
-                  <div className='text-center py-8'>
-                    <Building2 className='h-12 w-12 text-gray-400 mx-auto mb-4' />
-                    <p className='text-gray-600'>No properties found</p>
+                </div>
+
+                {/* Pagination Controls */}
+                {propertiesPagination.totalPages > 1 && (
+                  <div className='mt-6 flex items-center justify-between transition-all duration-300'>
+                    <div className='text-sm text-gray-600'>
+                      Showing{' '}
+                      {(propertiesPagination.page - 1) *
+                        propertiesPagination.limit +
+                        1}{' '}
+                      to{' '}
+                      {Math.min(
+                        propertiesPagination.page * propertiesPagination.limit,
+                        propertiesPagination.total
+                      )}{' '}
+                      of {propertiesPagination.total} properties
+                    </div>
+                    <div className='flex items-center space-x-2'>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          fetchRecentProperties(propertiesPagination.page - 1)
+                        }}
+                        disabled={
+                          propertiesPagination.page <= 1 || isLoadingProperties
+                        }
+                        className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95'
+                      >
+                        Previous
+                      </button>
+                      <div className='flex items-center space-x-1'>
+                        {Array.from(
+                          {
+                            length: Math.min(
+                              5,
+                              propertiesPagination.totalPages
+                            ),
+                          },
+                          (_, i) => {
+                            const pageNum = i + 1
+                            return (
+                              <button
+                                key={pageNum}
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  fetchRecentProperties(pageNum)
+                                }}
+                                disabled={isLoadingProperties}
+                                className={`px-3 py-1 text-sm rounded-md transition-all duration-200 hover:scale-105 active:scale-95 ${
+                                  propertiesPagination.page === pageNum
+                                    ? 'bg-blue-600 text-white shadow-md'
+                                    : 'border border-gray-300 hover:bg-gray-50 hover:shadow-sm'
+                                } ${isLoadingProperties ? 'opacity-70' : ''}`}
+                              >
+                                {pageNum}
+                              </button>
+                            )
+                          }
+                        )}
+                        {propertiesPagination.totalPages > 5 && (
+                          <span className='px-2 text-sm text-gray-500'>
+                            ...
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          fetchRecentProperties(propertiesPagination.page + 1)
+                        }}
+                        disabled={
+                          propertiesPagination.page >=
+                            propertiesPagination.totalPages ||
+                          isLoadingProperties
+                        }
+                        className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95'
+                      >
+                        Next
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -806,62 +993,195 @@ const AdminDashboard = () => {
                 <h3 className='text-lg font-semibold text-gray-900'>
                   Recent Contacts
                 </h3>
-                <button
-                  onClick={() => router.push('/admin/contacts')}
-                  className='text-blue-600 hover:text-blue-700 font-medium text-sm'
-                >
-                  View all
-                </button>
+                <div className='flex items-center space-x-3'>
+                  <div className='text-sm text-gray-500'>
+                    {contactsPagination.total} total
+                  </div>
+                  <button
+                    onClick={() => router.push('/admin/contacts')}
+                    className='text-blue-600 hover:text-blue-700 font-medium text-sm'
+                  >
+                    View all
+                  </button>
+                </div>
               </div>
               <div className='p-6'>
-                {recentContacts.length > 0 ? (
-                  <div className='space-y-4'>
-                    {recentContacts.map((contact) => (
-                      <div
-                        key={contact.id}
-                        className='flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0'
-                      >
-                        <div className='flex items-center'>
-                          <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3'>
-                            <span className='text-blue-600 font-medium text-sm'>
-                              {contact.name?.charAt(0)}
-                            </span>
-                          </div>
-                          <div>
-                            <p className='font-medium text-gray-900'>
-                              {contact.name}
-                            </p>
-                            <p className='text-sm text-gray-600'>
-                              {contact.subject}
-                            </p>
-                          </div>
-                        </div>
-                        <div className='text-right'>
-                          {contact.status === 'new' ? (
-                            <span className='inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800'>
-                              <span className='w-2 h-2 bg-red-500 rounded-full mr-1'></span>
-                              New
-                            </span>
-                          ) : (
-                            <span
-                              className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
-                                contact.status
-                              )}`}
-                            >
-                              {contact.status}
-                            </span>
-                          )}
-                          <p className='text-sm text-gray-600 mt-1'>
-                            {formatDate(contact.createdAt)}
-                          </p>
-                        </div>
+                <div className='relative'>
+                  {/* Loading Overlay */}
+                  {isLoadingContacts && (
+                    <div className='absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
+                      <div className='flex items-center space-x-2'>
+                        <div className='animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600'></div>
+                        <span className='text-sm text-gray-600'>
+                          Loading contacts...
+                        </span>
                       </div>
-                    ))}
+                    </div>
+                  )}
+
+                  {/* Fixed height container for consistent card size */}
+                  <div className='h-80 overflow-hidden'>
+                    <div
+                      className={`space-y-0 transition-opacity duration-300 ${
+                        isLoadingContacts ? 'opacity-50' : 'opacity-100'
+                      }`}
+                    >
+                      {recentContacts.length > 0 ? (
+                        // Always show exactly 5 slots, fill with contacts or empty slots
+                        Array.from({ length: 5 }, (_, index) => {
+                          const contact = recentContacts[index]
+                          return contact ? (
+                            <div
+                              key={contact.id}
+                              className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50/50 min-h-[64px]'
+                            >
+                              <div className='flex items-center'>
+                                <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3'>
+                                  <span className='text-blue-600 font-medium text-sm'>
+                                    {contact.name?.charAt(0)}
+                                  </span>
+                                </div>
+                                <div>
+                                  <p className='font-medium text-gray-900'>
+                                    {contact.name}
+                                  </p>
+                                  <p className='text-sm text-gray-600'>
+                                    {contact.subject}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className='text-right'>
+                                {contact.status === 'new' ? (
+                                  <span className='inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800'>
+                                    <span className='w-2 h-2 bg-red-500 rounded-full mr-1'></span>
+                                    New
+                                  </span>
+                                ) : (
+                                  <span
+                                    className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
+                                      contact.status
+                                    )}`}
+                                  >
+                                    {contact.status}
+                                  </span>
+                                )}
+                                <p className='text-sm text-gray-600 mt-1'>
+                                  {formatDate(contact.createdAt)}
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            // Empty slot to maintain consistent height
+                            <div
+                              key={`empty-${index}`}
+                              className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 min-h-[64px]'
+                            >
+                              <div className='flex items-center'>
+                                <div className='w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3'>
+                                  <div className='h-4 w-4'></div>
+                                </div>
+                                <div>
+                                  <p className='font-medium text-gray-300'>
+                                    &nbsp;
+                                  </p>
+                                  <p className='text-sm text-gray-300'>
+                                    &nbsp;
+                                  </p>
+                                </div>
+                              </div>
+                              <div className='text-right'>
+                                <p className='text-sm text-gray-300'>&nbsp;</p>
+                                <p className='text-sm text-gray-300'>&nbsp;</p>
+                              </div>
+                            </div>
+                          )
+                        })
+                      ) : (
+                        <div className='flex items-center justify-center h-80'>
+                          <div className='text-center'>
+                            <Mail className='h-12 w-12 text-gray-400 mx-auto mb-4' />
+                            <p className='text-gray-600'>No contacts found</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                ) : (
-                  <div className='text-center py-8'>
-                    <Mail className='h-12 w-12 text-gray-400 mx-auto mb-4' />
-                    <p className='text-gray-600'>No contacts found</p>
+                </div>
+
+                {/* Pagination Controls */}
+                {contactsPagination.totalPages > 1 && (
+                  <div className='mt-6 flex items-center justify-between transition-all duration-300'>
+                    <div className='text-sm text-gray-600'>
+                      Showing{' '}
+                      {(contactsPagination.page - 1) *
+                        contactsPagination.limit +
+                        1}{' '}
+                      to{' '}
+                      {Math.min(
+                        contactsPagination.page * contactsPagination.limit,
+                        contactsPagination.total
+                      )}{' '}
+                      of {contactsPagination.total} contacts
+                    </div>
+                    <div className='flex items-center space-x-2'>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          fetchRecentContacts(contactsPagination.page - 1)
+                        }}
+                        disabled={
+                          contactsPagination.page <= 1 || isLoadingContacts
+                        }
+                        className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95'
+                      >
+                        Previous
+                      </button>
+                      <div className='flex items-center space-x-1'>
+                        {Array.from(
+                          {
+                            length: Math.min(5, contactsPagination.totalPages),
+                          },
+                          (_, i) => {
+                            const pageNum = i + 1
+                            return (
+                              <button
+                                key={pageNum}
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  fetchRecentContacts(pageNum)
+                                }}
+                                disabled={isLoadingContacts}
+                                className={`px-3 py-1 text-sm rounded-md transition-all duration-200 hover:scale-105 active:scale-95 ${
+                                  contactsPagination.page === pageNum
+                                    ? 'bg-blue-600 text-white shadow-md'
+                                    : 'border border-gray-300 hover:bg-gray-50 hover:shadow-sm'
+                                } ${isLoadingContacts ? 'opacity-70' : ''}`}
+                              >
+                                {pageNum}
+                              </button>
+                            )
+                          }
+                        )}
+                        {contactsPagination.totalPages > 5 && (
+                          <span className='px-2 text-sm text-gray-500'>
+                            ...
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          fetchRecentContacts(contactsPagination.page + 1)
+                        }}
+                        disabled={
+                          contactsPagination.page >=
+                            contactsPagination.totalPages || isLoadingContacts
+                        }
+                        className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95'
+                      >
+                        Next
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
