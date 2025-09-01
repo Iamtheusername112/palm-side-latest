@@ -18,87 +18,71 @@ import {
   Building2,
   DollarSign,
 } from 'lucide-react'
+import { toast } from 'sonner'
+import ClientForm from '../../components/ClientForm'
 
 const AdminClientsPage = () => {
   const [clients, setClients] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
-  const [selectedType, setSelectedType] = useState('all')
+  const [selectedSource, setSelectedSource] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [selectedClient, setSelectedClient] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [showClientForm, setShowClientForm] = useState(false)
+  const [editingClient, setEditingClient] = useState(null)
 
-  const [clientTypes] = useState([
-    'Buyer',
-    'Seller',
-    'Investor',
-    'Developer',
-    'Tenant',
-    'Landlord',
+  const [clientSources] = useState([
+    'website',
+    'referral',
+    'cold_call',
+    'social_media',
+    'advertising',
+    'event',
+    'other',
   ])
 
   const [clientStatuses] = useState([
-    'Active',
-    'Inactive',
-    'Prospect',
-    'Closed',
-    'Pending',
+    'active',
+    'inactive',
+    'lead',
+    'customer',
+    'prospect',
   ])
 
   useEffect(() => {
     fetchClients()
-  }, [currentPage, selectedStatus, selectedType])
+  }, [currentPage, selectedStatus, selectedSource])
 
   const fetchClients = async () => {
     try {
       setLoading(true)
-      // Simulate API call - replace with actual API endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const params = new URLSearchParams({
+        status: selectedStatus,
+        source: selectedSource,
+        search: searchTerm,
+        page: currentPage.toString(),
+        limit: '20',
+      })
 
-      // Mock data - replace with actual API response
-      setClients([
-        {
-          id: 1,
-          name: 'John Smith',
-          email: 'john.smith@email.com',
-          phone: '+1 (305) 555-0123',
-          type: 'Buyer',
-          status: 'Active',
-          properties: 3,
-          totalValue: 2500000,
-          lastContact: '2024-01-15',
-          location: 'Miami Beach, FL',
-        },
-        {
-          id: 2,
-          name: 'Sarah Johnson',
-          email: 'sarah.johnson@email.com',
-          phone: '+1 (305) 555-0124',
-          type: 'Seller',
-          status: 'Active',
-          properties: 2,
-          totalValue: 1800000,
-          lastContact: '2024-01-14',
-          location: 'Coral Gables, FL',
-        },
-        {
-          id: 3,
-          name: 'Michael Brown',
-          email: 'michael.brown@email.com',
-          phone: '+1 (305) 555-0125',
-          type: 'Investor',
-          status: 'Prospect',
-          properties: 0,
-          totalValue: 0,
-          lastContact: '2024-01-10',
-          location: 'Downtown Miami, FL',
-        },
-      ])
-      setTotalPages(1)
+      const response = await fetch(`/api/admin/clients?${params}`)
+      const data = await response.json()
+
+      if (data.success) {
+        setClients(data.clients)
+        setTotalPages(data.pagination.totalPages)
+      } else {
+        toast.error('Error fetching clients', {
+          description: data.error || 'Please try again.',
+        })
+      }
     } catch (error) {
       console.error('Error fetching clients:', error)
+      toast.error('Error fetching clients', {
+        description: 'Please check your connection and try again.',
+      })
     } finally {
       setLoading(false)
     }
@@ -123,38 +107,90 @@ const AdminClientsPage = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Active':
+      case 'active':
         return 'bg-green-100 text-green-800'
-      case 'Inactive':
+      case 'inactive':
         return 'bg-gray-100 text-gray-800'
-      case 'Prospect':
+      case 'lead':
         return 'bg-blue-100 text-blue-800'
-      case 'Closed':
-        return 'bg-red-100 text-red-800'
-      case 'Pending':
+      case 'customer':
+        return 'bg-purple-100 text-purple-800'
+      case 'prospect':
         return 'bg-yellow-100 text-yellow-800'
       default:
         return 'bg-gray-100 text-gray-800'
     }
   }
 
-  const getTypeColor = (type) => {
-    switch (type) {
-      case 'Buyer':
+  const getSourceColor = (source) => {
+    switch (source) {
+      case 'website':
         return 'bg-blue-100 text-blue-800'
-      case 'Seller':
+      case 'referral':
         return 'bg-green-100 text-green-800'
-      case 'Investor':
+      case 'cold_call':
+        return 'bg-red-100 text-red-800'
+      case 'social_media':
         return 'bg-purple-100 text-purple-800'
-      case 'Developer':
+      case 'advertising':
         return 'bg-orange-100 text-orange-800'
-      case 'Tenant':
+      case 'event':
         return 'bg-indigo-100 text-indigo-800'
-      case 'Landlord':
-        return 'bg-teal-100 text-teal-800'
+      case 'other':
+        return 'bg-gray-100 text-gray-800'
       default:
         return 'bg-gray-100 text-gray-800'
     }
+  }
+
+  const handleAddClient = () => {
+    setEditingClient(null)
+    setShowClientForm(true)
+  }
+
+  const handleEditClient = (client) => {
+    setEditingClient(client)
+    setShowClientForm(true)
+  }
+
+  const handleDeleteClient = async (clientId) => {
+    if (
+      !confirm(
+        'Are you sure you want to delete this client? This action cannot be undone.'
+      )
+    ) {
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/admin/clients?id=${clientId}`, {
+        method: 'DELETE',
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        toast.success('Client deleted successfully')
+        fetchClients() // Refresh the list
+      } else {
+        toast.error('Error deleting client', {
+          description: result.error || 'Please try again.',
+        })
+      }
+    } catch (error) {
+      console.error('Error deleting client:', error)
+      toast.error('Error deleting client', {
+        description: 'Please check your connection and try again.',
+      })
+    }
+  }
+
+  const handleClientFormSuccess = (newClient) => {
+    fetchClients() // Refresh the list
+  }
+
+  const formatClientName = (client) => {
+    return `${client.firstName} ${client.lastName}`
   }
 
   if (loading) {
@@ -182,7 +218,10 @@ const AdminClientsPage = () => {
             </div>
 
             <div className='flex items-center space-x-3'>
-              <button className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center'>
+              <button
+                onClick={handleAddClient}
+                className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center'
+              >
                 <Plus className='h-4 w-4 mr-2' />
                 Add Client
               </button>
@@ -212,14 +251,15 @@ const AdminClientsPage = () => {
 
               <div className='flex gap-3'>
                 <select
-                  value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value)}
+                  value={selectedSource}
+                  onChange={(e) => setSelectedSource(e.target.value)}
                   className='px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                 >
-                  <option value='all'>All Types</option>
-                  {clientTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
+                  <option value='all'>All Sources</option>
+                  {clientSources.map((source) => (
+                    <option key={source} value={source}>
+                      {source.charAt(0).toUpperCase() +
+                        source.slice(1).replace('_', ' ')}
                     </option>
                   ))}
                 </select>
@@ -232,7 +272,7 @@ const AdminClientsPage = () => {
                   <option value='all'>All Statuses</option>
                   {clientStatuses.map((status) => (
                     <option key={status} value={status}>
-                      {status}
+                      {status.charAt(0).toUpperCase() + status.slice(1)}
                     </option>
                   ))}
                 </select>
@@ -276,13 +316,13 @@ const AdminClientsPage = () => {
                         Status
                       </th>
                       <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Properties
+                        Company
                       </th>
                       <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Total Value
+                        Location
                       </th>
                       <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Last Contact
+                        Created
                       </th>
                       <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                         Actions
@@ -296,30 +336,34 @@ const AdminClientsPage = () => {
                           <div className='flex items-center'>
                             <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center'>
                               <span className='text-blue-600 font-medium text-sm'>
-                                {client.name.charAt(0)}
+                                {client.firstName?.charAt(0) || '?'}
                               </span>
                             </div>
                             <div className='ml-4'>
                               <div className='text-sm font-medium text-gray-900'>
-                                {client.name}
+                                {formatClientName(client)}
                               </div>
                               <div className='text-sm text-gray-500'>
                                 {client.email}
                               </div>
-                              <div className='text-sm text-gray-500 flex items-center'>
-                                <Phone className='h-3 w-3 mr-1' />
-                                {client.phone}
-                              </div>
+                              {client.phone && (
+                                <div className='text-sm text-gray-500 flex items-center'>
+                                  <Phone className='h-3 w-3 mr-1' />
+                                  {client.phone}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
                           <span
-                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getTypeColor(
+                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getSourceColor(
                               client.source
                             )}`}
                           >
-                            {client.source}
+                            {client.source?.charAt(0).toUpperCase() +
+                              client.source?.slice(1).replace('_', ' ') ||
+                              'Unknown'}
                           </span>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
@@ -328,24 +372,29 @@ const AdminClientsPage = () => {
                               client.status
                             )}`}
                           >
-                            {client.status}
+                            {client.status?.charAt(0).toUpperCase() +
+                              client.status?.slice(1) || 'Unknown'}
                           </span>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
-                          <div className='flex items-center'>
-                            <Building2 className='h-4 w-4 text-gray-400 mr-2' />
-                            <span className='text-sm text-gray-900'>
-                              {client.properties}
-                            </span>
+                          <div className='text-sm text-gray-900'>
+                            {client.company || 'N/A'}
                           </div>
+                          {client.position && (
+                            <div className='text-sm text-gray-500'>
+                              {client.position}
+                            </div>
+                          )}
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>
-                            {formatCurrency(client.totalValue)}
+                          <div className='text-sm text-gray-900'>
+                            {client.city && client.state
+                              ? `${client.city}, ${client.state}`
+                              : 'N/A'}
                           </div>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                          {formatDate(client.lastContact)}
+                          {formatDate(client.createdAt)}
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
                           <div className='flex space-x-2'>
@@ -360,18 +409,14 @@ const AdminClientsPage = () => {
                               <Eye className='h-4 w-4' />
                             </button>
                             <button
-                              onClick={() => {
-                                // Handle edit
-                              }}
+                              onClick={() => handleEditClient(client)}
                               className='text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-50'
                               title='Edit Client'
                             >
                               <Edit className='h-4 w-4' />
                             </button>
                             <button
-                              onClick={() => {
-                                // Handle delete
-                              }}
+                              onClick={() => handleDeleteClient(client.id)}
                               className='text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50'
                               title='Delete Client'
                             >
@@ -443,7 +488,7 @@ const AdminClientsPage = () => {
                     Name
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {selectedClient.name}
+                    {formatClientName(selectedClient)}
                   </p>
                 </div>
 
@@ -461,16 +506,25 @@ const AdminClientsPage = () => {
                     Phone
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {selectedClient.phone}
+                    {selectedClient.phone || 'N/A'}
                   </p>
                 </div>
 
                 <div>
                   <label className='block text-sm font-medium text-gray-700'>
-                    Type
+                    Company
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {selectedClient.type}
+                    {selectedClient.company || 'N/A'}
+                  </p>
+                </div>
+
+                <div>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    Position
+                  </label>
+                  <p className='mt-1 text-sm text-gray-900'>
+                    {selectedClient.position || 'N/A'}
                   </p>
                 </div>
 
@@ -479,7 +533,27 @@ const AdminClientsPage = () => {
                     Status
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {selectedClient.status}
+                    {selectedClient.status?.charAt(0).toUpperCase() +
+                      selectedClient.status?.slice(1)}
+                  </p>
+                </div>
+
+                <div>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    Source
+                  </label>
+                  <p className='mt-1 text-sm text-gray-900'>
+                    {selectedClient.source?.charAt(0).toUpperCase() +
+                      selectedClient.source?.slice(1).replace('_', ' ')}
+                  </p>
+                </div>
+
+                <div>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    Address
+                  </label>
+                  <p className='mt-1 text-sm text-gray-900'>
+                    {selectedClient.address || 'N/A'}
                   </p>
                 </div>
 
@@ -488,34 +562,29 @@ const AdminClientsPage = () => {
                     Location
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {selectedClient.location}
+                    {selectedClient.city && selectedClient.state
+                      ? `${selectedClient.city}, ${selectedClient.state} ${
+                          selectedClient.zipCode || ''
+                        }`.trim()
+                      : 'N/A'}
                   </p>
                 </div>
 
                 <div>
                   <label className='block text-sm font-medium text-gray-700'>
-                    Properties
+                    Notes
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {selectedClient.properties}
+                    {selectedClient.notes || 'No notes available'}
                   </p>
                 </div>
 
                 <div>
                   <label className='block text-sm font-medium text-gray-700'>
-                    Total Value
+                    Created
                   </label>
                   <p className='mt-1 text-sm text-gray-900'>
-                    {formatCurrency(selectedClient.totalValue)}
-                  </p>
-                </div>
-
-                <div>
-                  <label className='block text-sm font-medium text-gray-700'>
-                    Last Contact
-                  </label>
-                  <p className='mt-1 text-sm text-gray-900'>
-                    {formatDate(selectedClient.lastContact)}
+                    {formatDate(selectedClient.createdAt)}
                   </p>
                 </div>
               </div>
@@ -532,6 +601,17 @@ const AdminClientsPage = () => {
           </div>
         </div>
       )}
+
+      {/* Client Form Modal */}
+      <ClientForm
+        isOpen={showClientForm}
+        onClose={() => {
+          setShowClientForm(false)
+          setEditingClient(null)
+        }}
+        onSuccess={handleClientFormSuccess}
+        editingClient={editingClient}
+      />
     </div>
   )
 }
