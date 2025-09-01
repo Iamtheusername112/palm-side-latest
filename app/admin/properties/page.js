@@ -485,7 +485,11 @@ const AdminPropertiesPage = () => {
 
   const openImageGallery = (property) => {
     if (property.images && property.images.length > 0) {
-      setSelectedImages(property.images)
+      // Convert images to URLs if they're objects
+      const imageUrls = property.images.map((img) =>
+        typeof img === 'string' ? img : img.url
+      )
+      setSelectedImages(imageUrls)
       setCurrentImageIndex(0)
       setShowImageGallery(true)
     } else {
@@ -1038,9 +1042,13 @@ const AdminPropertiesPage = () => {
                         <td className='px-6 py-4 whitespace-nowrap'>
                           <div className='flex items-center'>
                             <div className='w-12 h-12 bg-gray-200 rounded-lg mr-3 flex items-center justify-center'>
-                              {property.mainImage ? (
+                              {property.images && property.images.length > 0 ? (
                                 <img
-                                  src={property.mainImage}
+                                  src={
+                                    typeof property.images[0] === 'string'
+                                      ? property.images[0]
+                                      : property.images[0].url
+                                  }
                                   alt={property.title}
                                   className='w-full h-full object-cover rounded-lg'
                                 />
@@ -1241,7 +1249,11 @@ const AdminPropertiesPage = () => {
                       {/* Main Image */}
                       <div className='relative'>
                         <img
-                          src={selectedProperty.images[0]}
+                          src={
+                            typeof selectedProperty.images[0] === 'string'
+                              ? selectedProperty.images[0]
+                              : selectedProperty.images[0].url
+                          }
                           alt={selectedProperty.title}
                           className='w-full h-64 object-cover rounded-lg shadow-md'
                         />
@@ -1261,7 +1273,9 @@ const AdminPropertiesPage = () => {
                             .map((image, index) => (
                               <img
                                 key={index}
-                                src={image}
+                                src={
+                                  typeof image === 'string' ? image : image.url
+                                }
                                 alt={`${selectedProperty.title} - Image ${
                                   index + 2
                                 }`}

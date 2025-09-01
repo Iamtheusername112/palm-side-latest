@@ -2,9 +2,38 @@ import { NextResponse } from 'next/server'
 import { db } from '../../../../lib/db'
 import { contacts } from '../../../../lib/schema'
 import { desc, eq, count } from 'drizzle-orm'
+import { cookies } from 'next/headers'
+import { PasswordAuthManager } from '../../../../lib/password-auth.js'
 
 export async function GET(request) {
   try {
+    // Verify authentication using session cookie
+    const cookieStore = await cookies()
+    const adminSession = cookieStore.get('admin_session')
+
+    if (!adminSession) {
+      return new Response('Unauthorized', { status: 401 })
+    }
+
+    let sessionData
+    try {
+      sessionData = JSON.parse(adminSession.value)
+
+      if (!sessionData.adminId || !sessionData.sessionToken) {
+        return new Response('Invalid session', { status: 401 })
+      }
+
+      // Validate session with database
+      const admin = await PasswordAuthManager.validateSession(
+        sessionData.sessionToken
+      )
+
+      if (!admin) {
+        return new Response('Session expired', { status: 401 })
+      }
+    } catch (error) {
+      return new Response('Invalid session data', { status: 401 })
+    }
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
     const page = parseInt(searchParams.get('page') || '1')
@@ -13,7 +42,7 @@ export async function GET(request) {
 
     // Build query based on filters
     let query = db.select().from(contacts)
-    
+
     if (status && status !== 'all') {
       query = query.where(eq(contacts.status, status))
     }
@@ -39,10 +68,9 @@ export async function GET(request) {
         page,
         limit,
         total: Number(totalCount),
-        totalPages: Math.ceil(Number(totalCount) / limit)
-      }
+        totalPages: Math.ceil(Number(totalCount) / limit),
+      },
     })
-
   } catch (error) {
     console.error('Error fetching contacts:', error)
     return NextResponse.json(
@@ -54,6 +82,34 @@ export async function GET(request) {
 
 export async function PATCH(request) {
   try {
+    // Verify authentication using session cookie
+    const cookieStore = await cookies()
+    const adminSession = cookieStore.get('admin_session')
+
+    if (!adminSession) {
+      return new Response('Unauthorized', { status: 401 })
+    }
+
+    let sessionData
+    try {
+      sessionData = JSON.parse(adminSession.value)
+
+      if (!sessionData.adminId || !sessionData.sessionToken) {
+        return new Response('Invalid session', { status: 401 })
+      }
+
+      // Validate session with database
+      const admin = await PasswordAuthManager.validateSession(
+        sessionData.sessionToken
+      )
+
+      if (!admin) {
+        return new Response('Session expired', { status: 401 })
+      }
+    } catch (error) {
+      return new Response('Invalid session data', { status: 401 })
+    }
+
     const body = await request.json()
     const { id, status, adminNotes, priority } = body
 
@@ -65,7 +121,7 @@ export async function PATCH(request) {
     }
 
     const updateData = {
-      updatedAt: new Date()
+      updatedAt: new Date(),
     }
 
     if (status) updateData.status = status
@@ -86,9 +142,8 @@ export async function PATCH(request) {
     return NextResponse.json({
       success: true,
       message: 'Contact updated successfully',
-      contact: updatedContact
+      contact: updatedContact,
     })
-
   } catch (error) {
     console.error('Error updating contact:', error)
     return NextResponse.json(

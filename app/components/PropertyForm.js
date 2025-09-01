@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, Save, Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
+import ImageUpload from './ImageUpload'
 
 // Helper function to safely parse JSON fields that might be strings or arrays
 const parseJsonField = (field) => {
@@ -58,7 +59,6 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
 
   const [loading, setLoading] = useState(false)
   const [newFeature, setNewFeature] = useState('')
-  const [newImage, setNewImage] = useState('')
 
   const propertyTypes = [
     'Luxury Homes',
@@ -159,20 +159,10 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
     }))
   }
 
-  const addImage = () => {
-    if (newImage.trim() && !formData.images.includes(newImage.trim())) {
-      setFormData((prev) => ({
-        ...prev,
-        images: [...prev.images, newImage.trim()],
-      }))
-      setNewImage('')
-    }
-  }
-
-  const removeImage = (image) => {
+  const handleImagesChange = (newImages) => {
     setFormData((prev) => ({
       ...prev,
-      images: prev.images.filter((img) => img !== image),
+      images: newImages,
     }))
   }
 
@@ -181,7 +171,16 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
     setLoading(true)
 
     try {
-      await onSave(formData)
+      // Prepare form data for submission
+      const submitData = {
+        ...formData,
+        // Convert images array to URLs array for API compatibility
+        images: formData.images.map((img) =>
+          typeof img === 'string' ? img : img.url
+        ),
+      }
+
+      await onSave(submitData)
       toast.success(
         mode === 'create'
           ? 'Property created successfully!'
@@ -540,53 +539,13 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
           {/* Images */}
           <div>
             <label className='block text-sm font-medium text-gray-700 mb-2'>
-              Image URLs
+              Property Images
             </label>
-            <div className='space-y-3'>
-              <div className='flex gap-2'>
-                <input
-                  type='url'
-                  value={newImage}
-                  onChange={(e) => setNewImage(e.target.value)}
-                  className='flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-                  placeholder='https://example.com/image.jpg'
-                  onKeyPress={(e) =>
-                    e.key === 'Enter' && (e.preventDefault(), addImage())
-                  }
-                />
-                <button
-                  type='button'
-                  onClick={addImage}
-                  className='px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700'
-                >
-                  <Plus className='h-4 w-4' />
-                </button>
-              </div>
-
-              <div className='space-y-2'>
-                {formData.images.map((image, index) => (
-                  <div key={index} className='flex items-center gap-2'>
-                    <input
-                      type='url'
-                      value={image}
-                      onChange={(e) => {
-                        const newImages = [...formData.images]
-                        newImages[index] = e.target.value
-                        setFormData((prev) => ({ ...prev, images: newImages }))
-                      }}
-                      className='flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-                    />
-                    <button
-                      type='button'
-                      onClick={() => removeImage(image)}
-                      className='px-2 py-2 text-red-600 hover:text-red-800'
-                    >
-                      <Trash2 className='h-4 w-4' />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ImageUpload
+              images={formData.images}
+              onImagesChange={handleImagesChange}
+              maxImages={20}
+            />
           </div>
 
           {/* Settings */}

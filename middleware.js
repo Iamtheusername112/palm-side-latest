@@ -10,7 +10,11 @@ export function middleware(request) {
     const adminSession = request.cookies.get('admin_session')
 
     if (!adminSession) {
-      // Redirect to admin auth login if no session
+      // For API routes, return 401 instead of redirecting
+      if (request.nextUrl.pathname.startsWith('/api/')) {
+        return new Response('Unauthorized', { status: 401 })
+      }
+      // Redirect to admin auth login if no session (for page routes)
       return NextResponse.redirect(new URL('/admin-auth/login', request.url))
     }
 
@@ -27,7 +31,13 @@ export function middleware(request) {
 
       // Check if session has expired
       if (new Date(sessionData.expires) < new Date()) {
-        // Clear expired session and redirect
+        // For API routes, return 401 instead of redirecting
+        if (request.nextUrl.pathname.startsWith('/api/')) {
+          const response = new Response('Unauthorized', { status: 401 })
+          response.cookies.delete('admin_session')
+          return response
+        }
+        // Clear expired session and redirect (for page routes)
         const response = NextResponse.redirect(
           new URL('/admin-auth/login', request.url)
         )
@@ -38,7 +48,13 @@ export function middleware(request) {
       // Session is valid, allow access
       return NextResponse.next()
     } catch (error) {
-      // Invalid session, redirect to admin auth login
+      // For API routes, return 401 instead of redirecting
+      if (request.nextUrl.pathname.startsWith('/api/')) {
+        const response = new Response('Unauthorized', { status: 401 })
+        response.cookies.delete('admin_session')
+        return response
+      }
+      // Invalid session, redirect to admin auth login (for page routes)
       const response = NextResponse.redirect(
         new URL('/admin-auth/login', request.url)
       )
