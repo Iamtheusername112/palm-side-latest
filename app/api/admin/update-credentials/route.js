@@ -34,7 +34,7 @@ export async function PUT(request) {
 
     // Get request body
     const body = await request.json()
-    const { firstName, lastName, email } = body
+    const { firstName, lastName, email, phone, bio } = body
 
     // Validate input
     if (!firstName || !lastName || !email) {
@@ -61,6 +61,8 @@ export async function PUT(request) {
         first_name = ${firstName.trim()},
         last_name = ${lastName.trim()},
         email = ${email.trim().toLowerCase()},
+        phone = ${phone ? phone.trim() : null},
+        bio = ${bio ? bio.trim() : null},
         updated_at = ${new Date()}
       WHERE id = ${sessionData.adminId}
     `
@@ -75,7 +77,7 @@ export async function PUT(request) {
           request.headers.get('x-real-ip') ||
           'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
-        changes: { firstName, lastName, email },
+        changes: { firstName, lastName, email, phone, bio },
       }
     )
 
@@ -87,6 +89,8 @@ export async function PUT(request) {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         email: email.trim().toLowerCase(),
+        phone: phone ? phone.trim() : null,
+        bio: bio ? bio.trim() : null,
       },
     })
   } catch (error) {
