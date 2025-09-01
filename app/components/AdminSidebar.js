@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import { useContactContext } from '../contexts/ContactContext'
 import {
   LayoutDashboard,
   Building2,
@@ -31,25 +32,7 @@ const AdminSidebar = () => {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const [newContactsCount, setNewContactsCount] = useState(0)
-
-  useEffect(() => {
-    fetchNewContactsCount()
-  }, [])
-
-  const fetchNewContactsCount = async () => {
-    try {
-      const response = await fetch('/api/admin/contacts?status=new&limit=1')
-      if (response.ok) {
-        const data = await response.json()
-        if (data.success) {
-          setNewContactsCount(data.pagination?.total || 0)
-        }
-      }
-    } catch (error) {
-      console.error('Failed to fetch new contacts count:', error)
-    }
-  }
+  const { newContactsCount, isLoading } = useContactContext()
 
   const navigationItems = [
     {
@@ -180,8 +163,12 @@ const AdminSidebar = () => {
                 <>
                   <span className='flex-1'>{item.name}</span>
                   {item.badge && (
-                    <span className='inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800'>
-                      {item.badge}
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 ${
+                        isLoading ? 'animate-pulse' : ''
+                      }`}
+                    >
+                      {isLoading ? '...' : item.badge}
                     </span>
                   )}
                 </>

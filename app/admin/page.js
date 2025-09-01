@@ -441,9 +441,17 @@ const AdminDashboard = () => {
                     <p className='text-sm font-medium text-gray-600'>
                       {stat.title}
                     </p>
-                    <p className='text-2xl font-bold text-gray-900 mt-1'>
-                      {stat.value}
-                    </p>
+                    <div className='flex items-center mt-1'>
+                      <p className='text-2xl font-bold text-gray-900'>
+                        {stat.value}
+                      </p>
+                      {stat.title === 'New Contacts' && stat.value !== '0' && (
+                        <span className='ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800'>
+                          <span className='w-1.5 h-1.5 bg-red-500 rounded-full mr-1'></span>
+                          New
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div className={`p-3 rounded-full bg-gray-100 ${stat.color}`}>
                     <stat.icon className='h-6 w-6' />

@@ -11,6 +11,7 @@ import {
   ChevronDown,
 } from 'lucide-react'
 import { toast } from 'sonner'
+import { useContactContext } from '../contexts/ContactContext'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
@@ -24,6 +25,7 @@ const ContactPage = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState('')
+  const { addNewContact } = useContactContext()
 
   // Services for the subject dropdown
   const services = [
@@ -92,6 +94,10 @@ const ContactPage = () => {
           subject: '',
           message: '',
         })
+
+        // Update contact counts in context
+        addNewContact()
+
         toast.success('Message sent successfully!', {
           description:
             "Thank you for contacting us. We'll get back to you soon.",
