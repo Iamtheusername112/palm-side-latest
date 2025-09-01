@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { toast } from 'sonner'
 import ClientForm from '../../components/ClientForm'
+import ConfirmModal from '../../components/ConfirmModal'
 
 const AdminClientsPage = () => {
   const [clients, setClients] = useState([])
@@ -33,6 +34,8 @@ const AdminClientsPage = () => {
   const [showModal, setShowModal] = useState(false)
   const [showClientForm, setShowClientForm] = useState(false)
   const [editingClient, setEditingClient] = useState(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [clientToDelete, setClientToDelete] = useState(null)
 
   const [clientSources] = useState([
     'website',
@@ -153,24 +156,28 @@ const AdminClientsPage = () => {
     setShowClientForm(true)
   }
 
-  const handleDeleteClient = async (clientId) => {
-    if (
-      !confirm(
-        'Are you sure you want to delete this client? This action cannot be undone.'
-      )
-    ) {
-      return
-    }
+  const handleDeleteClient = (client) => {
+    setClientToDelete(client)
+    setShowDeleteConfirm(true)
+  }
+
+  const confirmDeleteClient = async () => {
+    if (!clientToDelete) return
 
     try {
-      const response = await fetch(`/api/admin/clients?id=${clientId}`, {
-        method: 'DELETE',
-      })
+      const response = await fetch(
+        `/api/admin/clients?id=${clientToDelete.id}`,
+        {
+          method: 'DELETE',
+        }
+      )
 
       const result = await response.json()
 
       if (response.ok) {
-        toast.success('Client deleted successfully')
+        toast.success('Client deleted successfully', {
+          description: `${clientToDelete.firstName} ${clientToDelete.lastName} has been removed from your client list.`,
+        })
         fetchClients() // Refresh the list
       } else {
         toast.error('Error deleting client', {
@@ -182,7 +189,15 @@ const AdminClientsPage = () => {
       toast.error('Error deleting client', {
         description: 'Please check your connection and try again.',
       })
+    } finally {
+      setShowDeleteConfirm(false)
+      setClientToDelete(null)
     }
+  }
+
+  const cancelDeleteClient = () => {
+    setShowDeleteConfirm(false)
+    setClientToDelete(null)
   }
 
   const handleClientFormSuccess = (newClient) => {
@@ -416,7 +431,7 @@ const AdminClientsPage = () => {
                               <Edit className='h-4 w-4' />
                             </button>
                             <button
-                              onClick={() => handleDeleteClient(client.id)}
+                              onClick={() => handleDeleteClient(client)}
                               className='text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50'
                               title='Delete Client'
                             >
@@ -611,6 +626,22 @@ const AdminClientsPage = () => {
         }}
         onSuccess={handleClientFormSuccess}
         editingClient={editingClient}
+      />
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showDeleteConfirm}
+        onClose={cancelDeleteClient}
+        onConfirm={confirmDeleteClient}
+        title='Delete Client'
+        message={`Are you sure you want to delete ${
+          clientToDelete
+            ? `${clientToDelete.firstName} ${clientToDelete.lastName}`
+            : 'this client'
+        }? This action cannot be undone and will permanently remove all client information.`}
+        confirmText='Delete Client'
+        cancelText='Cancel'
+        type='danger'
       />
     </div>
   )
