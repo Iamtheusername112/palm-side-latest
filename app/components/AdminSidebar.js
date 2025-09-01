@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import {
   LayoutDashboard,
@@ -31,6 +31,25 @@ const AdminSidebar = () => {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [newContactsCount, setNewContactsCount] = useState(0)
+
+  useEffect(() => {
+    fetchNewContactsCount()
+  }, [])
+
+  const fetchNewContactsCount = async () => {
+    try {
+      const response = await fetch('/api/admin/contacts?status=new&limit=1')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success) {
+          setNewContactsCount(data.pagination?.total || 0)
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch new contacts count:', error)
+    }
+  }
 
   const navigationItems = [
     {
@@ -50,7 +69,7 @@ const AdminSidebar = () => {
       href: '/admin/contacts',
       icon: Mail,
       current: pathname === '/admin/contacts',
-      badge: 'new',
+      badge: newContactsCount > 0 ? newContactsCount.toString() : null,
     },
     {
       name: 'Clients',

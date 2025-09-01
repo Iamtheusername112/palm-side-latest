@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { toast } from 'sonner'
 import {
   BarChart3,
   TrendingUp,
@@ -96,9 +97,11 @@ const AdminAnalyticsPage = () => {
 
         // Show database connection error message
         if (response.status === 500) {
-          alert(
-            'Database connection required! Please set up your DATABASE_URL in .env.local file to see real analytics data.'
-          )
+          toast.warning('Database connection required!', {
+            description:
+              'Please set up your DATABASE_URL in .env.local file to see real analytics data.',
+            duration: 8000,
+          })
         }
 
         // Set empty data to show "no data available" messages
@@ -125,9 +128,11 @@ const AdminAnalyticsPage = () => {
       console.error('Error fetching analytics data:', error)
 
       // Show database connection error message
-      alert(
-        'Database connection required! Please set up your DATABASE_URL in .env.local file to see real analytics data.'
-      )
+      toast.warning('Database connection required!', {
+        description:
+          'Please set up your DATABASE_URL in .env.local file to see real analytics data.',
+        duration: 8000,
+      })
 
       // Set empty data to show "no data available" messages
       setAnalyticsData({

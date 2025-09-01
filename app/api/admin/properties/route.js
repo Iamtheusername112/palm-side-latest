@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '../../../../lib/db'
 import { properties } from '../../../../lib/schema'
-import { desc, eq, asc, like, and, gte, lte } from 'drizzle-orm'
+import { desc, eq, asc, like, and, gte, lte, count } from 'drizzle-orm'
 
 export async function GET(request) {
   try {
@@ -22,11 +22,11 @@ export async function GET(request) {
     if (type && type !== 'all') {
       whereConditions.push(eq(properties.propertyType, type))
     }
-    
+
     if (status && status !== 'all') {
       whereConditions.push(eq(properties.status, status))
     }
-    
+
     if (location && location !== 'all') {
       whereConditions.push(like(properties.location, `%${location}%`))
     }
@@ -37,7 +37,7 @@ export async function GET(request) {
     }
 
     // Get total count for pagination
-    let countQuery = db.select({ count: db.fn.count() }).from(properties)
+    let countQuery = db.select({ count: count() }).from(properties)
     if (whereConditions.length > 0) {
       countQuery = countQuery.where(and(...whereConditions))
     }
@@ -46,28 +46,30 @@ export async function GET(request) {
 
     // Apply sorting
     if (sortBy === 'price') {
-      query = sortOrder === 'desc' 
-        ? query.orderBy(desc(properties.price))
-        : query.orderBy(asc(properties.price))
+      query =
+        sortOrder === 'desc'
+          ? query.orderBy(desc(properties.price))
+          : query.orderBy(asc(properties.price))
     } else if (sortBy === 'title') {
-      query = sortOrder === 'desc' 
-        ? query.orderBy(desc(properties.title))
-        : query.orderBy(asc(properties.title))
+      query =
+        sortOrder === 'desc'
+          ? query.orderBy(desc(properties.title))
+          : query.orderBy(asc(properties.title))
     } else if (sortBy === 'location') {
-      query = sortOrder === 'desc' 
-        ? query.orderBy(desc(properties.location))
-        : query.orderBy(asc(properties.location))
+      query =
+        sortOrder === 'desc'
+          ? query.orderBy(desc(properties.location))
+          : query.orderBy(asc(properties.location))
     } else {
       // Default sort by createdAt
-      query = sortOrder === 'desc' 
-        ? query.orderBy(desc(properties.createdAt))
-        : query.orderBy(asc(properties.createdAt))
+      query =
+        sortOrder === 'desc'
+          ? query.orderBy(desc(properties.createdAt))
+          : query.orderBy(asc(properties.createdAt))
     }
 
     // Get properties with pagination
-    const propertiesList = await query
-      .limit(limit)
-      .offset(offset)
+    const propertiesList = await query.limit(limit).offset(offset)
 
     return NextResponse.json({
       success: true,
@@ -76,10 +78,9 @@ export async function GET(request) {
         page,
         limit,
         total: Number(totalCount),
-        totalPages: Math.ceil(Number(totalCount) / limit)
-      }
+        totalPages: Math.ceil(Number(totalCount) / limit),
+      },
     })
-
   } catch (error) {
     console.error('Error fetching properties:', error)
     return NextResponse.json(
@@ -92,18 +93,27 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json()
-    const { 
-      title, 
-      description, 
-      price, 
-      location, 
-      propertyType, 
+    const {
+      title,
+      description,
+      price,
+      location,
+      propertyType,
       status,
       bedrooms,
       bathrooms,
       squareFeet,
+      lotSize,
+      yearBuilt,
+      address,
+      city,
+      state,
+      zipCode,
+      country,
       features,
-      images
+      images,
+      isFeatured,
+      isActive,
     } = body
 
     // Basic validation
@@ -115,28 +125,42 @@ export async function POST(request) {
     }
 
     // Insert new property
-    const [newProperty] = await db.insert(properties).values({
-      title,
-      description: description || null,
-      price: parseFloat(price),
-      location,
-      propertyType: propertyType || null,
-      status,
-      bedrooms: bedrooms ? parseInt(bedrooms) : null,
-      bathrooms: bathrooms ? parseInt(bathrooms) : null,
-      squareFeet: squareFeet ? parseInt(squareFeet) : null,
-      features: features ? JSON.stringify(features) : null,
-      images: images ? JSON.stringify(images) : null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }).returning()
+    const [newProperty] = await db
+      .insert(properties)
+      .values({
+        title,
+        description: description || null,
+        price: parseFloat(price),
+        location,
+        propertyType: propertyType || null,
+        status,
+        bedrooms: bedrooms ? parseInt(bedrooms) : null,
+        bathrooms: bathrooms ? parseInt(bathrooms) : null,
+        squareFeet: squareFeet ? parseInt(squareFeet) : null,
+        lotSize: lotSize ? parseInt(lotSize) : null,
+        yearBuilt: yearBuilt ? parseInt(yearBuilt) : null,
+        address: address || null,
+        city: city || null,
+        state: state || null,
+        zipCode: zipCode || null,
+        country: country || 'USA',
+        features: features ? JSON.stringify(features) : null,
+        images: images ? JSON.stringify(images) : null,
+        isFeatured: isFeatured || false,
+        isActive: isActive !== false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .returning()
 
-    return NextResponse.json({
-      success: true,
-      message: 'Property created successfully',
-      property: newProperty
-    }, { status: 201 })
-
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Property created successfully',
+        property: newProperty,
+      },
+      { status: 201 }
+    )
   } catch (error) {
     console.error('Error creating property:', error)
     return NextResponse.json(

@@ -301,47 +301,27 @@ const AdminDashboard = () => {
 
   const fetchRecentActivities = async () => {
     try {
-      // This will be implemented when we have activity logging
-      setRecentActivities([
-        {
-          id: 1,
-          action: 'New property listed',
-          property: 'Luxury Villa in Miami Beach',
-          time: '2 hours ago',
-          type: 'property',
-          icon: Building2,
-          color: 'text-blue-600',
-        },
-        {
-          id: 2,
-          action: 'Contact form submitted',
-          contact: 'John Smith - Property Investment',
-          time: '3 hours ago',
-          type: 'contact',
-          icon: Mail,
-          color: 'text-green-600',
-        },
-        {
-          id: 3,
-          action: 'Property status updated',
-          property: 'Downtown Penthouse',
-          time: '5 hours ago',
-          type: 'property',
-          icon: Edit,
-          color: 'text-purple-600',
-        },
-        {
-          id: 4,
-          action: 'New inquiry received',
-          contact: 'Sarah Johnson - Consulting Services',
-          time: '1 day ago',
-          type: 'contact',
-          icon: MessageSquare,
-          color: 'text-orange-600',
-        },
-      ])
+      const response = await fetch('/api/admin/activities')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success) {
+          // Transform the API data to match the expected format
+          const transformedActivities = data.activities.map((activity) => ({
+            ...activity,
+            time: formatTimeAgo(activity.time),
+            icon: getActivityIcon(activity.icon),
+          }))
+          setRecentActivities(transformedActivities)
+        }
+      } else {
+        console.error('Failed to fetch activities:', response.statusText)
+        // Fallback to empty array if API fails
+        setRecentActivities([])
+      }
     } catch (error) {
       console.error('Failed to fetch recent activities:', error)
+      // Fallback to empty array if API fails
+      setRecentActivities([])
     }
   }
 
@@ -363,6 +343,16 @@ const AdminDashboard = () => {
     if (diffInHours < 24) return `${diffInHours}h ago`
     if (diffInHours < 48) return '1 day ago'
     return `${Math.floor(diffInHours / 24)} days ago`
+  }
+
+  const getActivityIcon = (iconName) => {
+    const iconMap = {
+      Building2: Building2,
+      Mail: Mail,
+      Edit: Edit,
+      MessageSquare: MessageSquare,
+    }
+    return iconMap[iconName] || Activity
   }
 
   const getStatusColor = (status) => {
@@ -646,13 +636,20 @@ const AdminDashboard = () => {
                           </div>
                         </div>
                         <div className='text-right'>
-                          <span
-                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
-                              contact.status
-                            )}`}
-                          >
-                            {contact.status}
-                          </span>
+                          {contact.status === 'new' ? (
+                            <span className='inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800'>
+                              <span className='w-2 h-2 bg-red-500 rounded-full mr-1'></span>
+                              New
+                            </span>
+                          ) : (
+                            <span
+                              className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
+                                contact.status
+                              )}`}
+                            >
+                              {contact.status}
+                            </span>
+                          )}
                           <p className='text-sm text-gray-600 mt-1'>
                             {formatDate(contact.createdAt)}
                           </p>

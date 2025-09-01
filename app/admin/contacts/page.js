@@ -240,9 +240,18 @@ const AdminContactsPage = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(contact.status)}`}>
-                          {contact.status || 'new'}
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          {contact.status === 'new' ? (
+                            <span className="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                              <span className="w-2 h-2 bg-red-500 rounded-full mr-1"></span>
+                              New
+                            </span>
+                          ) : (
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(contact.status)}`}>
+                              {contact.status}
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatDate(contact.createdAt)}
