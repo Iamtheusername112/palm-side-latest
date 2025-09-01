@@ -11,6 +11,15 @@ export async function GET(request) {
     const type = searchParams.get('type')
     const status = searchParams.get('status')
     const location = searchParams.get('location')
+    const search = searchParams.get('search')
+    const priceMin = searchParams.get('priceMin')
+    const priceMax = searchParams.get('priceMax')
+    const bedroomsMin = searchParams.get('bedroomsMin')
+    const bathroomsMin = searchParams.get('bathroomsMin')
+    const squareFeetMin = searchParams.get('squareFeetMin')
+    const yearBuiltMin = searchParams.get('yearBuiltMin')
+    const isFeatured = searchParams.get('isFeatured')
+    const isActive = searchParams.get('isActive')
     const sortBy = searchParams.get('sortBy') || 'createdAt'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
     const offset = (page - 1) * limit
@@ -29,6 +38,42 @@ export async function GET(request) {
 
     if (location && location !== 'all') {
       whereConditions.push(like(properties.location, `%${location}%`))
+    }
+
+    if (search) {
+      whereConditions.push(like(properties.title, `%${search}%`))
+    }
+
+    if (priceMin) {
+      whereConditions.push(gte(properties.price, parseFloat(priceMin)))
+    }
+
+    if (priceMax) {
+      whereConditions.push(lte(properties.price, parseFloat(priceMax)))
+    }
+
+    if (bedroomsMin) {
+      whereConditions.push(gte(properties.bedrooms, parseInt(bedroomsMin)))
+    }
+
+    if (bathroomsMin) {
+      whereConditions.push(gte(properties.bathrooms, parseFloat(bathroomsMin)))
+    }
+
+    if (squareFeetMin) {
+      whereConditions.push(gte(properties.squareFeet, parseInt(squareFeetMin)))
+    }
+
+    if (yearBuiltMin) {
+      whereConditions.push(gte(properties.yearBuilt, parseInt(yearBuiltMin)))
+    }
+
+    if (isFeatured && isFeatured !== 'all') {
+      whereConditions.push(eq(properties.isFeatured, isFeatured === 'true'))
+    }
+
+    if (isActive && isActive !== 'all') {
+      whereConditions.push(eq(properties.isActive, isActive === 'true'))
     }
 
     // Apply where conditions if any
