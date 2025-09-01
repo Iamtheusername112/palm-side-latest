@@ -15,28 +15,23 @@ export async function GET(request) {
     const [contactCount] = await db.select({ count: count() }).from(contacts)
     const totalItems = propertyCount.count + contactCount.count
 
-    // Get properties with pagination
-    const recentProperties = await db
+    // Get all properties and contacts, then combine and sort
+    const allProperties = await db
       .select()
       .from(properties)
       .orderBy(desc(properties.createdAt))
-      .limit(limit)
-      .offset(offset)
 
-    // Get contacts with pagination
-    const recentContacts = await db
+    const allContacts = await db
       .select()
       .from(contacts)
       .orderBy(desc(contacts.createdAt))
-      .limit(limit)
-      .offset(offset)
 
     // Combine and format activities
-    const activities = []
+    const allActivities = []
 
     // Add property activities
-    recentProperties.forEach((property) => {
-      activities.push({
+    allProperties.forEach((property) => {
+      allActivities.push({
         id: `property-${property.id}`,
         action: 'New property listed',
         property: property.title,
@@ -49,8 +44,8 @@ export async function GET(request) {
     })
 
     // Add contact activities
-    recentContacts.forEach((contact) => {
-      activities.push({
+    allContacts.forEach((contact) => {
+      allActivities.push({
         id: `contact-${contact.id}`,
         action: 'Contact form submitted',
         contact: `${contact.name} - ${contact.subject}`,
@@ -63,11 +58,14 @@ export async function GET(request) {
     })
 
     // Sort by time (most recent first)
-    activities.sort((a, b) => new Date(b.time) - new Date(a.time))
+    allActivities.sort((a, b) => new Date(b.time) - new Date(a.time))
+
+    // Apply pagination to the combined and sorted activities
+    const paginatedActivities = allActivities.slice(offset, offset + limit)
 
     return NextResponse.json({
       success: true,
-      activities: activities,
+      activities: paginatedActivities,
       pagination: {
         page,
         limit,

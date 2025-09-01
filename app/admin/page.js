@@ -101,10 +101,11 @@ const AdminDashboard = () => {
   const [recentActivities, setRecentActivities] = useState([])
   const [activitiesPagination, setActivitiesPagination] = useState({
     page: 1,
-    limit: 10,
+    limit: 5,
     total: 0,
     totalPages: 0,
   })
+  const [isLoadingActivities, setIsLoadingActivities] = useState(false)
   const [propertyStats, setPropertyStats] = useState({
     byType: [],
     byLocation: [],
@@ -307,9 +308,8 @@ const AdminDashboard = () => {
 
   const fetchRecentActivities = async (page = 1) => {
     try {
-      const response = await fetch(
-        `/api/admin/activities?page=${page}&limit=10`
-      )
+      setIsLoadingActivities(true)
+      const response = await fetch(`/api/admin/activities?page=${page}&limit=5`)
       if (response.ok) {
         const data = await response.json()
         if (data.success) {
@@ -323,7 +323,7 @@ const AdminDashboard = () => {
           setActivitiesPagination(
             data.pagination || {
               page: 1,
-              limit: 10,
+              limit: 5,
               total: 0,
               totalPages: 0,
             }
@@ -335,7 +335,7 @@ const AdminDashboard = () => {
         setRecentActivities([])
         setActivitiesPagination({
           page: 1,
-          limit: 10,
+          limit: 5,
           total: 0,
           totalPages: 0,
         })
@@ -346,10 +346,12 @@ const AdminDashboard = () => {
       setRecentActivities([])
       setActivitiesPagination({
         page: 1,
-        limit: 10,
+        limit: 5,
         total: 0,
         totalPages: 0,
       })
+    } finally {
+      setIsLoadingActivities(false)
     }
   }
 
@@ -520,44 +522,97 @@ const AdminDashboard = () => {
                   </div>
                 </div>
                 <div className='p-6'>
-                  <div className='space-y-4'>
-                    {recentActivities.length > 0 ? (
-                      recentActivities.map((activity) => (
-                        <div
-                          key={activity.id}
-                          className='flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0'
-                        >
-                          <div className='flex items-center'>
-                            <div
-                              className={`p-2 rounded-full bg-gray-100 ${activity.color} mr-3`}
-                            >
-                              <activity.icon className='h-4 w-4' />
-                            </div>
-                            <div>
-                              <p className='font-medium text-gray-900'>
-                                {activity.action}
-                              </p>
-                              <p className='text-sm text-gray-600'>
-                                {activity.property || activity.contact}
+                  <div className='relative'>
+                    {/* Loading Overlay */}
+                    {isLoadingActivities && (
+                      <div className='absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
+                        <div className='flex items-center space-x-2'>
+                          <div className='animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600'></div>
+                          <span className='text-sm text-gray-600'>
+                            Loading activities...
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Fixed height container for consistent card size */}
+                    <div className='h-80 overflow-hidden'>
+                      <div
+                        className={`space-y-0 transition-opacity duration-300 ${
+                          isLoadingActivities ? 'opacity-50' : 'opacity-100'
+                        }`}
+                      >
+                        {recentActivities.length > 0 ? (
+                          // Always show exactly 5 slots, fill with activities or empty slots
+                          Array.from({ length: 5 }, (_, index) => {
+                            const activity = recentActivities[index]
+                            return activity ? (
+                              <div
+                                key={activity.id}
+                                className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50/50 min-h-[64px]'
+                              >
+                                <div className='flex items-center'>
+                                  <div
+                                    className={`p-2 rounded-full bg-gray-100 ${activity.color} mr-3 transition-colors duration-200`}
+                                  >
+                                    <activity.icon className='h-4 w-4' />
+                                  </div>
+                                  <div>
+                                    <p className='font-medium text-gray-900'>
+                                      {activity.action}
+                                    </p>
+                                    <p className='text-sm text-gray-600'>
+                                      {activity.property || activity.contact}
+                                    </p>
+                                  </div>
+                                </div>
+                                <span className='text-sm text-gray-500'>
+                                  {activity.time}
+                                </span>
+                              </div>
+                            ) : (
+                              // Empty slot to maintain consistent height
+                              <div
+                                key={`empty-${index}`}
+                                className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 min-h-[64px]'
+                              >
+                                <div className='flex items-center'>
+                                  <div className='p-2 rounded-full bg-gray-50 mr-3'>
+                                    <div className='h-4 w-4'></div>
+                                  </div>
+                                  <div>
+                                    <p className='font-medium text-gray-300'>
+                                      &nbsp;
+                                    </p>
+                                    <p className='text-sm text-gray-300'>
+                                      &nbsp;
+                                    </p>
+                                  </div>
+                                </div>
+                                <span className='text-sm text-gray-300'>
+                                  &nbsp;
+                                </span>
+                              </div>
+                            )
+                          })
+                        ) : (
+                          <div className='flex items-center justify-center h-80'>
+                            <div className='text-center'>
+                              <Activity className='h-12 w-12 text-gray-400 mx-auto mb-4' />
+                              <p className='text-gray-600'>
+                                No activities found
                               </p>
                             </div>
                           </div>
-                          <span className='text-sm text-gray-500'>
-                            {activity.time}
-                          </span>
-                        </div>
-                      ))
-                    ) : (
-                      <div className='text-center py-8'>
-                        <Activity className='h-12 w-12 text-gray-400 mx-auto mb-4' />
-                        <p className='text-gray-600'>No activities found</p>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
 
                   {/* Pagination Controls */}
-                  {activitiesPagination.totalPages > 1 && (
-                    <div className='mt-6 flex items-center justify-between'>
+                  {(activitiesPagination.totalPages > 1 ||
+                    activitiesPagination.total > 0) && (
+                    <div className='mt-6 flex items-center justify-between transition-all duration-300'>
                       <div className='text-sm text-gray-600'>
                         Showing{' '}
                         {(activitiesPagination.page - 1) *
@@ -573,13 +628,25 @@ const AdminDashboard = () => {
                       </div>
                       <div className='flex items-center space-x-2'>
                         <button
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.preventDefault()
                             fetchRecentActivities(activitiesPagination.page - 1)
+                          }}
+                          disabled={
+                            activitiesPagination.page <= 1 ||
+                            isLoadingActivities
                           }
-                          disabled={activitiesPagination.page <= 1}
-                          className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200'
+                          className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95'
                         >
-                          Previous
+                          {isLoadingActivities &&
+                          activitiesPagination.page > 1 ? (
+                            <div className='flex items-center space-x-1'>
+                              <div className='animate-spin rounded-full h-3 w-3 border-b border-gray-600'></div>
+                              <span>Previous</span>
+                            </div>
+                          ) : (
+                            'Previous'
+                          )}
                         </button>
                         <div className='flex items-center space-x-1'>
                           {Array.from(
@@ -594,12 +661,16 @@ const AdminDashboard = () => {
                               return (
                                 <button
                                   key={pageNum}
-                                  onClick={() => fetchRecentActivities(pageNum)}
-                                  className={`px-3 py-1 text-sm rounded-md transition-colors duration-200 ${
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    fetchRecentActivities(pageNum)
+                                  }}
+                                  disabled={isLoadingActivities}
+                                  className={`px-3 py-1 text-sm rounded-md transition-all duration-200 hover:scale-105 active:scale-95 ${
                                     activitiesPagination.page === pageNum
-                                      ? 'bg-blue-600 text-white'
-                                      : 'border border-gray-300 hover:bg-gray-50'
-                                  }`}
+                                      ? 'bg-blue-600 text-white shadow-md'
+                                      : 'border border-gray-300 hover:bg-gray-50 hover:shadow-sm'
+                                  } ${isLoadingActivities ? 'opacity-70' : ''}`}
                                 >
                                   {pageNum}
                                 </button>
@@ -613,16 +684,27 @@ const AdminDashboard = () => {
                           )}
                         </div>
                         <button
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.preventDefault()
                             fetchRecentActivities(activitiesPagination.page + 1)
-                          }
+                          }}
                           disabled={
                             activitiesPagination.page >=
-                            activitiesPagination.totalPages
+                              activitiesPagination.totalPages ||
+                            isLoadingActivities
                           }
-                          className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200'
+                          className='px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95'
                         >
-                          Next
+                          {isLoadingActivities &&
+                          activitiesPagination.page <
+                            activitiesPagination.totalPages ? (
+                            <div className='flex items-center space-x-1'>
+                              <span>Next</span>
+                              <div className='animate-spin rounded-full h-3 w-3 border-b border-gray-600'></div>
+                            </div>
+                          ) : (
+                            'Next'
+                          )}
                         </button>
                       </div>
                     </div>
