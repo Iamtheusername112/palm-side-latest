@@ -2,7 +2,7 @@
 
 import { ChevronDown, Globe, Menu, X } from 'lucide-react'
 import { Button } from '../../components/ui/button'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
@@ -16,6 +16,11 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
   const langCloseTimerRef = useRef(null)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const openLang = () => {
     if (langCloseTimerRef.current) {
@@ -132,33 +137,36 @@ export default function Navbar() {
               Contact
             </Link>
             <div>
-              <DropdownMenu open={isLangOpen} onOpenChange={setIsLangOpen} modal={false}>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type='button'
-                    aria-label='Change language'
-                    className='p-2 rounded transition-colors hover:text-[#D4AF37] data-[state=open]:text-[#D4AF37] cursor-pointer'
-                    title='Language'
-                    onPointerDown={(e) => e.preventDefault()}
-                    onClick={(e) => e.preventDefault()}
+              {isClient && (
+                <DropdownMenu open={isLangOpen} onOpenChange={setIsLangOpen} modal={false}>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type='button'
+                      aria-label='Change language'
+                      className='p-2 rounded transition-colors hover:text-[#D4AF37] data-[state=open]:text-[#D4AF37] cursor-pointer'
+                      title='Language'
+                      onPointerDown={(e) => e.preventDefault()}
+                      onClick={(e) => e.preventDefault()}
+                      onMouseEnter={openLang}
+                      onMouseLeave={scheduleLangClose}
+                      suppressHydrationWarning
+                    >
+                      <Globe className='h-5 w-5' />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align='end'
+                    sideOffset={8}
                     onMouseEnter={openLang}
                     onMouseLeave={scheduleLangClose}
+                    className='bg-white border border-gray-200 rounded-lg shadow-lg py-2 w-48'
                   >
-                    <Globe className='h-5 w-5' />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align='end'
-                  sideOffset={8}
-                  onMouseEnter={openLang}
-                  onMouseLeave={scheduleLangClose}
-                  className='bg-white border border-gray-200 rounded-lg shadow-lg py-2 w-48'
-                >
-                  <DropdownMenuItem className='px-4 py-2 text-sm text-gray-700 hover:text-[#D4AF37] hover:bg-gray-50 data-[highlighted]:text-[#D4AF37] data-[highlighted]:bg-gray-50 cursor-pointer'>English</DropdownMenuItem>
-                  <DropdownMenuItem className='px-4 py-2 text-sm text-gray-700 hover:text-[#D4AF37] hover:bg-gray-50 data-[highlighted]:text-[#D4AF37] data-[highlighted]:bg-gray-50 cursor-pointer'>Español</DropdownMenuItem>
-                  <DropdownMenuItem className='px-4 py-2 text-sm text-gray-700 hover:text-[#D4AF37] hover:bg-gray-50 data-[highlighted]:text-[#D4AF37] data-[highlighted]:bg-gray-50 cursor-pointer'>Deutsch</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    <DropdownMenuItem className='px-4 py-2 text-sm text-gray-700 hover:text-[#D4AF37] hover:bg-gray-50 data-[highlighted]:text-[#D4AF37] data-[highlighted]:bg-gray-50 cursor-pointer'>English</DropdownMenuItem>
+                    <DropdownMenuItem className='px-4 py-2 text-sm text-gray-700 hover:text-[#D4AF37] hover:bg-gray-50 data-[highlighted]:text-[#D4AF37] data-[highlighted]:bg-gray-50 cursor-pointer'>Español</DropdownMenuItem>
+                    <DropdownMenuItem className='px-4 py-2 text-sm text-gray-700 hover:text-[#D4AF37] hover:bg-gray-50 data-[highlighted]:text-[#D4AF37] data-[highlighted]:bg-gray-50 cursor-pointer'>Deutsch</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
             <Link
               href='/admin'
