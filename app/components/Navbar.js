@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ChevronDown, Menu, X, Home, Building2, TrendingUp, Briefcase, Globe, Waves, Sparkles } from 'lucide-react'
 import {
   DropdownMenu,
@@ -59,18 +60,19 @@ const Navbar = () => {
   ]
 
   return (
-    <nav className='bg-white shadow-lg fixed w-full z-50'>
+    <nav className='bg-white fixed w-full z-50'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-16'>
           {/* Logo */}
           <div className='flex-shrink-0'>
             <Link href='/' className='flex items-center'>
-              <div className='w-10 h-10 bg-gradient-to-r from-blue-600 to-green-600 rounded-lg flex items-center justify-center'>
-                <span className='text-white font-bold text-xl'>P</span>
-              </div>
-              <span className='ml-2 text-xl font-bold text-gray-900'>
-                Palmside
-              </span>
+              <Image
+                src={'/palmside-logo-transparent-black.png'}
+                alt='PalmSide logo'
+                width={150}
+                height={28}
+                priority
+              />
             </Link>
           </div>
 
