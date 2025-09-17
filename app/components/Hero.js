@@ -11,7 +11,7 @@ const Hero = () => {
   const slides = [
     {
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80',
+      src: ' /hero/property5.jpeg',
       alt: 'Luxury Villa',
       title: 'Discover Your Dream Home',
       subtitle: 'Luxury properties in prime locations',
@@ -19,12 +19,13 @@ const Hero = () => {
     },
     {
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      src: ' /hero/property1.jpeg',
       alt: 'Modern Apartment',
       title: 'Modern Living Spaces',
       subtitle: 'Contemporary designs for modern lifestyles',
       description: 'Where innovation meets comfort',
     },
+    /*
     {
       type: 'image',
       src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
@@ -33,9 +34,10 @@ const Hero = () => {
       subtitle: 'Exclusive beachfront properties',
       description: 'Your gateway to coastal luxury',
     },
+    */
     {
       type: 'image',
-      src: '/hero/Villa.jpg',
+      src: ' /hero/property6.jpeg',
       alt: 'Exclusive Villa in Mallorca',
       title: 'Welcome To Your Private Villa',
       subtitle: 'Luxury living tailored to you',
@@ -57,14 +59,7 @@ const Hero = () => {
       subtitle: 'From runway to relaxation',
       description: 'We ensure your arrival is smooth and stress-free.',
     },
-    {
-      type: 'image',
-      src: '/hero/beach4.jpeg',
-      alt: 'Mallorca sunset',
-      title: 'Sunset in Mallorca',
-      subtitle: 'Enjoy sunset moments with a view of the Mediterranean',
-      description: 'Celebrate life as the sun sets over the Mediterranean horizon.',
-    },
+  
     {
       type: 'image',
       src: '/hero/beach6.jpeg',
@@ -73,6 +68,16 @@ const Hero = () => {
       subtitle: 'Relax and enjoy the Mediterranean at your doorstep',
       description: 'Soak up the sun and enjoy the turquoise Mediterranean waters',
     },
+    
+    {
+      type: 'image',
+      src: '/hero/beach4.jpeg',
+      alt: 'Mallorca sunset',
+      title: 'Sunset in Mallorca',
+      subtitle: 'Enjoy sunset moments with a view of the Mediterranean',
+      description: 'Celebrate life as the sun sets over the Mediterranean horizon.',
+    },
+    /*
     {
       type: 'image',
       src: '/hero/sunset3.jpeg',
@@ -81,6 +86,7 @@ const Hero = () => {
       subtitle: 'Moments that belong to you',
       description: 'Enjoy sunsets, fine dining, and vibrant nightlife in Mallorca.',
     },
+    */
   ]
 
   useEffect(() => {

@@ -45,17 +45,39 @@ const PropertiesPage = () => {
           ...(filters.featured === 'true' && { featured: 'true' }),
         })
 
-        const response = await fetch(`/api/properties?${queryParams}`)
-        const data = await response.json()
+        const response = await fetch(`/api/properties?${queryParams}`, {
+          cache: 'no-store',
+        })
 
-        if (data.success) {
+        // Ensure we actually got JSON back
+        const contentType = response.headers.get('content-type') || ''
+        if (!response.ok) {
+          const text = await response.text()
+          throw new Error(`Request failed ${response.status}. ${text.slice(0, 200)}`)
+        }
+        if (!contentType.includes('application/json')) {
+          const text = await response.text()
+          throw new Error(`Unexpected response type: ${contentType}. ${text.slice(0, 200)}`)
+        }
+
+        let data
+        try {
+          data = await response.json()
+        } catch (e) {
+          const text = await response.text()
+          throw new Error(`Invalid JSON: ${String(e)}. ${text.slice(0, 200)}`)
+        }
+
+        if (data && data.success) {
           setProperties(data.properties)
         } else {
-          setError('Failed to fetch properties')
+          setError(data?.error || 'Failed to fetch properties')
         }
       } catch (err) {
         console.error('Error fetching properties:', err)
-        setError('Failed to fetch properties')
+        setError(
+          err instanceof Error ? err.message : 'Failed to fetch properties'
+        )
       } finally {
         setLoading(false)
       }
