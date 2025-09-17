@@ -18,7 +18,7 @@ export default function AboutPage() {
           loop
           playsInline
         >
-          <source src='/about/videopalm2.mp4' type='video/mp4' />
+          <source src='/about/videopalm3.mp4' type='video/mp4' />
         </video>
 
         {/* Gradient overlay for readability */}
