@@ -36,7 +36,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='w-full px-0'>
         <div className='flex h-20 items-center justify-between pt-1 px-2 sm:px-3 lg:px-4'>
           {/* Logo */}

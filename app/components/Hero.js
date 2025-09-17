@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
 
 const Hero = () => {
@@ -88,13 +89,19 @@ const Hero = () => {
               <p className='text-lg md:text-xl mb-8 text-gray-200'>
                 {slide.description}
               </p>
-              <div className='space-x-4'>
-                <button className='bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105'>
+              <div className='flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4'>
+                <Link
+                  href='/properties'
+                  className='bg-gradient-to-r from-[#B08D57] via-[#C5A880] to-emerald-600 text-white hover:opacity-90 px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 cursor-pointer'
+                >
                   Explore Properties
-                </button>
-                <button className='border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
+                </Link>
+                <Link
+                  href='/services'
+                  className='border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37]/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer'
+                >
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
           </div>
