@@ -9,7 +9,7 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className='relative overflow-hidden py-20'>
+      <section className='relative overflow-hidden py-8'>
         {/* Background video */}
         <video
           className='absolute inset-0 h-full w-full object-cover motion-reduce:hidden'
