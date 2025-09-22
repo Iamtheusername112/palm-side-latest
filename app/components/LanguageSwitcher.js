@@ -16,6 +16,7 @@ export default function LanguageSwitcher({ compact = false }) {
 
   function onChange(e) {
     const next = e.target.value
+    setLocale(next)
     document.cookie = `locale=${encodeURIComponent(next)}; Path=/; Max-Age=31536000; SameSite=Lax`
     router.refresh()
   }

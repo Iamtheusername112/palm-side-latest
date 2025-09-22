@@ -4,8 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { MapPin, Phone, Mail, ChevronDown } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function Footer() {
+  const t = useTranslations('Footer')
   const COPYRIGHT_YEAR = 2025
   const [open, setOpen] = useState({ company: false, legal: false, contact: false })
   const toggle = (key) => setOpen((prev) => ({ ...prev, [key]: !prev[key] }))
@@ -25,7 +27,7 @@ export default function Footer() {
                 />
               </Link>
               <p className="text-justify leading-relaxed">
-                Your trusted partner in finding the perfect property in Mallorca.
+                {t('tagline')}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <a
@@ -49,13 +51,13 @@ export default function Footer() {
                 onClick={() => toggle('company')}
                 aria-expanded={open.company}
               >
-                <span>Company</span>
+                <span>{t('company')}</span>
                 <ChevronDown className={`h-5 w-5 transition-transform ${open.company ? 'rotate-180' : ''}`} />
               </button>
               {open.company && (
                 <ul className="mt-3 space-y-2">
-                  <li><Link href="/about" className="hover:text-[#B59A3D]">About us</Link></li>
-                  <li><Link href="/services" className="hover:text-[#B59A3D]">Services</Link></li>
+                  <li><Link href="/about" className="hover:text-[#B59A3D]">{t('about')}</Link></li>
+                  <li><Link href="/services" className="hover:text-[#B59A3D]">{t('services')}</Link></li>
                 </ul>
               )}
             </div>
@@ -67,14 +69,14 @@ export default function Footer() {
                 onClick={() => toggle('legal')}
                 aria-expanded={open.legal}
               >
-                <span>Legal</span>
+                <span>{t('legal')}</span>
                 <ChevronDown className={`h-5 w-5 transition-transform ${open.legal ? 'rotate-180' : ''}`} />
               </button>
               {open.legal && (
                 <ul className="mt-3 space-y-2">
-                  <li><Link href="/site-notice" className="hover:text-[#B59A3D]">Site Notice</Link></li>
-                  <li><Link href="/terms" className="hover:text-[#B59A3D]">Terms &amp; Conditions</Link></li>
-                  <li><Link href="/privacy-policy" className="hover:text-[#B59A3D]">Privacy Policy</Link></li>
+                  <li><Link href="/site-notice" className="hover:text-[#B59A3D]">{t('siteNotice')}</Link></li>
+                  <li><Link href="/terms" className="hover:text-[#B59A3D]">{t('terms')}</Link></li>
+                  <li><Link href="/privacy-policy" className="hover:text-[#B59A3D]">{t('privacy')}</Link></li>
                 </ul>
               )}
             </div>
@@ -86,7 +88,7 @@ export default function Footer() {
                 onClick={() => toggle('contact')}
                 aria-expanded={open.contact}
               >
-                <span>Contact</span>
+                <span>{t('contact')}</span>
                 <ChevronDown className={`h-5 w-5 transition-transform ${open.contact ? 'rotate-180' : ''}`} />
               </button>
               {open.contact && (
@@ -105,7 +107,7 @@ export default function Footer() {
                   <li>
                     <div className="inline-flex items-center gap-2">
                       <Phone className="w-4 h-4" />
-                      <span>+34 XXX XXX XXX?</span>
+                      <span>{t('phonePlaceholder')}</span>
                     </div>
                   </li>
                   <li>
@@ -131,7 +133,7 @@ export default function Footer() {
                 />
               </Link>
               <p className="text-justify leading-relaxed">
-                Your trusted partner in finding the perfect property in Mallorca.
+                {t('tagline')}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <a
@@ -151,22 +153,22 @@ export default function Footer() {
             <div>
               <div>
                 <h2 className="relative inline-block text-2xl pb-3 mb-4 border-b-4 border-transparent hover:text-[#B59A3D] transition-colors after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-1 after:w-full after:bg-gradient-to-r after:from-[#B08D57] after:via-[#C5A880] after:to-emerald-600">
-                  Company
+                  {t('company')}
                 </h2>
               </div>
               <ul className="space-y-2">
-                <li><Link href="/about" className="hover:text-[#B59A3D]">About us</Link></li>
-                <li><Link href="/services" className="hover:text-[#B59A3D]">Services</Link></li>
+                <li><Link href="/about" className="hover:text-[#B59A3D]">{t('about')}</Link></li>
+                <li><Link href="/services" className="hover:text-[#B59A3D]">{t('services')}</Link></li>
               </ul>
             </div>
             <div>
               <div>
-                <h2 className="relative inline-block text-2xl pb-3 mb-4 border-b-4 border-transparent hover:text-[#B59A3D] transition-colors after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-1 after:w-full after:bg-gradient-to-r after:from-[#B08D57] after:via-[#C5A880] after:to-emerald-600">Legal</h2>
+                <h2 className="relative inline-block text-2xl pb-3 mb-4 border-b-4 border-transparent hover:text-[#B59A3D] transition-colors after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-1 after:w-full after:bg-gradient-to-r after:from-[#B08D57] after:via-[#C5A880] after:to-emerald-600">{t('legal')}</h2>
               </div>
               <ul className="space-y-2">
-                <li><Link href="/site-notice" className="hover:text-[#B59A3D]">Site Notice</Link></li>
-                <li><Link href="/terms" className="hover:text-[#B59A3D]">Terms &amp; Conditions</Link></li>
-                <li><Link href="/privacy-policy" className="hover:text-[#B59A3D]">Privacy Policy</Link></li>
+                <li><Link href="/site-notice" className="hover:text-[#B59A3D]">{t('siteNotice')}</Link></li>
+                <li><Link href="/terms" className="hover:text-[#B59A3D]">{t('terms')}</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-[#B59A3D]">{t('privacy')}</Link></li>
               </ul>
             </div>
 
@@ -174,7 +176,7 @@ export default function Footer() {
               <div>
                 <Link href="/contact" className="inline-block">
                   <h2 className="relative inline-block text-2xl pb-3 mb-4 border-b-4 border-transparent hover:text-[#B59A3D] transition-colors after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-1 after:w-full after:bg-gradient-to-r after:from-[#B08D57] after:via-[#C5A880] after:to-emerald-600">
-                    Contact
+                    {t('contact')}
                   </h2>
                 </Link>
               </div>
@@ -193,7 +195,7 @@ export default function Footer() {
                 <li>
                   <div className="inline-flex items-center gap-2">
                     <Phone className="w-4 h-4" />
-                    <span>+34 XXX XXX XXX?</span>
+                    <span>{t('phonePlaceholder')}</span>
                   </div>
                 </li>
                 <li>
@@ -212,7 +214,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="-mx-4 flex flex-wrap justify-between">
             <div className="px-4 w-full text-center sm:w-auto sm:text-left">
-              Copyright © {COPYRIGHT_YEAR} Palmside S.L. All Rights Reserved.
+              {t('copyright', { year: COPYRIGHT_YEAR })}
             </div>
             <div className="px-4 w-full text-center sm:w-auto sm:text-left">
               Palmside S.L.
