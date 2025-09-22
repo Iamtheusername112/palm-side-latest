@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, getLocale } from 'next-intl/server'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,14 +19,18 @@ export const metadata = {
   description: 'Your trusted partner in real estate services',
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const locale = await getLocale()
+  const messages = await getMessages()
   return (
-    <html lang='en'>
+    <html lang={locale}>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
