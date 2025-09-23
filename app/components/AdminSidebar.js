@@ -202,7 +202,7 @@ const AdminSidebar = () => {
         </div>
       )}
 
-      {/* Footer */}
+      {/*  */}
       <div className='p-3 border-t border-gray-200'>
         <button
           onClick={handleSignOut}
