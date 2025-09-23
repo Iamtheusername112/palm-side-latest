@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 const Hero = () => {
+  const t = useTranslations('Hero')
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
 
@@ -13,17 +15,17 @@ const Hero = () => {
       type: 'image',
       src: ' /hero/property5.jpeg',
       alt: 'Luxury Villa',
-      title: 'Discover Your Dream Home',
-      subtitle: 'Luxury properties in prime locations',
-      description: 'Experience the perfect blend of comfort and elegance',
+      title: t('slides.0.title'),
+      subtitle: t('slides.0.subtitle'),
+      description: t('slides.0.description'),
     },
     {
       type: 'image',
       src: ' /hero/property1.jpeg',
       alt: 'Modern Apartment',
-      title: 'Modern Living Spaces',
-      subtitle: 'Contemporary designs for modern lifestyles',
-      description: 'Where innovation meets comfort',
+      title: t('slides.1.title'),
+      subtitle: t('slides.1.subtitle'),
+      description: t('slides.1.description'),
     },
     /*
     {
@@ -39,43 +41,43 @@ const Hero = () => {
       type: 'image',
       src: ' /hero/property6.jpeg',
       alt: 'Exclusive Villa in Mallorca',
-      title: 'Welcome To Your Private Villa',
-      subtitle: 'Luxury living tailored to you',
-      description: 'Step into elegance with your own exclusive retreat in Mallorca.',
+      title: t('slides.2.title'),
+      subtitle: t('slides.2.subtitle'),
+      description: t('slides.2.description'),
     },
     {
       type: 'image',
       src: '/hero/flugzeug.jpg',
       alt: 'Arrival by Plane',
-      title: 'Your Journey Begins',
-      subtitle: 'Arrive in style and comfort',
-      description: 'From the moment you land, our team takes care of every detail.',
+      title: t('slides.3.title'),
+      subtitle: t('slides.3.subtitle'),
+      description: t('slides.3.description'),
     },
     {
       type: 'image',
       src: '/hero/Flugzeuglandung.jpg',
       alt: 'Airplane Landing in Mallorca',
-      title: 'Seamless Transfers',
-      subtitle: 'From runway to relaxation',
-      description: 'We ensure your arrival is smooth and stress-free.',
+      title: t('slides.4.title'),
+      subtitle: t('slides.4.subtitle'),
+      description: t('slides.4.description'),
     },
   
     {
       type: 'image',
       src: '/hero/beach6.jpeg',
       alt: 'Endless Coastlines',
-      title: 'Endless Coastlines',
-      subtitle: 'Relax and enjoy the Mediterranean at your doorstep',
-      description: 'Soak up the sun and enjoy the turquoise Mediterranean waters',
+      title: t('slides.5.title'),
+      subtitle: t('slides.5.subtitle'),
+      description: t('slides.5.description'),
     },
     
     {
       type: 'image',
       src: '/hero/beach4.jpeg',
       alt: 'Mallorca sunset',
-      title: 'Sunset in Mallorca',
-      subtitle: 'Enjoy sunset moments with a view of the Mediterranean',
-      description: 'Celebrate life as the sun sets over the Mediterranean horizon.',
+      title: t('slides.6.title'),
+      subtitle: t('slides.6.subtitle'),
+      description: t('slides.6.description'),
     },
     /*
     {
@@ -148,13 +150,13 @@ const Hero = () => {
                   href='/properties'
                   className='bg-gradient-to-r from-[#B08D57] via-[#C5A880] to-emerald-600 text-white hover:opacity-90 px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 cursor-pointer'
                 >
-                  Explore Properties
+                  {t('cta.explore')}
                 </Link>
                 <Link
                   href='/services'
                   className='border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37]/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer'
                 >
-                  Learn More
+                  {t('cta.learn')}
                 </Link>
               </div>
             </div>
