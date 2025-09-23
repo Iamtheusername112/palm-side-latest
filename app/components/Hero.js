@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
 
 const Hero = () => {
@@ -10,7 +11,7 @@ const Hero = () => {
   const slides = [
     {
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80',
+      src: ' /hero/property5.jpeg',
       alt: 'Luxury Villa',
       title: 'Discover Your Dream Home',
       subtitle: 'Luxury properties in prime locations',
@@ -18,12 +19,13 @@ const Hero = () => {
     },
     {
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      src: ' /hero/property1.jpeg',
       alt: 'Modern Apartment',
       title: 'Modern Living Spaces',
       subtitle: 'Contemporary designs for modern lifestyles',
       description: 'Where innovation meets comfort',
     },
+    /*
     {
       type: 'image',
       src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
@@ -32,6 +34,59 @@ const Hero = () => {
       subtitle: 'Exclusive beachfront properties',
       description: 'Your gateway to coastal luxury',
     },
+    */
+    {
+      type: 'image',
+      src: ' /hero/property6.jpeg',
+      alt: 'Exclusive Villa in Mallorca',
+      title: 'Welcome To Your Private Villa',
+      subtitle: 'Luxury living tailored to you',
+      description: 'Step into elegance with your own exclusive retreat in Mallorca.',
+    },
+    {
+      type: 'image',
+      src: '/hero/flugzeug.jpg',
+      alt: 'Arrival by Plane',
+      title: 'Your Journey Begins',
+      subtitle: 'Arrive in style and comfort',
+      description: 'From the moment you land, our team takes care of every detail.',
+    },
+    {
+      type: 'image',
+      src: '/hero/Flugzeuglandung.jpg',
+      alt: 'Airplane Landing in Mallorca',
+      title: 'Seamless Transfers',
+      subtitle: 'From runway to relaxation',
+      description: 'We ensure your arrival is smooth and stress-free.',
+    },
+  
+    {
+      type: 'image',
+      src: '/hero/beach6.jpeg',
+      alt: 'Endless Coastlines',
+      title: 'Endless Coastlines',
+      subtitle: 'Relax and enjoy the Mediterranean at your doorstep',
+      description: 'Soak up the sun and enjoy the turquoise Mediterranean waters',
+    },
+    
+    {
+      type: 'image',
+      src: '/hero/beach4.jpeg',
+      alt: 'Mallorca sunset',
+      title: 'Sunset in Mallorca',
+      subtitle: 'Enjoy sunset moments with a view of the Mediterranean',
+      description: 'Celebrate life as the sun sets over the Mediterranean horizon.',
+    },
+    /*
+    {
+      type: 'image',
+      src: '/hero/sunset3.jpeg',
+      alt: 'Mallorca Sunset',
+      title: 'Unforgettable Evenings',
+      subtitle: 'Moments that belong to you',
+      description: 'Enjoy sunsets, fine dining, and vibrant nightlife in Mallorca.',
+    },
+    */
   ]
 
   useEffect(() => {
@@ -88,13 +143,19 @@ const Hero = () => {
               <p className='text-lg md:text-xl mb-8 text-gray-200'>
                 {slide.description}
               </p>
-              <div className='space-x-4'>
-                <button className='bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105'>
+              <div className='flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4'>
+                <Link
+                  href='/properties'
+                  className='bg-gradient-to-r from-[#B08D57] via-[#C5A880] to-emerald-600 text-white hover:opacity-90 px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 cursor-pointer'
+                >
                   Explore Properties
-                </button>
-                <button className='border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
+                </Link>
+                <Link
+                  href='/services'
+                  className='border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37]/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer'
+                >
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -10,5 +11,13 @@ const nextConfig = {
     root: __dirname,
   },
 }
+const withNextIntl = createNextIntlPlugin({
+  // Use cookie-based locale; no locale prefix in routes
+  routing: {
+    locales: ['en', 'de', 'es'],
+    defaultLocale: 'en',
+    localePrefix: 'never'
+  }
+})
 
-export default nextConfig
+export default withNextIntl(nextConfig)
