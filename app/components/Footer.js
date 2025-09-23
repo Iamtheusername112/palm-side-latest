@@ -10,7 +10,7 @@ export default function Footer() {
   const t = useTranslations('Footer')
   const COPYRIGHT_YEAR = 2025
   const [open, setOpen] = useState({ company: false, legal: false, contact: false })
-  const toggle = (key: string) => setOpen((prev) => ({ ...prev, [key]: !prev[key] }))
+  const toggle = (key) => setOpen((prev) => ({ ...prev, [key]: !prev[key] }))
 
   return (
     <footer>
