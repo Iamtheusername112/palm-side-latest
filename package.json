@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -39,6 +39,10 @@
     "@types/node": "^24.3.0",
     "@types/react": "19.1.12",
     "drizzle-kit": "^0.18.1",
+    "eslint-config-next": "^15.5.4",
     "tailwindcss": "^4"
+  },
+  "overrides": {
+    "chalk": "5.3.0"
   }
 }
