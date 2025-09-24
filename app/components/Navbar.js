@@ -3,56 +3,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ChevronDown, Menu, X, Home, Building2, TrendingUp, Briefcase, Waves, Sparkles } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import LanguageSwitcher from './LanguageSwitcher'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [isServicesOpen, setIsServicesOpen] = useState(false)
   const t = useTranslations('Navbar')
 
-  const services = [
-    {
-      name: 'Property Management',
-      description: 'Comprehensive property management services',
-      icon: Building2,
-      href: '/services/property-management'
-    },
-    {
-      name: 'Real Estate Investment',
-      description: 'Strategic investment opportunities',
-      icon: TrendingUp,
-      href: '/services/real-estate-investment'
-    },
-    {
-      name: 'Property Development',
-      description: 'Custom development solutions',
-      icon: Sparkles,
-      href: '/services/property-development'
-    },
-    {
-      name: 'Consulting Services',
-      description: 'Expert real estate consulting',
-      icon: Briefcase,
-      href: '/services/consulting-services'
-    },
-    {
-      name: 'Legal Services',
-      description: 'Real estate legal expertise',
-      icon: Waves,
-      href: '/services/legal-services'
-    },
-  ]
-
-  const properties = [
-    'Luxury Homes',
-    'Investment Properties',
-    'Commercial Real Estate',
-    'Beachfront Properties',
-    'New Developments',
-    'International Properties',
-  ]
 
   return (
     <>
