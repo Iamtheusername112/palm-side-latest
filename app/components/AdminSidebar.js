@@ -110,25 +110,25 @@ const AdminSidebar = () => {
 
   return (
     <div
-      className={`bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ${
+      className={`bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-all duration-300 ${
         isCollapsed ? 'w-16' : 'w-64'
       }`}
     >
       {/* Header */}
-      <div className='flex items-center justify-between p-4 border-b border-gray-200'>
+      <div className='flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800'>
         {!isCollapsed && (
           <div className='flex items-center'>
             <div className='w-8 h-8 bg-gradient-to-r from-blue-600 to-green-600 rounded-lg flex items-center justify-center'>
               <span className='text-white font-bold text-sm'>P</span>
             </div>
-            <span className='ml-3 text-lg font-bold text-gray-900'>
+            <span className='ml-3 text-lg font-bold text-gray-900 dark:text-gray-100'>
               Palmside
             </span>
           </div>
         )}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className='p-1 rounded-md hover:bg-gray-100 transition-colors duration-200'
+          className='p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200'
         >
           {isCollapsed ? (
             <ChevronRight className='h-4 w-4 text-gray-600' />
@@ -148,15 +148,15 @@ const AdminSidebar = () => {
               href={item.href}
               className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
                 item.current
-                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20'
+                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
               }`}
             >
               <Icon
                 className={`mr-3 h-5 w-5 flex-shrink-0 ${
                   item.current
                     ? 'text-blue-700'
-                    : 'text-gray-400 group-hover:text-gray-500'
+                    : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500'
                 }`}
               />
               {!isCollapsed && (
@@ -180,7 +180,7 @@ const AdminSidebar = () => {
 
       {/* Quick Actions */}
       {!isCollapsed && (
-        <div className='px-3 py-4 border-t border-gray-200'>
+        <div className='px-3 py-4 border-t border-gray-200 dark:border-gray-800'>
           <h3 className='text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3'>
             Quick Actions
           </h3>
@@ -203,11 +203,11 @@ const AdminSidebar = () => {
       )}
 
       {/* Footer */}
-      <div className='p-3 border-t border-gray-200'>
+      <div className='p-3 border-t border-gray-200 dark:border-gray-800'>
         <button
           onClick={handleSignOut}
           disabled={isLoggingOut}
-          className={`w-full flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
+          className={`w-full flex items-center px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
             isCollapsed ? 'justify-center' : ''
           }`}
         >

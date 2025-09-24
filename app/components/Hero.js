@@ -1,29 +1,33 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 const Hero = () => {
+  const t = useTranslations('Hero')
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
 
   const slides = [
     {
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80',
+      src: ' /hero/property5.jpeg',
       alt: 'Luxury Villa',
-      title: 'Discover Your Dream Home',
-      subtitle: 'Luxury properties in prime locations',
-      description: 'Experience the perfect blend of comfort and elegance',
+      title: t('slides.0.title'),
+      subtitle: t('slides.0.subtitle'),
+      description: t('slides.0.description'),
     },
     {
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      src: ' /hero/property1.jpeg',
       alt: 'Modern Apartment',
-      title: 'Modern Living Spaces',
-      subtitle: 'Contemporary designs for modern lifestyles',
-      description: 'Where innovation meets comfort',
+      title: t('slides.1.title'),
+      subtitle: t('slides.1.subtitle'),
+      description: t('slides.1.description'),
     },
+    /*
     {
       type: 'image',
       src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
@@ -32,6 +36,59 @@ const Hero = () => {
       subtitle: 'Exclusive beachfront properties',
       description: 'Your gateway to coastal luxury',
     },
+    */
+    {
+      type: 'image',
+      src: ' /hero/property6.jpeg',
+      alt: 'Exclusive Villa in Mallorca',
+      title: t('slides.2.title'),
+      subtitle: t('slides.2.subtitle'),
+      description: t('slides.2.description'),
+    },
+    {
+      type: 'image',
+      src: '/hero/flugzeug.jpg',
+      alt: 'Arrival by Plane',
+      title: t('slides.3.title'),
+      subtitle: t('slides.3.subtitle'),
+      description: t('slides.3.description'),
+    },
+    {
+      type: 'image',
+      src: '/hero/Flugzeuglandung.jpg',
+      alt: 'Airplane Landing in Mallorca',
+      title: t('slides.4.title'),
+      subtitle: t('slides.4.subtitle'),
+      description: t('slides.4.description'),
+    },
+  
+    {
+      type: 'image',
+      src: '/hero/beach6.jpeg',
+      alt: 'Endless Coastlines',
+      title: t('slides.5.title'),
+      subtitle: t('slides.5.subtitle'),
+      description: t('slides.5.description'),
+    },
+    
+    {
+      type: 'image',
+      src: '/hero/beach4.jpeg',
+      alt: 'Mallorca sunset',
+      title: t('slides.6.title'),
+      subtitle: t('slides.6.subtitle'),
+      description: t('slides.6.description'),
+    },
+    /*
+    {
+      type: 'image',
+      src: '/hero/sunset3.jpeg',
+      alt: 'Mallorca Sunset',
+      title: 'Unforgettable Evenings',
+      subtitle: 'Moments that belong to you',
+      description: 'Enjoy sunsets, fine dining, and vibrant nightlife in Mallorca.',
+    },
+    */
   ]
 
   useEffect(() => {
@@ -88,13 +145,19 @@ const Hero = () => {
               <p className='text-lg md:text-xl mb-8 text-gray-200'>
                 {slide.description}
               </p>
-              <div className='space-x-4'>
-                <button className='bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105'>
-                  Explore Properties
-                </button>
-                <button className='border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
-                  Learn More
-                </button>
+              <div className='flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4'>
+                <Link
+                  href='/properties'
+                  className='bg-gradient-to-r from-[#B08D57] via-[#C5A880] to-emerald-600 text-white hover:opacity-90 px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 cursor-pointer'
+                >
+                  {t('cta.explore')}
+                </Link>
+                <Link
+                  href='/services'
+                  className='border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37]/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer'
+                >
+                  {t('cta.learn')}
+                </Link>
               </div>
             </div>
           </div>

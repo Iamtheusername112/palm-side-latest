@@ -38,6 +38,9 @@ import {
   Activity,
   PieChart,
   LineChart,
+  Bell,
+  Sun,
+  Moon,
 } from 'lucide-react'
 
 const AdminDashboard = () => {
@@ -131,6 +134,24 @@ const AdminDashboard = () => {
     bySource: [],
   })
 
+  const [searchQuery, setSearchQuery] = useState('')
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [kpiRange, setKpiRange] = useState('30d')
+
+  // Initialize theme from storage or system preference
+  useEffect(() => {
+    try {
+      const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null
+      const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      const initialDark = saved ? saved === 'dark' : prefersDark
+      setIsDarkMode(initialDark)
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.toggle('dark', initialDark)
+      }
+    } catch {}
+  }, [])
+
   useEffect(() => {
     fetchDashboardData()
   }, [])
@@ -163,6 +184,26 @@ const AdminDashboard = () => {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    if (!searchQuery.trim()) return
+    // Route to a simple unified search across entities (properties/contacts)
+    router.push(`/admin/properties?query=${encodeURIComponent(searchQuery.trim())}`)
+  }
+
+  const toggleTheme = () => {
+    const next = !isDarkMode
+    setIsDarkMode(next)
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.toggle('dark', next)
+    }
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('theme', next ? 'dark' : 'light')
+      }
+    } catch {}
   }
 
   const fetchStats = async () => {
@@ -462,28 +503,74 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className='flex-1 flex flex-col overflow-hidden'>
+    <div className={`flex-1 flex flex-col overflow-hidden ${isDarkMode ? 'bg-gray-950 text-gray-100' : ''}`}>
       {/* Top Header */}
-      <header className='bg-white shadow-sm border-b border-gray-200'>
+      <header className={`shadow-sm border-b ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
         <div className='px-6 py-4'>
           <div className='flex items-center justify-between'>
             <div>
-              <h1 className='text-2xl font-bold text-gray-900'>
+              <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
                 Welcome back, {user?.firstName || 'Admin'}! 👋
               </h1>
-              <p className='text-gray-600 mt-1'>
+              <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'} mt-1`}>
                 Here's what's happening with your real estate business today.
               </p>
             </div>
 
             <div className='flex items-center space-x-3'>
+              {/* Global Search */}
+              <form onSubmit={handleSearchSubmit} className={`hidden md:flex items-center rounded-lg px-3 py-2 w-72 focus-within:ring-2 focus-within:ring-blue-500 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
+                <Search className={`h-4 w-4 mr-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`} />
+                <input
+                  type='text'
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder='Search properties, contacts...'
+                  className={`bg-transparent outline-none text-sm w-full placeholder:text-gray-500 ${isDarkMode ? 'text-gray-100 placeholder:text-gray-400' : 'text-gray-700'}`}
+                />
+              </form>
+
               <button
                 onClick={fetchDashboardData}
-                className='p-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 rounded-lg hover:bg-gray-100'
+                className={`p-2 transition-colors duration-200 rounded-lg ${isDarkMode ? 'text-gray-300 hover:text-white hover:bg-gray-800' : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'}`}
                 title='Refresh Dashboard'
               >
                 <RefreshCw className='h-5 w-5' />
               </button>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className={`p-2 transition-colors duration-200 rounded-lg ${isDarkMode ? 'text-gray-300 hover:text-white hover:bg-gray-800' : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'}`}
+                title={isDarkMode ? 'Switch to light' : 'Switch to dark'}
+              >
+                {isDarkMode ? <Sun className='h-5 w-5' /> : <Moon className='h-5 w-5' />}
+              </button>
+
+              {/* Notifications */}
+              <div className='relative'>
+                <button
+                  onClick={() => setShowNotifications((v) => !v)}
+                  className={`relative p-2 transition-colors duration-200 rounded-lg ${isDarkMode ? 'text-gray-300 hover:text-white hover:bg-gray-800' : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'}`}
+                  title='Notifications'
+                >
+                  <Bell className='h-5 w-5' />
+                  <span className='absolute -top-0.5 -right-0.5 inline-flex items-center justify-center text-[10px] font-semibold h-4 min-w-4 px-1 rounded-full bg-red-500 text-white'>
+                    3
+                  </span>
+                </button>
+                {showNotifications && (
+                  <div className={`absolute right-0 mt-2 w-72 border rounded-lg shadow-lg z-20 ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
+                    <div className={`px-4 py-2 border-b font-semibold ${isDarkMode ? 'border-gray-800 text-gray-100' : 'text-gray-900'}`}>Notifications</div>
+                    <ul className='max-h-64 overflow-auto'>
+                      <li className={`px-4 py-3 text-sm hover:bg-gray-50 ${isDarkMode ? 'text-gray-200 hover:bg-gray-800' : 'text-gray-700'}`}>New contact received</li>
+                      <li className={`px-4 py-3 text-sm hover:bg-gray-50 ${isDarkMode ? 'text-gray-200 hover:bg-gray-800' : 'text-gray-700'}`}>Property updated</li>
+                      <li className={`px-4 py-3 text-sm hover:bg-gray-50 ${isDarkMode ? 'text-gray-200 hover:bg-gray-800' : 'text-gray-700'}`}>Weekly report is ready</li>
+                    </ul>
+                    <div className={`px-4 py-2 border-t text-sm text-blue-600 hover:text-blue-700 cursor-pointer ${isDarkMode ? 'border-gray-800' : ''}`}>View all</div>
+                  </div>
+                )}
+              </div>
 
               {/* User Profile */}
               <div className='flex items-center space-x-3'>
@@ -495,10 +582,10 @@ const AdminDashboard = () => {
                   />
                 )}
                 <div className='text-right'>
-                  <p className='text-sm font-medium text-gray-900'>
+                  <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
                     {user?.firstName} {user?.lastName}
                   </p>
-                  <p className='text-xs text-gray-500'>{user?.email}</p>
+                  <p className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>{user?.email}</p>
                 </div>
               </div>
             </div>
@@ -507,22 +594,47 @@ const AdminDashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className='flex-1 overflow-y-auto bg-gray-50'>
+      <main className='flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950'>
         <div className='px-6 py-6'>
+          {/* KPI Filters */}
+          <div className='flex items-center justify-between mb-4'>
+            <div className='hidden md:flex items-center space-x-2'>
+              {[
+                { key: '7d', label: '7d' },
+                { key: '30d', label: '30d' },
+                { key: '90d', label: '90d' },
+                { key: '1y', label: '1y' },
+              ].map((opt) => (
+                <button
+                  key={opt.key}
+                  onClick={() => setKpiRange(opt.key)}
+                  className={`px-3 py-1.5 text-sm rounded-md border transition-colors duration-200 ${
+                    kpiRange === opt.key
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <div className='text-sm text-gray-500'>Showing KPIs for {kpiRange}</div>
+          </div>
+
           {/* Stats Grid */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8'>
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className='bg-white rounded-xl shadow-sm p-6 border hover:shadow-md transition-shadow duration-200'
+                className='bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-800 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5'
               >
                 <div className='flex items-center justify-between'>
                   <div>
-                    <p className='text-sm font-medium text-gray-600'>
+                    <p className='text-sm font-medium text-gray-600 dark:text-gray-300'>
                       {stat.title}
                     </p>
                     <div className='flex items-center mt-1'>
-                      <p className='text-2xl font-bold text-gray-900'>
+                      <p className='text-2xl font-bold text-gray-900 dark:text-gray-100'>
                         {stat.value}
                       </p>
                       {stat.title === 'New Contacts' && stat.value !== '0' && (
@@ -533,11 +645,12 @@ const AdminDashboard = () => {
                       )}
                     </div>
                   </div>
-                  <div className={`p-3 rounded-full bg-gray-100 ${stat.color}`}>
+                  <div className={`p-3 rounded-full bg-gray-100 dark:bg-gray-800 ${stat.color}`}>
                     <stat.icon className='h-6 w-6' />
                   </div>
                 </div>
-                <div className='mt-4 flex items-center'>
+                <div className='mt-4 flex items-center justify-between'>
+                  <div className='flex items-center'>
                   {stat.trend === 'up' ? (
                     <TrendingUp className='h-4 w-4 text-green-500 mr-1' />
                   ) : (
@@ -551,8 +664,26 @@ const AdminDashboard = () => {
                     {stat.change}
                   </span>
                   <span className='text-sm text-gray-600 ml-1'>
-                    from last month
+                    vs {kpiRange}
                   </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const csv = `title,value,range\n"${stat.title}","${stat.value}","${kpiRange}"\n`
+                      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+                      const url = URL.createObjectURL(blob)
+                      const link = document.createElement('a')
+                      link.href = url
+                      link.setAttribute('download', `${stat.title.replace(/\s+/g, '_').toLowerCase()}_${kpiRange}.csv`)
+                      document.body.appendChild(link)
+                      link.click()
+                      document.body.removeChild(link)
+                      URL.revokeObjectURL(url)
+                    }}
+                    className='text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center'
+                  >
+                    <Download className='h-4 w-4 mr-1' /> Export
+                  </button>
                 </div>
               </div>
             ))}
@@ -562,12 +693,12 @@ const AdminDashboard = () => {
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
             {/* Recent Activities */}
             <div className='lg:col-span-2'>
-              <div className='bg-white rounded-xl shadow-sm border'>
-                <div className='px-6 py-4 border-b flex items-center justify-between'>
-                  <h3 className='text-lg font-semibold text-gray-900'>
+              <div className='bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800'>
+                <div className='px-6 py-4 border-b dark:border-gray-800 flex items-center justify-between'>
+                  <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-100'>
                     Recent Activities
                   </h3>
-                  <div className='text-sm text-gray-500'>
+                  <div className='text-sm text-gray-500 dark:text-gray-300'>
                     {activitiesPagination.total} total activities
                   </div>
                 </div>
@@ -575,10 +706,10 @@ const AdminDashboard = () => {
                   <div className='relative'>
                     {/* Loading Overlay */}
                     {isLoadingActivities && (
-                      <div className='absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
+                      <div className='absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
                         <div className='flex items-center space-x-2'>
                           <div className='animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600'></div>
-                          <span className='text-sm text-gray-600'>
+                          <span className='text-sm text-gray-600 dark:text-gray-300'>
                             Loading activities...
                           </span>
                         </div>
@@ -649,7 +780,7 @@ const AdminDashboard = () => {
                           <div className='flex items-center justify-center h-80'>
                             <div className='text-center'>
                               <Activity className='h-12 w-12 text-gray-400 mx-auto mb-4' />
-                              <p className='text-gray-600'>
+                              <p className='text-gray-600 dark:text-gray-300'>
                                 No activities found
                               </p>
                             </div>
@@ -765,8 +896,8 @@ const AdminDashboard = () => {
 
             {/* Quick Actions */}
             <div className='space-y-6'>
-              <div className='bg-white rounded-xl shadow-sm border p-6'>
-                <h3 className='text-lg font-semibold text-gray-900 mb-4'>
+              <div className='bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6'>
+                <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4'>
                   Quick Actions
                 </h3>
                 <div className='space-y-3'>
@@ -799,13 +930,13 @@ const AdminDashboard = () => {
           {/* Data Overview Grid */}
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
             {/* Recent Properties */}
-            <div className='bg-white rounded-xl shadow-sm border'>
-              <div className='px-6 py-4 border-b flex items-center justify-between'>
-                <h3 className='text-lg font-semibold text-gray-900'>
+            <div className='bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800'>
+              <div className='px-6 py-4 border-b dark:border-gray-800 flex items-center justify-between'>
+                <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-100'>
                   Recent Properties
                 </h3>
                 <div className='flex items-center space-x-3'>
-                  <div className='text-sm text-gray-500'>
+                  <div className='text-sm text-gray-500 dark:text-gray-300'>
                     {propertiesPagination.total} total
                   </div>
                   <button
@@ -820,10 +951,10 @@ const AdminDashboard = () => {
                 <div className='relative'>
                   {/* Loading Overlay */}
                   {isLoadingProperties && (
-                    <div className='absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
+                    <div className='absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg'>
                       <div className='flex items-center space-x-2'>
                         <div className='animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600'></div>
-                        <span className='text-sm text-gray-600'>
+                        <span className='text-sm text-gray-600 dark:text-gray-300'>
                           Loading properties...
                         </span>
                       </div>
@@ -847,21 +978,21 @@ const AdminDashboard = () => {
                               className='flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50/50 min-h-[64px]'
                             >
                               <div className='flex items-center'>
-                                <div className='w-12 h-12 bg-gray-200 rounded-lg mr-3'></div>
+                                <div className='w-12 h-12 bg-gray-200 dark:bg-gray-800 rounded-lg mr-3'></div>
                                 <div>
-                                  <p className='font-medium text-gray-900'>
+                                  <p className='font-medium text-gray-900 dark:text-gray-100'>
                                     {property.title}
                                   </p>
-                                  <p className='text-sm text-gray-600'>
+                                  <p className='text-sm text-gray-600 dark:text-gray-300'>
                                     {property.location}
                                   </p>
                                 </div>
                               </div>
                               <div className='text-right'>
-                                <p className='font-medium text-gray-900'>
+                                <p className='font-medium text-gray-900 dark:text-gray-100'>
                                   ${property.price?.toLocaleString()}
                                 </p>
-                                <p className='text-sm text-gray-600'>
+                                <p className='text-sm text-gray-600 dark:text-gray-300'>
                                   {property.status}
                                 </p>
                               </div>
@@ -988,13 +1119,13 @@ const AdminDashboard = () => {
             </div>
 
             {/* Recent Contacts */}
-            <div className='bg-white rounded-xl shadow-sm border'>
-              <div className='px-6 py-4 border-b flex items-center justify-between'>
-                <h3 className='text-lg font-semibold text-gray-900'>
+            <div className='bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800'>
+              <div className='px-6 py-4 border-b dark:border-gray-800 flex items-center justify-between'>
+                <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-100'>
                   Recent Contacts
                 </h3>
                 <div className='flex items-center space-x-3'>
-                  <div className='text-sm text-gray-500'>
+                  <div className='text-sm text-gray-500 dark:text-gray-300'>
                     {contactsPagination.total} total
                   </div>
                   <button

@@ -1,0 +1,171 @@
+{
+  "Navbar": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "properties": "Propiedades",
+    "about": "Sobre nosotros",
+    "contact": "Contáctanos"
+  },
+  "Hero": {
+    "slides": [
+      {"title": "Descubre tu hogar ideal", "subtitle": "Propiedades de lujo en ubicaciones privilegiadas", "description": "La combinación perfecta de comodidad y elegancia"},
+      {"title": "Espacios de vida modernos", "subtitle": "Diseños contemporáneos para estilos de vida modernos", "description": "Donde la innovación se encuentra con el confort"},
+      {"title": "Bienvenido a tu villa privada", "subtitle": "Vida de lujo a tu medida", "description": "Elegancia en tu propio retiro exclusivo en Mallorca."},
+      {"title": "Tu viaje comienza", "subtitle": "Llega con estilo y comodidad", "description": "Desde el primer momento, nos encargamos de cada detalle."},
+      {"title": "Traslados sin complicaciones", "subtitle": "De la pista a la relajación", "description": "Hacemos que tu llegada sea fluida y sin estrés."},
+      {"title": "Costas infinitas", "subtitle": "Relájate y disfruta del Mediterráneo a tu puerta", "description": "Disfruta del sol y de las aguas turquesas del Mediterráneo"},
+      {"title": "Atardecer en Mallorca", "subtitle": "Momentos al atardecer con vistas al Mediterráneo", "description": "Celebra la vida mientras el sol se pone sobre el Mediterráneo."}
+    ],
+    "cta": {"explore": "Explorar propiedades", "learn": "Saber más"}
+  },
+  "Footer": {
+    "tagline": "Tu socio de confianza para encontrar la propiedad perfecta en Mallorca.",
+    "company": "Empresa",
+    "about": "Sobre nosotros",
+    "services": "Servicios",
+    "legal": "Legal",
+    "siteNotice": "Aviso legal",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "contact": "Contacto",
+    "phonePlaceholder": "+34 XXX XXX XXX?",
+    "copyright": "Derechos de autor © {year} Palmside S.L. Todos los derechos reservados."
+  }
+  ,
+  "Services": {
+    "hero": {"title": "Nuestros servicios", "subtitle": "Ofrecemos servicios inmobiliarios integrales con soluciones personalizadas y apoyo dedicado, para una vida sin preocupaciones en Mallorca."},
+    "sections": {
+      "search": {"title": "1. Búsqueda de propiedades", "desc": "Asesoramiento experto para encontrar tu propiedad ideal con criterios personalizados, análisis de mercado y apoyo para comprar, vender o alquilar.", "items": ["Coincidencia personalizada", "Informes de análisis de mercado", "Intermediación de propiedades vacacionales", "Visitas virtuales", "Información del vecindario"]},
+      "invest": {"title": "2. Consultoría de inversión", "desc": "Asesoramiento estratégico para maximizar rendimientos y minimizar riesgos en tu cartera inmobiliaria.", "items": ["Análisis de ROI", "Estrategias de timing del mercado", "Diversificación de cartera", "Optimización fiscal"]},
+      "market": {"title": "5. Análisis de mercado", "desc": "Investigación de mercado y análisis de tendencias para informar tus decisiones inmobiliarias.", "items": ["Análisis de tendencias de precios", "Información de oferta y demanda", "Crecimiento del vecindario", "Proyecciones futuras"]},
+      "concierge": {"title": "6. Concierge de lujo", "desc": "Servicios premium de concierge para propietarios y clientes de lujo.", "items": ["Visitas personalizadas a propiedades"]},
+      "renovation": {"title": "7. Construcción y renovación", "desc": "Apoyo completo para proyectos de construcción y reformas, desde la planificación hasta la entrega final.", "items": ["Reformas integrales o reparaciones menores", "Gestión de proyectos de construcción", "Supervisión de todas las fases", "Control de calidad y seguimiento"]},
+      "marketing": {"title": "8. Marketing y presentación", "desc": "Presenta tu propiedad profesionalmente con marketing, fotografía y home staging.", "items": ["Fotografía profesional", "Home staging contemporáneo", "Marketing para venta o alquiler"]}
+    },
+    "cta": {"title": "¿Listo para empezar?", "desc": "Nuestro equipo de expertos está listo para brindarte el mejor servicio y experiencia en bienes raíces. ¿Otra solicitud? Contáctanos.", "primary": "Agendar consulta", "secondary": "Descargar folleto"}
+  },
+  "About": {
+    "hero": {
+      "title": "Sobre nosotros",
+      "subtitle": "Tu socio de confianza para encontrar la propiedad perfecta en Mallorca."
+    },
+    "story": {
+      "title": "Quiénes somos",
+      "p1": "Somos tres profesionales inmobiliarios unidos por nuestro amor por Mallorca y años de experiencia en el mercado de la isla.",
+      "p2": "Tras años ayudando a personas a navegar el mercado inmobiliario de la isla, fundamos Palmside Mallorca para combinar nuestra experiencia profesional con nuestro cariño genuino por este lugar increíble.",
+      "p3": "Desde tu primera visita a la isla, te guiamos para encontrar, comprar y disfrutar de tu hogar ideal en Mallorca. Sabemos que el proceso puede ser abrumador: mercado extranjero, sistemas legales diferentes y barreras idiomáticas; por eso estamos aquí.",
+      "p4": "Entre los tres hablamos inglés, alemán, español y francés, así nunca te sentirás perdido en traducciones durante visitas, negociaciones o trámites. Ya sea que busques tu hogar soñado, navegas la complejidad legal, gestiones una inversión o planifiques una reforma, cuidamos cada detalle."
+    },
+    "team": {
+      "title": "Nuestro equipo",
+      "labels": {"phone": "Número(s) de teléfono:", "email": "Correo:"},
+      "jeanette": {
+        "name": "Jeanette Bakacak",
+        "role": "Fundadora/CEO",
+        "bio1": "Soy un puente entre personas, mercados y oportunidades, con más de 30 años de experiencia en dos mundos: comercio mayorista internacional y sector inmobiliario.",
+        "bio2": "He creado academias, atendido clientes en todo el mundo, coordinado obras, gestionado inmuebles comerciales y comunidades de propietarios y residencias de mayores.",
+        "bio3": "¿Mi motor? Optimizar procesos, conectar personas y hacer de cada proyecto un éxito, con corazón, mente y un ojo atento al detalle."
+      },
+      "claudia": {
+        "name": "Claudia Launer",
+        "role": "Consultoría",
+        "bio1": "Con más de 20 años de experiencia en el negocio inmobiliario internacional, Claudia es experta en el mercado global. Tras años de éxito como agente en Nueva York y Nueva Jersey –con enfoque en clientes empresariales y particulares–, desde 2016 se especializa en la región D/A/CH, la España peninsular y Mallorca.",
+        "bio2": "Trabaja como consultora inmobiliaria en estos mercados, apoyando a los clientes en búsqueda, valoración y mediación."
+      },
+      "taner": {
+        "name": "Taner Bakacak",
+        "role": "Director Técnico",
+        "bio1": "Llevo más de 30 años comprometido con la excelencia técnica en oficios –como jefe electricista en obras de gran escala, residencias privadas de alto nivel y proyectos industriales complejos.",
+        "bio2": "Mi experiencia abarca tecnología de edificación moderna, sistemas fotovoltaicos y facility management profesional, con foco en calidad, eficiencia y soluciones prácticas.",
+        "bio3": "Recientemente he marcado nuevos estándares en facility management para la sede de una gran cadena europea de supermercados.",
+        "bio4": "En Palmside S.L., combino precisión, eficiencia y mentalidad resolutiva para ofrecer resultados técnicos de primer nivel, con fiabilidad y a escala.",
+        "labels": {"phone": "Número de teléfono:", "email": "Correo:"}
+      }
+    },
+    "cta": {"schedule": "Agendar consulta"}
+  },
+  "Properties": {
+    "hero": {
+      "title": "Descubre tu propiedad ideal",
+      "subtitle": "Explora nuestra selección de propiedades premium en el sur de Florida y más allá."
+    },
+    "filters": {
+      "type": {"label": "Tipo de propiedad", "all": "Todos los tipos", "options": {"luxuryHomes": "Viviendas de lujo", "investment": "Propiedades de inversión", "commercial": "Inmuebles comerciales", "development": "Desarrollo inmobiliario", "residential": "Residencial"}},
+      "status": {"label": "Estado", "all": "Todos los estados", "options": {"forSale": "En venta", "forLease": "En alquiler", "sold": "Vendido", "leased": "Alquilado", "preConstruction": "Preconstrucción"}},
+      "location": {"label": "Ubicación", "placeholder": "Introduce una ubicación..."},
+      "featured": {"label": "Destacado", "all": "Todas las propiedades", "only": "Solo destacados"}
+    },
+    "loading": "Cargando propiedades...",
+    "resultCount": "{count} propiedades disponibles",
+    "errors": {
+      "loadTitle": "Error al cargar propiedades",
+      "tryAgain": "Intentar de nuevo",
+      "emptyTitle": "No se encontraron propiedades",
+      "emptyDesc": "Ajusta tus filtros para ver más propiedades."
+    },
+    "labels": {"featured": "Destacado"},
+    "buttons": {"viewDetails": "Ver detalles", "share": "Compartir", "learnMore": "Saber más"},
+    "units": {"beds": "habitaciones", "baths": "baños", "sqft": "pies²"}
+  },
+  "Contact": {
+    "hero": {"title": "Ponte en contacto", "subtitle": "¿Listo para empezar tu camino inmobiliario? Te ayudamos a encontrar tu propiedad ideal."},
+    "form": {
+      "title": "Envíanos un mensaje",
+      "subtitle": "Completa el formulario y te responderemos en 24 horas.",
+      "name": "Nombre completo *",
+      "namePlaceholder": "Escribe tu nombre completo",
+      "email": "Correo electrónico *",
+      "emailPlaceholder": "Escribe tu correo",
+      "phone": "Número de teléfono",
+      "phonePlaceholder": "Escribe tu teléfono",
+      "subject": "Consulta de servicio *",
+      "subjectPlaceholder": "Selecciona un servicio",
+      "message": "Mensaje *",
+      "messagePlaceholder": "Cuéntanos más sobre tu consulta...",
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando...",
+      "successTitle": "¡Mensaje enviado con éxito!",
+      "successDesc": "Gracias por contactarnos. Te responderemos pronto.",
+      "errorTitle": "Error de envío",
+      "errorDesc": "Hubo un error al enviar tu mensaje. Inténtalo de nuevo.",
+      "toastSuccess": "¡Mensaje enviado con éxito!",
+      "toastSuccessDesc": "Gracias por contactarnos. Te responderemos pronto.",
+      "toastError": "Error al enviar el mensaje",
+      "toastErrorDesc": "Inténtalo de nuevo o contáctanos directamente."
+    },
+    "services": {
+      "options": {
+        "propertyManagement": {"name": "Gestión de propiedades", "description": "Servicios integrales de administración", "value": "property-management"},
+        "realEstateInvestment": {"name": "Inversión inmobiliaria", "description": "Oportunidades estratégicas", "value": "real-estate-investment"},
+        "propertyDevelopment": {"name": "Desarrollo inmobiliario", "description": "Soluciones de desarrollo a medida", "value": "property-development"},
+        "consultingServices": {"name": "Consultoría", "description": "Asesoramiento inmobiliario experto", "value": "consulting-services"},
+        "legalServices": {"name": "Servicios legales", "description": "Especialistas en derecho inmobiliario", "value": "legal-services"},
+        "generalInquiry": {"name": "Consulta general", "description": "Otras preguntas o información", "value": "general-inquiry"}
+      }
+    },
+    "info": {
+      "title": "Información de contacto",
+      "desc": "Contáctanos por cualquiera de estos canales. Siempre estamos para ayudarte.",
+      "email": "Escríbenos",
+      "call": "Llámanos",
+      "visit": "Visítanos",
+      "hours": "Horario de atención",
+      "ourLocation": "Nuestra ubicación",
+      "interactiveMap": "Mapa interactivo"
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "desc": "Respuestas rápidas a preguntas comunes sobre nuestros servicios y propiedades.",
+      "q1": "¿Qué tan rápido responden a las consultas?",
+      "a1": "Normalmente respondemos en un plazo de 24 horas en días laborables. Para asuntos urgentes, disponemos de números de emergencia.",
+      "q2": "¿Ofrecen visitas virtuales a propiedades?",
+      "a2": "¡Sí! Ofrecemos visitas virtuales y videollamadas para todas nuestras propiedades, para explorar desde cualquier lugar.",
+      "q3": "¿En qué zonas se especializan?",
+      "a3": "Nos centramos en propiedades premium en Miami, el sur de Florida y mercados internacionales selectos. Nuestra experiencia abarca viviendas de lujo, inversiones y bienes comerciales.",
+      "q4": "¿Pueden ayudar con opciones de financiación?",
+      "a4": "¡Por supuesto! Trabajamos con socios financieros de confianza y podemos guiarte por distintas opciones, incluidas hipotecas tradicionales y préstamos de inversión."
+    }
+  }
+}
+
+

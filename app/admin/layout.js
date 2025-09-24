@@ -32,7 +32,7 @@ export default async function AdminLayout({ children }) {
 
     // Session is valid, render admin layout with sidebar
     return (
-      <div className='flex h-screen bg-gray-50'>
+      <div className='flex h-screen bg-gray-50 dark:bg-gray-950 dark:text-gray-100'>
         <AdminSidebar />
         <div className='flex-1 flex flex-col overflow-hidden'>{children}</div>
         <AccessibilitySettings />
