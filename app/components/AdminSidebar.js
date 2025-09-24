@@ -13,18 +13,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Home,
   Plus,
   FileText,
-  Calendar,
-  Target,
-  Shield,
-  Database,
-  Activity,
-  PieChart,
-  LineChart,
-  Globe,
-  Zap,
 } from 'lucide-react'
 
 const AdminSidebar = () => {
@@ -95,11 +85,7 @@ const AdminSidebar = () => {
 
     try {
       const response = await fetch('/api/admin/logout', { method: 'POST' })
-      if (response.ok) {
-        router.push('/admin-auth/login')
-      } else {
-        router.push('/admin-auth/login')
-      }
+      router.push('/admin-auth/login')
     } catch (error) {
       console.error('Logout failed:', error)
       router.push('/admin-auth/login')
