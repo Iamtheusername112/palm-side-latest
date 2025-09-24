@@ -15,8 +15,10 @@ import {
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { useTranslations, useLocale } from 'next-intl'
 
 const PropertiesPage = () => {
+  const t = useTranslations('Properties')
   const [viewMode, setViewMode] = useState('grid')
   const [favorites, setFavorites] = useState(new Set())
   const [properties, setProperties] = useState([])
@@ -112,11 +114,10 @@ const PropertiesPage = () => {
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
-            Discover Your Dream Property
+            {t('hero.title')}
           </h1>
           <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto'>
-            Explore our curated collection of premium properties across South
-            Florida and beyond.
+            {t('hero.subtitle')}
           </p>
         </div>
 
@@ -131,53 +132,53 @@ const PropertiesPage = () => {
           <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Property Type
+                {t('filters.type.label')}
               </label>
               <select
                 value={filters.type}
                 onChange={(e) => handleFilterChange('type', e.target.value)}
                 className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
               >
-                <option value='all'>All Types</option>
-                <option value='Luxury Homes'>Luxury Homes</option>
+                <option value='all'>{t('filters.type.all')}</option>
+                <option value='Luxury Homes'>{t('filters.type.options.luxuryHomes')}</option>
                 <option value='Investment Properties'>
-                  Investment Properties
+                  {t('filters.type.options.investment')}
                 </option>
                 <option value='Commercial Real Estate'>
-                  Commercial Real Estate
+                  {t('filters.type.options.commercial')}
                 </option>
                 <option value='Property Development'>
-                  Property Development
+                  {t('filters.type.options.development')}
                 </option>
-                <option value='Residential'>Residential</option>
+                <option value='Residential'>{t('filters.type.options.residential')}</option>
               </select>
             </div>
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Status
+                {t('filters.status.label')}
               </label>
               <select
                 value={filters.status}
                 onChange={(e) => handleFilterChange('status', e.target.value)}
                 className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
               >
-                <option value='all'>All Status</option>
-                <option value='For Sale'>For Sale</option>
-                <option value='For Lease'>For Lease</option>
-                <option value='Sold'>Sold</option>
-                <option value='Leased'>Leased</option>
-                <option value='Pre-Construction'>Pre-Construction</option>
+                <option value='all'>{t('filters.status.all')}</option>
+                <option value='For Sale'>{t('filters.status.options.forSale')}</option>
+                <option value='For Lease'>{t('filters.status.options.forLease')}</option>
+                <option value='Sold'>{t('filters.status.options.sold')}</option>
+                <option value='Leased'>{t('filters.status.options.leased')}</option>
+                <option value='Pre-Construction'>{t('filters.status.options.preConstruction')}</option>
               </select>
             </div>
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Location
+                {t('filters.location.label')}
               </label>
               <input
                 type='text'
-                placeholder='Enter location...'
+                placeholder={t('filters.location.placeholder')}
                 value={filters.location === 'all' ? '' : filters.location}
                 onChange={(e) =>
                   handleFilterChange('location', e.target.value || 'all')
@@ -188,15 +189,15 @@ const PropertiesPage = () => {
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Featured
+                {t('filters.featured.label')}
               </label>
               <select
                 value={filters.featured}
                 onChange={(e) => handleFilterChange('featured', e.target.value)}
                 className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
               >
-                <option value='all'>All Properties</option>
-                <option value='true'>Featured Only</option>
+                <option value='all'>{t('filters.featured.all')}</option>
+                <option value='true'>{t('filters.featured.only')}</option>
               </select>
             </div>
           </div>
@@ -208,11 +209,11 @@ const PropertiesPage = () => {
             {loading ? (
               <div className='flex items-center space-x-2'>
                 <Loader2 className='h-4 w-4 animate-spin' />
-                <span className='text-gray-600'>Loading properties...</span>
+                <span className='text-gray-600'>{t('loading')}</span>
               </div>
             ) : (
               <span className='text-gray-600'>
-                {properties.length} properties available
+                {t('resultCount', {count: properties.length})}
               </span>
             )}
           </div>
@@ -241,7 +242,7 @@ const PropertiesPage = () => {
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
-              <div className='space-y-1 w-4 h-4'>
+          <div className='space-y-1 w-4 h-4'>
                 <div className='bg-current rounded-sm h-1'></div>
                 <div className='bg-current rounded-sm h-1'></div>
                 <div className='bg-current rounded-sm h-1'></div>
@@ -255,7 +256,7 @@ const PropertiesPage = () => {
           <div className='flex justify-center items-center py-20'>
             <div className='text-center'>
               <Loader2 className='h-12 w-12 animate-spin text-blue-600 mx-auto mb-4' />
-              <p className='text-gray-600'>Loading properties...</p>
+              <p className='text-gray-600'>{t('loading')}</p>
             </div>
           </div>
         ) : error ? (
@@ -265,14 +266,14 @@ const PropertiesPage = () => {
                 <span className='text-red-600 text-2xl'>⚠</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                Error Loading Properties
+                {t('errors.loadTitle')}
               </h3>
               <p className='text-gray-600 mb-4'>{error}</p>
               <button
                 onClick={() => window.location.reload()}
                 className='bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors'
               >
-                Try Again
+                {t('errors.tryAgain')}
               </button>
             </div>
           </div>
@@ -283,10 +284,10 @@ const PropertiesPage = () => {
                 <span className='text-gray-600 text-2xl'>🏠</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                No Properties Found
+                {t('errors.emptyTitle')}
               </h3>
               <p className='text-gray-600'>
-                Try adjusting your filters to see more properties.
+                {t('errors.emptyDesc')}
               </p>
             </div>
           </div>
@@ -323,13 +324,17 @@ const PropertiesPage = () => {
 }
 
 const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
+  const t = useTranslations('Properties')
+  const locale = useLocale()
   const formatPrice = (price) => {
     if (price >= 1000000) {
-      return `$${(price / 1000000).toFixed(1)}M`
+      const value = (price / 1000000).toLocaleString(locale, { maximumFractionDigits: 1, minimumFractionDigits: 1 })
+      return `$${value}M`
     } else if (price >= 1000) {
-      return `$${(price / 1000).toFixed(0)}K`
+      const value = (price / 1000).toLocaleString(locale, { maximumFractionDigits: 0 })
+      return `$${value}K`
     }
-    return `$${price.toLocaleString()}`
+    return `$${price.toLocaleString(locale)}`
   }
 
   if (viewMode === 'list') {
@@ -346,7 +351,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
               />
               {property.featured && (
                 <div className='absolute top-4 left-4 bg-gradient-to-r from-blue-600 to-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold'>
-                  Featured
+                  {t('labels.featured')}
                 </div>
               )}
               <div
@@ -401,18 +406,18 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
               {property.beds > 0 && (
                 <div className='flex items-center text-gray-600'>
                   <Bed className='h-4 w-4 mr-1' />
-                  <span>{property.beds} beds</span>
+                  <span>{property.beds} {t('units.beds')}</span>
                 </div>
               )}
               {property.baths > 0 && (
                 <div className='flex items-center text-gray-600'>
                   <Bath className='h-4 w-4 mr-1' />
-                  <span>{property.baths} baths</span>
+                  <span>{property.baths} {t('units.baths')}</span>
                 </div>
               )}
               <div className='flex items-center text-gray-600'>
                 <Square className='h-4 w-4 mr-1' />
-                <span>{property.sqft.toLocaleString('en-US')} sq ft</span>
+                <span>{property.sqft.toLocaleString(locale)} {t('units.sqft')}</span>
               </div>
             </div>
 
@@ -433,15 +438,15 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
               <div className='flex items-center space-x-3'>
                 <button className='flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200'>
                   <Eye className='h-4 w-4' />
-                  <span>View Details</span>
+                  <span>{t('buttons.viewDetails')}</span>
                 </button>
                 <button className='flex items-center space-x-2 bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200'>
                   <Share2 className='h-4 w-4' />
-                  <span>Share</span>
+                  <span>{t('buttons.share')}</span>
                 </button>
               </div>
               <button className='text-blue-600 hover:text-blue-700 font-semibold flex items-center space-x-1 transition-colors duration-200'>
-                <span>Learn More</span>
+                <span>{t('buttons.learnMore')}</span>
                 <ArrowRight className='h-4 w-4' />
               </button>
             </div>
@@ -463,7 +468,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
         />
         {property.featured && (
           <div className='absolute top-4 left-4 bg-gradient-to-r from-blue-600 to-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold'>
-            Featured
+            {t('labels.featured')}
           </div>
         )}
         <div
@@ -547,10 +552,10 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
         <div className='flex items-center justify-between'>
           <button className='flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm'>
             <Eye className='h-4 w-4' />
-            <span>View Details</span>
+            <span>{t('buttons.viewDetails')}</span>
           </button>
           <button className='text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center space-x-1 transition-colors duration-200'>
-            <span>Learn More</span>
+            <span>{t('buttons.learnMore')}</span>
             <ArrowRight className='h-4 w-4' />
           </button>
         </div>
