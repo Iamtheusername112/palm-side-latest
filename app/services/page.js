@@ -5,13 +5,27 @@ import { useTranslations } from 'next-intl'
 
 export default function ServicesPage() {
   const t = useTranslations('Services')
+
   return (
     <div className='min-h-screen bg-white'>
       <Navbar />
 
       {/* Hero */}
-      <section className='relative overflow-hidden bg-gradient-to-r from-blue-600 to-green-600 py-20'>
-        <div className='absolute inset-0 bg-black/10'></div>
+      <section className='relative overflow-hidden py-3'>
+        {/* Background video */}
+        <video
+          className='absolute inset-0 h-full w-full object-cover motion-reduce:hidden'
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src='/about/videopalm3.mp4' type='video/mp4' />
+        </video>
+
+        {/* Gradient overlay */}
+        <div className='absolute inset-0 bg-gradient-to-r from-[#B08D57]/80 via-[#C5A880]/80 to-emerald-600/80' />
+
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <h1 className='text-4xl md:text-5xl font-bold text-white mb-4'>
             {t('hero.title')}
@@ -20,10 +34,6 @@ export default function ServicesPage() {
             {t('hero.subtitle')}
           </p>
         </div>
-
-        {/* Decorative */}
-        <div className='absolute -top-16 -left-16 w-72 h-72 bg-white/10 rounded-full'></div>
-        <div className='absolute -bottom-24 -right-24 w-96 h-96 bg-white/10 rounded-full'></div>
       </section>
 
       {/* Services Sections */}
@@ -32,9 +42,7 @@ export default function ServicesPage() {
           {/* 1. Property Search */}
           <div id='property-search' className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8'>
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('sections.search.title')}</h2>
-            <p className='text-gray-600 mb-4'>
-              {t('sections.search.desc')}
-            </p>
+            <p className='text-gray-600 mb-4'>{t('sections.search.desc')}</p>
             <ul className='list-disc pl-6 text-gray-700 space-y-2'>
               <li>{t('sections.search.items.0')}</li>
               <li>{t('sections.search.items.1')}</li>
@@ -47,9 +55,7 @@ export default function ServicesPage() {
           {/* 2. Investment Consulting */}
           <div id='investment-consulting' className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8'>
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('sections.invest.title')}</h2>
-            <p className='text-gray-600 mb-4'>
-              {t('sections.invest.desc')}
-            </p>
+            <p className='text-gray-600 mb-4'>{t('sections.invest.desc')}</p>
             <ul className='list-disc pl-6 text-gray-700 space-y-2'>
               <li>{t('sections.invest.items.0')}</li>
               <li>{t('sections.invest.items.1')}</li>
@@ -61,9 +67,7 @@ export default function ServicesPage() {
           {/* 5. Market Analysis */}
           <div id='market-analysis' className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8'>
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('sections.market.title')}</h2>
-            <p className='text-gray-600 mb-4'>
-              {t('sections.market.desc')}
-            </p>
+            <p className='text-gray-600 mb-4'>{t('sections.market.desc')}</p>
             <ul className='list-disc pl-6 text-gray-700 space-y-2'>
               <li>{t('sections.market.items.0')}</li>
               <li>{t('sections.market.items.1')}</li>
@@ -75,9 +79,7 @@ export default function ServicesPage() {
           {/* 6. Luxury Concierge */}
           <div id='luxury-concierge' className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8'>
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('sections.concierge.title')}</h2>
-            <p className='text-gray-600 mb-4'>
-              {t('sections.concierge.desc')}
-            </p>
+            <p className='text-gray-600 mb-4'>{t('sections.concierge.desc')}</p>
             <ul className='list-disc pl-6 text-gray-700 space-y-2'>
               <li>{t('sections.concierge.items.0')}</li>
             </ul>
@@ -86,9 +88,7 @@ export default function ServicesPage() {
           {/* 7. Construction & Renovation */}
           <div id='construction-renovation' className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8'>
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('sections.renovation.title')}</h2>
-            <p className='text-gray-600 mb-4'>
-              {t('sections.renovation.desc')}
-            </p>
+            <p className='text-gray-600 mb-4'>{t('sections.renovation.desc')}</p>
             <ul className='list-disc pl-6 text-gray-700 space-y-2'>
               <li>{t('sections.renovation.items.0')}</li>
               <li>{t('sections.renovation.items.1')}</li>
@@ -100,9 +100,7 @@ export default function ServicesPage() {
           {/* 8. Marketing & Presentation */}
           <div id='marketing-presentation' className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8'>
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>{t('sections.marketing.title')}</h2>
-            <p className='text-gray-600 mb-4'>
-              {t('sections.marketing.desc')}
-            </p>
+            <p className='text-gray-600 mb-4'>{t('sections.marketing.desc')}</p>
             <ul className='list-disc pl-6 text-gray-700 space-y-2'>
               <li>{t('sections.marketing.items.0')}</li>
               <li>{t('sections.marketing.items.1')}</li>
@@ -115,20 +113,18 @@ export default function ServicesPage() {
         <div className='mt-16 bg-gradient-to-r from-gray-50 to-white border rounded-2xl p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6'>
           <div>
             <h3 className='text-2xl font-bold text-gray-900 mb-1'>{t('cta.title')}</h3>
-            <p className='text-gray-600 max-w-2xl'>
-              {t('cta.desc')}
-            </p>
+            <p className='text-gray-600 max-w-2xl'>{t('cta.desc')}</p>
           </div>
           <div className='flex items-center gap-3'>
             <Link
               href='/contact'
-              className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer'
+              className='border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37]/10 px-8 py-3 rounded-lg font-semibold text-lg xl:text-xl transition-all duration-300 transform hover:scale-105 cursor-pointer'
             >
               {t('cta.primary')}
             </Link>
             <Link
               href='/contact'
-              className='border border-gray-300 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer'
+              className='bg-gradient-to-r from-[#B08D57] via-[#C5A880] to-emerald-600 text-white hover:opacity-90 px-8 py-3 rounded-lg font-semibold text-lg xl:text-xl transition-colors duration-300 transform hover:scale-105 cursor-pointer'
             >
               {t('cta.secondary')}
             </Link>
@@ -140,5 +136,3 @@ export default function ServicesPage() {
     </div>
   )
 }
-
-

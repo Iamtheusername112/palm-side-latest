@@ -13,18 +13,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Home,
   Plus,
   FileText,
-  Calendar,
-  Target,
-  Shield,
-  Database,
-  Activity,
-  PieChart,
-  LineChart,
-  Globe,
-  Zap,
 } from 'lucide-react'
 
 const AdminSidebar = () => {
