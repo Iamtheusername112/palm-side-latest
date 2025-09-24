@@ -2,7 +2,7 @@ import { PasswordAuthManager } from './lib/password-auth.js'
 import { config } from 'dotenv'
 
 // Load environment variables
-config({ path: '.env.local' })
+config({ path: '.env.local', quiet: true })
 
 async function setupAdmin() {
   try {

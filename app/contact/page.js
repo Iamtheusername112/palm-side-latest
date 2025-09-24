@@ -14,8 +14,10 @@ import { toast } from 'sonner'
 import { useContactContext } from '../contexts/ContactContext'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { useTranslations } from 'next-intl'
 
 const ContactPage = () => {
+  const t = useTranslations('Contact')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,33 +32,33 @@ const ContactPage = () => {
   // Services for the subject dropdown
   const services = [
     {
-      name: 'Property Management',
-      description: 'Comprehensive property management services',
+      name: t('services.options.propertyManagement.name'),
+      description: t('services.options.propertyManagement.description'),
       value: 'property-management',
     },
     {
-      name: 'Real Estate Investment',
-      description: 'Strategic investment opportunities',
+      name: t('services.options.realEstateInvestment.name'),
+      description: t('services.options.realEstateInvestment.description'),
       value: 'real-estate-investment',
     },
     {
-      name: 'Property Development',
-      description: 'Custom development solutions',
+      name: t('services.options.propertyDevelopment.name'),
+      description: t('services.options.propertyDevelopment.description'),
       value: 'property-development',
     },
     {
-      name: 'Consulting Services',
-      description: 'Expert real estate consulting',
+      name: t('services.options.consultingServices.name'),
+      description: t('services.options.consultingServices.description'),
       value: 'consulting-services',
     },
     {
-      name: 'Legal Services',
-      description: 'Real estate legal expertise',
+      name: t('services.options.legalServices.name'),
+      description: t('services.options.legalServices.description'),
       value: 'legal-services',
     },
     {
-      name: 'General Inquiry',
-      description: 'Other questions or information',
+      name: t('services.options.generalInquiry.name'),
+      description: t('services.options.generalInquiry.description'),
       value: 'general-inquiry',
     },
   ]
@@ -98,9 +100,8 @@ const ContactPage = () => {
         // Update contact counts in context
         addNewContact()
 
-        toast.success('Message sent successfully!', {
-          description:
-            "Thank you for contacting us. We'll get back to you soon.",
+        toast.success(t('form.toastSuccess'), {
+          description: t('form.toastSuccessDesc'),
         })
         // Reset form after successful submission
         setTimeout(() => {
@@ -108,16 +109,16 @@ const ContactPage = () => {
         }, 5000)
       } else {
         setSubmitStatus('error')
-        toast.error('Failed to send message', {
+        toast.error(t('form.toastError'), {
           description:
-            result.error || 'Please try again or contact us directly.',
+            result.error || t('form.toastErrorDesc'),
         })
         console.error('Submission error:', result.error)
       }
     } catch (error) {
       setSubmitStatus('error')
-      toast.error('Failed to send message', {
-        description: 'Please try again or contact us directly.',
+      toast.error(t('form.toastError'), {
+        description: t('form.toastErrorDesc'),
       })
       console.error('Submission error:', error)
     } finally {
@@ -128,25 +129,25 @@ const ContactPage = () => {
   const contactInfo = [
     {
       icon: <Mail className='h-6 w-6' />,
-      title: 'Email Us',
+      title: t('info.email'),
       details: ['info@palmside.com', 'support@palmside.com'],
       color: 'from-blue-500 to-blue-600',
     },
     {
       icon: <Phone className='h-6 w-6' />,
-      title: 'Call Us',
+      title: t('info.call'),
       details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
       color: 'from-green-500 to-green-600',
     },
     {
       icon: <MapPin className='h-6 w-6' />,
-      title: 'Visit Us',
+      title: t('info.visit'),
       details: ['123 Palm Street', 'Miami, FL 33101'],
       color: 'from-purple-500 to-purple-600',
     },
     {
       icon: <Clock className='h-6 w-6' />,
-      title: 'Business Hours',
+      title: t('info.hours'),
       details: ['Mon-Fri: 9:00 AM - 6:00 PM', 'Sat: 10:00 AM - 4:00 PM'],
       color: 'from-orange-500 to-orange-600',
     },
@@ -162,11 +163,10 @@ const ContactPage = () => {
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
-            Get In Touch
+            {t('hero.title')}
           </h1>
           <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto'>
-            Ready to start your real estate journey? We're here to help you find
-            your perfect property.
+            {t('hero.subtitle')}
           </p>
         </div>
 
@@ -181,11 +181,10 @@ const ContactPage = () => {
           <div className='space-y-8'>
             <div>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Send us a Message
+                {t('form.title')}
               </h2>
               <p className='text-gray-600 text-lg'>
-                Fill out the form below and we'll get back to you within 24
-                hours.
+                {t('form.subtitle')}
               </p>
             </div>
 
@@ -193,10 +192,10 @@ const ContactPage = () => {
               <div className='bg-green-50 border border-green-200 rounded-xl p-8 text-center'>
                 <CheckCircle className='h-16 w-16 text-green-500 mx-auto mb-4' />
                 <h3 className='text-2xl font-semibold text-green-800 mb-2'>
-                  Message Sent Successfully!
+                  {t('form.successTitle')}
                 </h3>
                 <p className='text-green-600'>
-                  Thank you for contacting us. We'll get back to you soon.
+                  {t('form.successDesc')}
                 </p>
               </div>
             ) : submitStatus === 'error' ? (
@@ -205,10 +204,10 @@ const ContactPage = () => {
                   <span className='text-2xl'>⚠️</span>
                 </div>
                 <h3 className='text-2xl font-semibold text-red-800 mb-2'>
-                  Submission Failed
+                  {t('form.errorTitle')}
                 </h3>
                 <p className='text-red-600'>
-                  There was an error sending your message. Please try again.
+                  {t('form.errorDesc')}
                 </p>
               </div>
             ) : (
@@ -219,7 +218,7 @@ const ContactPage = () => {
                       htmlFor='name'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Full Name *
+                      {t('form.name')}
                     </label>
                     <input
                       type='text'
@@ -229,7 +228,7 @@ const ContactPage = () => {
                       onChange={handleInputChange}
                       required
                       className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
-                      placeholder='Enter your full name'
+                      placeholder={t('form.namePlaceholder')}
                     />
                   </div>
                   <div>
@@ -237,7 +236,7 @@ const ContactPage = () => {
                       htmlFor='email'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Email Address *
+                      {t('form.email')}
                     </label>
                     <input
                       type='email'
@@ -247,7 +246,7 @@ const ContactPage = () => {
                       onChange={handleInputChange}
                       required
                       className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
-                      placeholder='Enter your email'
+                      placeholder={t('form.emailPlaceholder')}
                     />
                   </div>
                 </div>
@@ -258,7 +257,7 @@ const ContactPage = () => {
                       htmlFor='phone'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Phone Number
+                      {t('form.phone')}
                     </label>
                     <input
                       type='tel'
@@ -267,7 +266,7 @@ const ContactPage = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
-                      placeholder='Enter your phone number'
+                      placeholder={t('form.phonePlaceholder')}
                     />
                   </div>
                   <div>
@@ -275,7 +274,7 @@ const ContactPage = () => {
                       htmlFor='subject'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Service Inquiry *
+                      {t('form.subject')}
                     </label>
                     <div className='relative'>
                       <select
@@ -286,7 +285,7 @@ const ContactPage = () => {
                         required
                         className='w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none'
                       >
-                        <option value=''>Select a service</option>
+                        <option value=''>{t('form.subjectPlaceholder')}</option>
                         {services.map((service, index) => (
                           <option
                             key={index}
@@ -309,7 +308,7 @@ const ContactPage = () => {
                     htmlFor='message'
                     className='block text-sm font-medium text-gray-700 mb-2'
                   >
-                    Message *
+                    {t('form.message')}
                   </label>
                   <textarea
                     id='message'
@@ -319,7 +318,7 @@ const ContactPage = () => {
                     required
                     rows={6}
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none'
-                    placeholder='Tell us more about your inquiry...'
+                    placeholder={t('form.messagePlaceholder')}
                   />
                 </div>
 
@@ -331,12 +330,12 @@ const ContactPage = () => {
                   {isSubmitting ? (
                     <>
                       <div className='w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                      <span>Sending...</span>
+                      <span>{t('form.submitting')}</span>
                     </>
                   ) : (
                     <>
                       <Send className='h-5 w-5' />
-                      <span>Send Message</span>
+                      <span>{t('form.submit')}</span>
                     </>
                   )}
                 </button>
@@ -348,11 +347,10 @@ const ContactPage = () => {
           <div className='space-y-8'>
             <div>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Contact Information
+                {t('info.title')}
               </h2>
               <p className='text-gray-600 text-lg'>
-                Reach out to us through any of these channels. We're always here
-                to help.
+                {t('info.desc')}
               </p>
             </div>
 
@@ -384,12 +382,12 @@ const ContactPage = () => {
             {/* Map Placeholder */}
             <div className='bg-white rounded-xl p-6 shadow-lg'>
               <h3 className='text-xl font-semibold text-gray-900 mb-4'>
-                Our Location
+                {t('info.ourLocation')}
               </h3>
               <div className='bg-gray-200 rounded-lg h-64 flex items-center justify-center'>
                 <div className='text-center text-gray-500'>
                   <MapPin className='h-12 w-12 mx-auto mb-2' />
-                  <p>Interactive Map</p>
+                  <p>{t('info.interactiveMap')}</p>
                   <p className='text-sm'>123 Palm Street, Miami, FL 33101</p>
                 </div>
               </div>
@@ -401,36 +399,19 @@ const ContactPage = () => {
         <div className='mt-20'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Frequently Asked Questions
+              {t('faq.title')}
             </h2>
             <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              Find quick answers to common questions about our services and
-              properties.
+              {t('faq.desc')}
             </p>
           </div>
 
           <div className='grid md:grid-cols-2 gap-8'>
             {[
-              {
-                question: 'How quickly do you respond to inquiries?',
-                answer:
-                  'We typically respond to all inquiries within 24 hours during business days. For urgent matters, we have emergency contact numbers available.',
-              },
-              {
-                question: 'Do you offer virtual property tours?',
-                answer:
-                  'Yes! We provide virtual tours and video calls for all our properties, making it easy to explore from anywhere in the world.',
-              },
-              {
-                question: 'What areas do you specialize in?',
-                answer:
-                  'We focus on premium properties in Miami, South Florida, and select international markets. Our expertise covers luxury homes, investment properties, and commercial real estate.',
-              },
-              {
-                question: 'Can you help with financing options?',
-                answer:
-                  'Absolutely! We work with trusted financial partners and can guide you through various financing options, including traditional mortgages and investment loans.',
-              },
+              { question: t('faq.q1'), answer: t('faq.a1') },
+              { question: t('faq.q2'), answer: t('faq.a2') },
+              { question: t('faq.q3'), answer: t('faq.a3') },
+              { question: t('faq.q4'), answer: t('faq.a4') },
             ].map((faq, index) => (
               <div
                 key={index}
