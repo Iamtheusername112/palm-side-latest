@@ -5,7 +5,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Clock,
   Send,
   CheckCircle,
   ChevronDown,
@@ -125,46 +124,19 @@ const ContactPage = () => {
     }
   }
 
-  const contactInfo = [
-    {
-      icon: <Mail className='h-6 w-6' />,
-      title: 'Email Us',
-      details: ['info@palmside.com', 'support@palmside.com'],
-      color: 'from-blue-500 to-blue-600',
-    },
-    {
-      icon: <Phone className='h-6 w-6' />,
-      title: 'Call Us',
-      details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-      color: 'from-green-500 to-green-600',
-    },
-    {
-      icon: <MapPin className='h-6 w-6' />,
-      title: 'Visit Us',
-      details: ['123 Palm Street', 'Miami, FL 33101'],
-      color: 'from-purple-500 to-purple-600',
-    },
-    {
-      icon: <Clock className='h-6 w-6' />,
-      title: 'Business Hours',
-      details: ['Mon-Fri: 9:00 AM - 6:00 PM', 'Sat: 10:00 AM - 4:00 PM'],
-      color: 'from-orange-500 to-orange-600',
-    },
-  ]
-
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50'>
+    <div className='min-h-screen bg-gradient-to-br from-amber-50 to-green-50'>
       {/* Navbar */}
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-blue-600 to-green-600 py-20'>
+      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
             Get In Touch
           </h1>
-          <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto'>
+          <p className='text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto'>
             Ready to start your real estate journey? We're here to help you find
             your perfect property.
           </p>
@@ -176,7 +148,7 @@ const ContactPage = () => {
       </div>
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-        <div className='grid lg:grid-cols-2 gap-16'>
+        <div className='grid lg:grid-cols-2 gap-12 items-start'>
           {/* Contact Form */}
           <div className='space-y-8'>
             <div>
@@ -228,7 +200,7 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200'
                       placeholder='Enter your full name'
                     />
                   </div>
@@ -246,7 +218,7 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200'
                       placeholder='Enter your email'
                     />
                   </div>
@@ -266,7 +238,7 @@ const ContactPage = () => {
                       name='phone'
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200'
                       placeholder='Enter your phone number'
                     />
                   </div>
@@ -284,7 +256,7 @@ const ContactPage = () => {
                         value={formData.subject}
                         onChange={handleInputChange}
                         required
-                        className='w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none'
+                        className='w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none'
                       >
                         <option value=''>Select a service</option>
                         {services.map((service, index) => (
@@ -318,7 +290,7 @@ const ContactPage = () => {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 resize-none'
                     placeholder='Tell us more about your inquiry...'
                   />
                 </div>
@@ -326,7 +298,7 @@ const ContactPage = () => {
                 <button
                   type='submit'
                   disabled={isSubmitting}
-                  className='w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-green-700 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2'
+                  className='w-full bg-gradient-to-r from-amber-700 to-green-700 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:from-amber-800 hover:to-green-800 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2'
                 >
                   {isSubmitting ? (
                     <>
@@ -345,7 +317,7 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Information */}
-          <div className='space-y-8'>
+          <div className='space-y-6'>
             <div>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
                 Contact Information
@@ -356,92 +328,59 @@ const ContactPage = () => {
               </p>
             </div>
 
-            <div className='space-y-6'>
-              {contactInfo.map((info, index) => (
-                <div
-                  key={index}
-                  className='bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'
-                >
-                  <div
-                    className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-lg flex items-center justify-center text-white mb-4`}
-                  >
-                    {info.icon}
-                  </div>
-                  <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                    {info.title}
-                  </h3>
-                  <div className='space-y-1'>
-                    {info.details.map((detail, detailIndex) => (
-                      <p key={detailIndex} className='text-gray-600'>
-                        {detail}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Map Placeholder */}
-            <div className='bg-white rounded-xl p-6 shadow-lg'>
-              <h3 className='text-xl font-semibold text-gray-900 mb-4'>
-                Our Location
+            <div className='bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full'>
+              <h3 className='text-2xl font-bold text-gray-900 mb-6'>
+                Get In Touch
               </h3>
-              <div className='bg-gray-200 rounded-lg h-64 flex items-center justify-center'>
-                <div className='text-center text-gray-500'>
-                  <MapPin className='h-12 w-12 mx-auto mb-2' />
-                  <p>Interactive Map</p>
-                  <p className='text-sm'>123 Palm Street, Miami, FL 33101</p>
+
+              {/* Email */}
+              <div className='mb-6'>
+                <div className='flex items-center mb-3'>
+                  <div className='w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg flex items-center justify-center text-white mr-3'>
+                    <Mail className='h-5 w-5' />
+                  </div>
+                  <h4 className='text-lg font-semibold text-gray-900'>
+                    Email Us
+                  </h4>
+                </div>
+                <div className='ml-13 space-y-1'>
+                  <p className='text-gray-600'>info@palmside.com</p>
+                  <p className='text-gray-600'>support@palmside.com</p>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className='mb-6'>
+                <div className='flex items-center mb-3'>
+                  <div className='w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white mr-3'>
+                    <Phone className='h-5 w-5' />
+                  </div>
+                  <h4 className='text-lg font-semibold text-gray-900'>
+                    Call Us
+                  </h4>
+                </div>
+                <div className='ml-13 space-y-1'>
+                  <p className='text-gray-600'>+1 (555) 123-4567</p>
+                  <p className='text-gray-600'>+1 (555) 987-6543</p>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div className='mb-6'>
+                <div className='flex items-center mb-3'>
+                  <div className='w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white mr-3'>
+                    <MapPin className='h-5 w-5' />
+                  </div>
+                  <h4 className='text-lg font-semibold text-gray-900'>
+                    Visit Us
+                  </h4>
+                </div>
+                <div className='ml-13 space-y-1'>
+                  <p className='text-gray-600'>123 Palm Street</p>
+                  <p className='text-gray-600'>Miami, FL 33101</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className='mt-20'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Frequently Asked Questions
-            </h2>
-            <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              Find quick answers to common questions about our services and
-              properties.
-            </p>
-          </div>
-
-          <div className='grid md:grid-cols-2 gap-8'>
-            {[
-              {
-                question: 'How quickly do you respond to inquiries?',
-                answer:
-                  'We typically respond to all inquiries within 24 hours during business days. For urgent matters, we have emergency contact numbers available.',
-              },
-              {
-                question: 'Do you offer virtual property tours?',
-                answer:
-                  'Yes! We provide virtual tours and video calls for all our properties, making it easy to explore from anywhere in the world.',
-              },
-              {
-                question: 'What areas do you specialize in?',
-                answer:
-                  'We focus on premium properties in Miami, South Florida, and select international markets. Our expertise covers luxury homes, investment properties, and commercial real estate.',
-              },
-              {
-                question: 'Can you help with financing options?',
-                answer:
-                  'Absolutely! We work with trusted financial partners and can guide you through various financing options, including traditional mortgages and investment loans.',
-              },
-            ].map((faq, index) => (
-              <div
-                key={index}
-                className='bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300'
-              >
-                <h3 className='text-lg font-semibold text-gray-900 mb-3'>
-                  {faq.question}
-                </h3>
-                <p className='text-gray-600'>{faq.answer}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

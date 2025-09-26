@@ -82,17 +82,17 @@ const Hero = () => {
               <h1 className='text-5xl md:text-7xl font-bold mb-4 animate-fade-in'>
                 {slide.title}
               </h1>
-              <h2 className='text-2xl md:text-3xl font-semibold mb-4 text-blue-200'>
+              <h2 className='text-2xl md:text-3xl font-semibold mb-4 text-amber-100'>
                 {slide.subtitle}
               </h2>
               <p className='text-lg md:text-xl mb-8 text-gray-200'>
                 {slide.description}
               </p>
               <div className='space-x-4'>
-                <button className='bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105'>
+                <button className='bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
                   Explore Properties
                 </button>
-                <button className='border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
+                <button className='border-2 border-white text-white hover:bg-white hover:text-amber-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
                   Learn More
                 </button>
               </div>
