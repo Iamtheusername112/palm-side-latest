@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
@@ -85,12 +86,14 @@ const Navbar = () => {
           {/* Logo */}
           <div className='flex-shrink-0'>
             <Link href='/' className='flex items-center'>
-              <div className='w-10 h-10 bg-gradient-to-r from-yellow-500 to-green-600 rounded-lg flex items-center justify-center'>
-                <span className='text-white font-bold text-xl'>P</span>
-              </div>
-              <span className='ml-2 text-xl font-bold text-gray-900'>
-                Palmside
-              </span>
+              <Image
+                src='/logo/palmside-logo-transparent.png'
+                alt='Palmside logo'
+                width={80}
+                height={80}
+                priority
+                className='w-20 h-20 object-contain'
+              />
             </Link>
           </div>
 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Facebook,
   Instagram,
@@ -40,10 +41,14 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className='flex items-center mb-4'>
-              <div className='w-12 h-12 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center'>
-                <span className='text-white font-bold text-2xl'>P</span>
-              </div>
-              <span className='ml-3 text-2xl font-bold'>Palmside</span>
+              <Image
+                src='/logo/palmside-logo-transparent.png'
+                alt='Palmside logo'
+                width={96}
+                height={96}
+                className='w-24 h-24 object-contain'
+                priority
+              />
             </div>
             <p className='text-gray-300 mb-6'>
               Your trusted partner in real estate services. We specialize in
@@ -146,19 +151,52 @@ const Footer = () => {
             >
               <ul className='space-y-2'>
                 <li>
-                  <span className='text-gray-300'>Property Sales</span>
+                  <Link
+                    href='/services#property-search'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >
+                    Property Search
+                  </Link>
                 </li>
                 <li>
-                  <span className='text-gray-300'>Investment Consulting</span>
+                  <Link
+                    href='/services#investment-consulting'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >
+                    Investment Consulting
+                  </Link>
                 </li>
                 <li>
-                  <span className='text-gray-300'>Property Management</span>
+                  <Link
+                    href='/services#market-analysis'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >
+                    Market Analysis
+                  </Link>
                 </li>
                 <li>
-                  <span className='text-gray-300'>Market Analysis</span>
+                  <Link
+                    href='/services#luxury-concierge'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >
+                    Luxury Concierge
+                  </Link>
                 </li>
                 <li>
-                  <span className='text-gray-300'>Legal Support</span>
+                  <Link
+                    href='/services#construction-renovation'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >
+                    Construction & Renovation
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/services#marketing-presentation'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >
+                    Marketing & Presentation
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -248,7 +286,7 @@ Mallorca – Illes Balears</a>
         <div className='border-t border-gray-500 mt-8 pt-8'>
           <div className='flex flex-col md:flex-row justify-between items-center'>
             <p className='text-gray-400 text-sm'>
-              © {currentYear} Palmside Real Estate. All rights reserved.
+              © {currentYear} Palmside S.L. All rights reserved.
             </p>
             <div className='flex space-x-6 mt-4 md:mt-0'>
               <Link
