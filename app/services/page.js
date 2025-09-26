@@ -1,150 +1,90 @@
 'use client'
 
-import {
-  Building2,
-  TrendingUp,
-  Sparkles,
-  Briefcase,
-  Globe,
-  CheckCircle,
-  ArrowRight,
-  Users,
-  Award,
-  Clock,
-} from 'lucide-react'
+import { CheckCircle, Search, LineChart, Map, ConciergeBell, Hammer, Camera } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 const ServicesPage = () => {
   const services = [
     {
-      name: 'Property Management',
+      id: 'property-search',
+      name: 'Property Search',
       description:
-        'Comprehensive property management services for residential and commercial properties',
-      icon: Building2,
+        'Expert assistance in finding your dream property with personalized support for buying, selling, or renting.',
+      icon: Search,
       features: [
-        '24/7 tenant support',
-        'Rent collection and accounting',
-        'Property maintenance coordination',
-        'Legal compliance management',
-        'Financial reporting',
-        'Marketing and tenant screening',
+        'Custom property matching',
+        'Market analysis reports',
+        'Vacation property brokerage',
+        'Virtual property tours',
+        'Neighborhood insights',
       ],
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-yellow-500 to-green-600',
     },
     {
-      name: 'Real Estate Investment',
-      description:
-        'Strategic investment opportunities and portfolio management',
-      icon: TrendingUp,
+      id: 'investment-consulting',
+      name: 'Investment Consulting',
+      description: 'Strategic advice to maximize returns and minimize risks across your portfolio.',
+      icon: LineChart,
       features: [
-        'Market analysis and research',
-        'Investment property sourcing',
-        'Due diligence and evaluation',
-        'Portfolio diversification strategies',
-        'Risk assessment and mitigation',
-        'Investment performance tracking',
+        'ROI analysis',
+        'Market timing strategies',
+        'Portfolio diversification',
+        'Tax optimization',
       ],
-      color: 'from-green-500 to-green-600',
+      color: 'from-green-500 to-emerald-600',
     },
     {
-      name: 'Property Development',
-      description: 'Custom development solutions from concept to completion',
-      icon: Sparkles,
+      id: 'market-analysis',
+      name: 'Market Analysis',
+      description: 'In-depth research and trends to inform your real estate decisions.',
+      icon: Map,
       features: [
-        'Land acquisition and zoning',
-        'Architectural design coordination',
+        'Price trend analysis',
+        'Supply & demand insights',
+        'Neighborhood growth',
+        'Future projections',
+      ],
+      color: 'from-blue-500 to-cyan-600',
+    },
+    {
+      id: 'luxury-concierge',
+      name: 'Luxury Concierge',
+      description: 'Premium concierge services for high-end property owners and clients.',
+      icon: ConciergeBell,
+      features: ['Personal property tours'],
+      color: 'from-purple-500 to-fuchsia-600',
+    },
+    {
+      id: 'construction-renovation',
+      name: 'Construction & Renovation',
+      description: 'Complete support from planning to supervision and final delivery.',
+      icon: Hammer,
+      features: [
+        'Full-scale renovations or minor repairs',
         'Construction project management',
-        'Permit and regulatory compliance',
-        'Budget planning and cost control',
-        'Timeline management and delivery',
+        'Supervision of all construction phases',
+        'Quality control and follow-up',
       ],
-      color: 'from-purple-500 to-purple-600',
+      color: 'from-orange-500 to-amber-600',
     },
     {
-      name: 'Consulting Services',
-      description:
-        'Expert real estate consulting for strategic decision making',
-      icon: Briefcase,
+      id: 'marketing-presentation',
+      name: 'Marketing & Presentation',
+      description: 'Showcase your property with professional marketing and staging.',
+      icon: Camera,
       features: [
-        'Market feasibility studies',
-        'Property valuation and appraisal',
-        'Investment strategy development',
-        'Due diligence consulting',
-        'Legal and regulatory guidance',
-        'Exit strategy planning',
+        'Professional home photography',
+        'Contemporary home staging',
+        'Property marketing for sale or rental',
       ],
-      color: 'from-orange-500 to-orange-600',
-    },
-    {
-      name: 'Legal Services',
-      description: 'Real estate legal expertise and transaction support',
-      icon: Globe,
-      features: [
-        'Contract drafting and review',
-        'Transaction documentation',
-        'Title search and insurance',
-        'Closing coordination',
-        'Dispute resolution',
-        'Regulatory compliance',
-      ],
-      color: 'from-red-500 to-red-600',
+      color: 'from-rose-500 to-pink-600',
     },
   ]
 
-  const stats = [
-    {
-      number: '500+',
-      label: 'Properties Managed',
-      icon: Building2,
-    },
-    {
-      number: '$2.5B+',
-      label: 'Assets Under Management',
-      icon: TrendingUp,
-    },
-    {
-      number: '50+',
-      label: 'Successful Developments',
-      icon: Sparkles,
-    },
-    {
-      number: '98%',
-      label: 'Client Satisfaction',
-      icon: Award,
-    },
-  ]
+  
 
-  const processSteps = [
-    {
-      step: '01',
-      title: 'Consultation',
-      description:
-        'We start with a comprehensive consultation to understand your needs and objectives.',
-      icon: Users,
-    },
-    {
-      step: '02',
-      title: 'Strategy Development',
-      description:
-        'Our team develops a customized strategy tailored to your specific requirements.',
-      icon: Briefcase,
-    },
-    {
-      step: '03',
-      title: 'Implementation',
-      description:
-        'We execute the plan with precision, keeping you informed throughout the process.',
-      icon: Clock,
-    },
-    {
-      step: '04',
-      title: 'Ongoing Support',
-      description:
-        'Continuous monitoring and support to ensure optimal results and client satisfaction.',
-      icon: CheckCircle,
-    },
-  ]
+  
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-gray-50 to-green-50'>
@@ -158,8 +98,7 @@ const ServicesPage = () => {
             Our Services
           </h1>
           <p className='text-xl md:text-2xl text-yellow-100 max-w-3xl mx-auto'>
-            Comprehensive real estate solutions tailored to meet your unique
-            needs and investment goals.
+            We deliver comprehensive real estate services with tailored property solutions and personalized support, making life on Mallorca smooth and worry-free.
           </p>
         </div>
 
@@ -169,127 +108,82 @@ const ServicesPage = () => {
       </div>
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-        {/* Services Grid */}
-        <div className='grid lg:grid-cols-2 gap-12 mb-20'>
-          {services.map((service, index) => {
-            const IconComponent = service.icon
-            return (
-              <div
-                key={index}
-                className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group'
-              >
-                <div className='p-8'>
-                  <div
-                    className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <IconComponent className='h-8 w-8' />
-                  </div>
-                  <h3 className='text-2xl font-bold text-gray-900 mb-4'>
-                    {service.name}
-                  </h3>
-                  <p className='text-gray-600 text-lg mb-6'>
-                    {service.description}
-                  </p>
-                  <ul className='space-y-3 mb-8'>
-                    {service.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className='flex items-center text-gray-700'
-                      >
-                        <CheckCircle className='h-5 w-5 text-green-500 mr-3 flex-shrink-0' />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <button className='w-full bg-gradient-to-r from-yellow-500 to-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-yellow-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2'>
-                    <span>Learn More</span>
-                    <ArrowRight className='h-4 w-4' />
-                  </button>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+        <div className='grid grid-cols-1 lg:grid-cols-4 gap-10'>
+          {/* Sticky Quick Nav */}
+          <aside className='lg:col-span-1'>
+            <div className='lg:sticky lg:top-28 bg-white rounded-2xl shadow-md p-6'>
+              <h3 className='text-lg font-semibold text-gray-900 mb-4'>Quick Navigation</h3>
+              <ul className='space-y-2 text-gray-700'>
+                {services.map((s) => {
+                  const IconComponent = s.icon
+                  return (
+                    <li key={s.id}>
+                      <a href={`#${s.id}`} className='flex items-center gap-2 hover:text-yellow-700'>
+                        <span className='inline-flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-r from-yellow-500 to-green-600 text-white'>
+                          <IconComponent className='h-3.5 w-3.5' />
+                        </span>
+                        <span>{s.name}</span>
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </aside>
 
-        {/* Stats Section */}
-        <div className='bg-white rounded-2xl shadow-lg p-8 mb-20'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Our Track Record
-            </h2>
-            <p className='text-gray-600 text-lg'>
-              Numbers that speak to our commitment to excellence
-            </p>
-          </div>
-          <div className='grid grid-cols-2 lg:grid-cols-4 gap-8'>
-            {stats.map((stat, index) => {
-              const IconComponent = stat.icon
+          {/* Detailed Sections */}
+          <div className='lg:col-span-3 space-y-16'>
+            {services.map((service, index) => {
+              const IconComponent = service.icon
+              const isEven = index % 2 === 0
               return (
-                <div key={index} className='text-center'>
-                  <div className='w-16 h-16 bg-gradient-to-r from-yellow-500 to-green-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4'>
-                    <IconComponent className='h-8 w-8' />
+                <section id={service.id} key={service.id} className='scroll-mt-28'>
+                  <div className={`rounded-2xl overflow-hidden shadow-lg bg-white`}>
+                    <div className={`p-8 ${isEven ? '' : ''}`}>
+                      <div className='flex items-center mb-4'>
+                        <div className='w-12 h-12 bg-gradient-to-r from-yellow-500 to-green-600 rounded-xl flex items-center justify-center text-white mr-4'>
+                          <IconComponent className='h-6 w-6' />
+                        </div>
+                        <h3 className='text-2xl font-bold text-gray-900'>
+                          {service.name}
+                        </h3>
+                      </div>
+                      <p className='text-gray-600 text-lg mb-6'>
+                        {service.description}
+                      </p>
+                      <div className='grid sm:grid-cols-2 gap-3'>
+                        {service.features.map((feature, featureIndex) => (
+                          <div key={featureIndex} className='flex items-center text-gray-700'>
+                            <CheckCircle className='h-5 w-5 text-green-500 mr-3 flex-shrink-0' />
+                            {feature}
+                          </div>
+                        ))}
+                      </div>
+                      
+                    </div>
                   </div>
-                  <div className='text-3xl font-bold text-gray-900 mb-2'>
-                    {stat.number}
-                  </div>
-                  <div className='text-gray-600'>{stat.label}</div>
-                </div>
+                </section>
               )
             })}
           </div>
         </div>
 
-        {/* Process Section */}
-        <div className='mb-20'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Our Process
-            </h2>
-            <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              A systematic approach to delivering exceptional results for every
-              client
-            </p>
-          </div>
-          <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
-            {processSteps.map((step, index) => {
-              const IconComponent = step.icon
-              return (
-                <div key={index} className='text-center group'>
-                  <div className='relative mb-6'>
-                    <div className='w-20 h-20 bg-gradient-to-r from-yellow-500 to-green-500 rounded-full flex items-center justify-center text-white mx-auto group-hover:scale-110 transition-transform duration-300'>
-                      <IconComponent className='h-10 w-10' />
-                    </div>
-                    <div className='absolute -top-2 -right-2 w-8 h-8 bg-white border-2 border-yellow-500 rounded-full flex items-center justify-center'>
-                      <span className='text-yellow-600 font-bold text-sm'>
-                        {step.step}
-                      </span>
-                    </div>
-                  </div>
-                  <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                    {step.title}
-                  </h3>
-                  <p className='text-gray-600 leading-relaxed'>
-                    {step.description}
-                  </p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
+        
+
+        
 
         {/* CTA Section */}
         <div className='bg-gradient-to-r from-yellow-500 to-green-600 rounded-2xl p-12 text-center text-white'>
           <h2 className='text-3xl font-bold mb-4'>Ready to Get Started?</h2>
           <p className='text-xl mb-8 text-yellow-100 max-w-2xl mx-auto'>
-            Let's discuss how our services can help you achieve your real estate
-            goals.
+            Our team of experts is ready to provide the highest level of service and expertise. Have a different request? Feel free to contact us.
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <button className='bg-white text-yellow-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
               Schedule Consultation
             </button>
             <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-yellow-600 transition-all duration-300 transform hover:scale-105'>
-              Contact Us
+              Download Brochure
             </button>
           </div>
         </div>
