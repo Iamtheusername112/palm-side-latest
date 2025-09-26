@@ -104,17 +104,17 @@ const PropertiesPage = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-blue-50'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-green-50'>
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-blue-600 to-green-600 py-20'>
+      <div className='relative overflow-hidden bg-gradient-to-r from-yellow-500 to-green-600 py-20'>
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
             Discover Your Dream Property
           </h1>
-          <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto'>
+          <p className='text-xl md:text-2xl text-yellow-100 max-w-3xl mx-auto'>
             Explore our curated collection of premium properties across South
             Florida and beyond.
           </p>
@@ -136,7 +136,7 @@ const PropertiesPage = () => {
               <select
                 value={filters.type}
                 onChange={(e) => handleFilterChange('type', e.target.value)}
-                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               >
                 <option value='all'>All Types</option>
                 <option value='Luxury Homes'>Luxury Homes</option>
@@ -160,7 +160,7 @@ const PropertiesPage = () => {
               <select
                 value={filters.status}
                 onChange={(e) => handleFilterChange('status', e.target.value)}
-                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               >
                 <option value='all'>All Status</option>
                 <option value='For Sale'>For Sale</option>
@@ -182,7 +182,7 @@ const PropertiesPage = () => {
                 onChange={(e) =>
                   handleFilterChange('location', e.target.value || 'all')
                 }
-                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               />
             </div>
 
@@ -193,7 +193,7 @@ const PropertiesPage = () => {
               <select
                 value={filters.featured}
                 onChange={(e) => handleFilterChange('featured', e.target.value)}
-                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               >
                 <option value='all'>All Properties</option>
                 <option value='true'>Featured Only</option>
@@ -222,7 +222,7 @@ const PropertiesPage = () => {
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg transition-all duration-200 ${
                 viewMode === 'grid'
-                  ? 'bg-blue-100 text-blue-600'
+                  ? 'bg-yellow-100 text-yellow-600'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -237,7 +237,7 @@ const PropertiesPage = () => {
               onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg transition-all duration-200 ${
                 viewMode === 'list'
-                  ? 'bg-blue-100 text-blue-600'
+                  ? 'bg-yellow-100 text-yellow-600'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -270,7 +270,7 @@ const PropertiesPage = () => {
               <p className='text-gray-600 mb-4'>{error}</p>
               <button
                 onClick={() => window.location.reload()}
-                className='bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors'
+                className='bg-gradient-to-r from-yellow-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-all duration-300'
               >
                 Try Again
               </button>
@@ -431,7 +431,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
             {/* Actions */}
             <div className='flex items-center justify-between'>
               <div className='flex items-center space-x-3'>
-                <button className='flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200'>
+                <button className='flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-green-600 text-white px-6 py-3 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-colors duration-200'>
                   <Eye className='h-4 w-4' />
                   <span>View Details</span>
                 </button>
@@ -440,7 +440,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
                   <span>Share</span>
                 </button>
               </div>
-              <button className='text-blue-600 hover:text-blue-700 font-semibold flex items-center space-x-1 transition-colors duration-200'>
+              <button className='text-yellow-600 hover:text-yellow-700 font-semibold flex items-center space-x-1 transition-colors duration-200'>
                 <span>Learn More</span>
                 <ArrowRight className='h-4 w-4' />
               </button>
@@ -545,11 +545,11 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
 
         {/* Actions */}
         <div className='flex items-center justify-between'>
-          <button className='flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm'>
+          <button className='flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-green-600 text-white px-4 py-2 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-colors duration-200 text-sm'>
             <Eye className='h-4 w-4' />
             <span>View Details</span>
           </button>
-          <button className='text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center space-x-1 transition-colors duration-200'>
+          <button className='text-yellow-600 hover:text-yellow-700 font-semibold text-sm flex items-center space-x-1 transition-colors duration-200'>
             <span>Learn More</span>
             <ArrowRight className='h-4 w-4' />
           </button>
