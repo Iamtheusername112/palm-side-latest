@@ -21,52 +21,28 @@ import Footer from '../components/Footer'
 const AboutPage = () => {
   const teamMembers = [
     {
-      name: 'Sarah Johnson',
-      position: 'CEO & Founder',
-      image:
-        'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      bio: 'With over 15 years in real estate, Sarah leads our vision of transforming how people invest in property.',
-      specialties: [
-        'Strategic Planning',
-        'Investment Analysis',
-        'Team Leadership',
-      ],
+      name: 'Jeanette Bakacak',
+      position: 'Founder/CEO',
+      image: '/aboutusimages/jeanette_neu.jpeg',
+      email: 'ceo@palmside.es',
+      phone: '+34 600 000 000',
+      bio: "I'm a bridge builder between people, markets, and opportunities – with over 30 years of experience in two worlds: international wholesale and the real estate industry. I've built academies, served clients worldwide, coordinated construction projects, managed commercial properties, and managed homeowners’ associations and retirement communities. My drive? Optimizing processes, connecting people, and making every project a success – with heart, mind, and a keen eye for detail.",
     },
     {
-      name: 'Michael Chen',
-      position: 'Head of Property Management',
-      image:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      bio: 'Michael ensures every property under our management operates at peak efficiency and profitability.',
-      specialties: [
-        'Operations Management',
-        'Tenant Relations',
-        'Cost Optimization',
-      ],
+      name: 'Claudia Launer',
+      position: 'Consulting',
+      image: '/aboutusimages/Claudia_neu.jpeg',
+      email: 'consulting@palmside.es',
+      phone: '+49 1573 4903876',
+      bio: 'With over 20 years of experience in the international real estate business, Claudia is a proven expert in the global real estate market. After many successful years as a real estate agent in New York and New Jersey – focusing on business and private clients – she has specialized in the DD/A/D region, mainland Spain, and Mallorca since 2016. She works as a real estate consultant in these markets, supporting clients with their search, valuation, and brokerage.',
     },
     {
-      name: 'Emily Rodriguez',
-      position: 'Senior Investment Advisor',
-      image:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      bio: 'Emily helps clients build wealth through strategic real estate investments and portfolio diversification.',
-      specialties: [
-        'Market Analysis',
-        'Investment Strategy',
-        'Risk Assessment',
-      ],
-    },
-    {
-      name: 'David Thompson',
-      position: 'Legal Counsel',
-      image:
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      bio: 'David provides expert legal guidance ensuring all transactions are compliant and protected.',
-      specialties: [
-        'Real Estate Law',
-        'Contract Negotiation',
-        'Regulatory Compliance',
-      ],
+      name: 'Taner Bakacak',
+      position: 'Technical Director',
+      image: '/aboutusimages/taner_neu.jpeg',
+      email: 'technical@palmside.es',
+      phone: '+34 600 000 001',
+      bio: "I've stood for technical excellence in skilled trades for over 30 years – as a senior electrician on large-scale construction sites, in high-end private residences, and in complex industrial projects. My expertise spans modern building technology, photovoltaic systems, and professional facility management, with a focus on quality, efficiency, and practical solutions. At Palmside S.L., I combine precision, efficiency, and a problem-solving mindset to deliver top-tier technical results – reliably and at scale.",
     },
   ]
 
@@ -101,44 +77,7 @@ const AboutPage = () => {
     },
   ]
 
-  const milestones = [
-    {
-      year: '2010',
-      title: 'Company Founded',
-      description:
-        'Started with a vision to revolutionize real estate services in South Florida.',
-    },
-    {
-      year: '2015',
-      title: '100 Properties Managed',
-      description:
-        'Reached our first major milestone in property management services.',
-    },
-    {
-      year: '2018',
-      title: '$1B Assets Under Management',
-      description:
-        'Crossed the billion-dollar threshold in total assets under management.',
-    },
-    {
-      year: '2020',
-      title: 'Digital Transformation',
-      description:
-        'Launched comprehensive digital platforms for enhanced client experience.',
-    },
-    {
-      year: '2023',
-      title: 'International Expansion',
-      description:
-        'Extended services to international markets and luxury properties.',
-    },
-    {
-      year: '2024',
-      title: 'Industry Recognition',
-      description:
-        'Received multiple awards for excellence in real estate services.',
-    },
-  ]
+  
 
   const certifications = [
     'Certified Commercial Investment Member (CCIM)',
@@ -158,11 +97,10 @@ const AboutPage = () => {
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
-            About Palmside Real Estate
+            About Palmside Mallorca
           </h1>
           <p className='text-xl md:text-2xl text-yellow-100 max-w-3xl mx-auto'>
-            Your trusted partner in real estate excellence, delivering
-            exceptional results for over a decade.
+            Local expertise, multilingual guidance, and end-to-end support in Mallorca.
           </p>
         </div>
 
@@ -178,46 +116,36 @@ const AboutPage = () => {
             <h2 className='text-3xl font-bold text-gray-900 mb-6'>Our Story</h2>
             <div className='space-y-4 text-gray-600 leading-relaxed'>
               <p>
-                Founded in 2010, Palmside Real Estate began with a simple yet
-                powerful vision: to transform the real estate industry through
-                innovation, integrity, and exceptional service. What started as
-                a small team of passionate professionals has grown into one of
-                South Florida's most trusted real estate companies.
+                We're three real estate professionals united by our love for Mallorca and years of experience in the island's property market.
               </p>
               <p>
-                Our journey began when our founder, Sarah Johnson, recognized a
-                gap in the market for comprehensive, client-focused real estate
-                services. She envisioned a company that would not just
-                facilitate transactions, but would become a true partner in our
-                clients' success stories.
+                After years of helping people navigate the island's property market, we founded Palmside Mallorca to combine our professional expertise with our genuine love for this incredible place.
               </p>
               <p>
-                Today, we manage over 500 properties, oversee $2.5 billion in
-                assets, and have helped thousands of clients achieve their real
-                estate goals. Our success is built on the foundation of trust,
-                transparency, and an unwavering commitment to excellence.
+                From your first visit to the island, we're here to guide you through finding, buying, and truly enjoying your perfect home in Mallorca. We know the process can feel overwhelming when you're dealing with a foreign market, different legal systems, and language barriers – that's exactly why we're here.
+              </p>
+              <p>
+                Between the three of us, we speak English, German, Spanish, and French, so you'll never feel lost in translation during viewings, negotiations, or paperwork. Whether you're searching for your dream home, navigating the complexities of Spanish property law, managing an existing investment, or planning a renovation, we handle every detail from the legal maze to helping you find the best local property.
               </p>
             </div>
           </div>
           <div className='relative'>
-            <div className='bg-gradient-to-r from-yellow-500 to-green-500 rounded-2xl p-8 text-white h-full flex flex-col justify-center'>
-              <div className='grid grid-cols-2 gap-6'>
-                <div className='text-center'>
-                  <div className='text-3xl font-bold mb-2'>500+</div>
-                  <div className='text-yellow-100'>Properties Managed</div>
-                </div>
-                <div className='text-center'>
-                  <div className='text-3xl font-bold mb-2'>$2.5B+</div>
-                  <div className='text-yellow-100'>Assets Under Management</div>
-                </div>
-                <div className='text-center'>
-                  <div className='text-3xl font-bold mb-2'>15+</div>
-                  <div className='text-yellow-100'>Years of Experience</div>
-                </div>
-                <div className='text-center'>
-                  <div className='text-3xl font-bold mb-2'>98%</div>
-                  <div className='text-yellow-100'>Client Satisfaction</div>
-                </div>
+            <div className='bg-white rounded-2xl p-8 h-full flex flex-col justify-center shadow-lg'>
+              <h3 className='text-xl font-semibold text-gray-900 mb-4'>Languages & Support</h3>
+              <div className='grid grid-cols-2 gap-4 text-gray-700'>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>English</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>German</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>Spanish</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>French</div>
+              </div>
+              <h3 className='text-xl font-semibold text-gray-900 mt-8 mb-4'>How We Help</h3>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700'>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Home search & viewings</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Negotiations & offers</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Legal & notary coordination</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Due diligence & valuation</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Renovation planning</div>
+                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Property management</div>
               </div>
             </div>
           </div>
@@ -292,13 +220,13 @@ const AboutPage = () => {
         <div className='mb-20'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Meet Our Leadership Team
+              Meet the Team
             </h2>
             <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              Experienced professionals dedicated to your success
+              Local experts in Mallorca guiding you every step of the way
             </p>
           </div>
-          <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
+          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
             {teamMembers.map((member, index) => (
               <div
                 key={index}
@@ -322,91 +250,48 @@ const AboutPage = () => {
                   <p className='text-gray-600 text-sm mb-4 leading-relaxed'>
                     {member.bio}
                   </p>
-                  <div className='space-y-1'>
-                    {member.specialties.map((specialty, specIndex) => (
-                      <div
-                        key={specIndex}
-                        className='flex items-center text-xs text-gray-500'
-                      >
-                        <CheckCircle className='h-3 w-3 text-green-500 mr-2' />
-                        {specialty}
-                      </div>
-                    ))}
-                  </div>
+                  {(member.email || member.phone) && (
+                    <div className='flex flex-col gap-2 mb-4 text-sm'>
+                      {member.email && (
+                        <div className='flex items-center text-gray-600'>
+                          <Mail className='h-4 w-4 mr-2 text-yellow-600' />
+                          <a href={`mailto:${member.email}`} className='hover:text-yellow-700'>
+                            {member.email}
+                          </a>
+                        </div>
+                      )}
+                      {member.phone && (
+                        <div className='flex items-center text-gray-600'>
+                          <Phone className='h-4 w-4 mr-2 text-green-600' />
+                          <a href={`tel:${member.phone}`} className='hover:text-yellow-700'>
+                            {member.phone}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {member.specialties && member.specialties.length > 0 && (
+                    <div className='space-y-1'>
+                      {member.specialties.map((specialty, specIndex) => (
+                        <div
+                          key={specIndex}
+                          className='flex items-center text-xs text-gray-500'
+                        >
+                          <CheckCircle className='h-3 w-3 text-green-500 mr-2' />
+                          {specialty}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Timeline Section */}
-        <div className='mb-20'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Our Journey
-            </h2>
-            <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              Key milestones that shaped our growth and success
-            </p>
-          </div>
-          <div className='relative'>
-            <div className='absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-yellow-500 to-green-500'></div>
-            <div className='space-y-12'>
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className={`flex items-center ${
-                    index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-                  }`}
-                >
-                  <div
-                    className={`w-1/2 ${
-                      index % 2 === 0 ? 'pr-8 text-right' : 'pl-8'
-                    }`}
-                  >
-                    <div className='bg-white rounded-xl shadow-lg p-6'>
-                      <div className='text-2xl font-bold text-yellow-600 mb-2'>
-                        {milestone.year}
-                      </div>
-                      <h3 className='text-xl font-semibold text-gray-900 mb-2'>
-                        {milestone.title}
-                      </h3>
-                      <p className='text-gray-600'>{milestone.description}</p>
-                    </div>
-                  </div>
-                  <div className='w-8 h-8 bg-gradient-to-r from-yellow-500 to-green-500 rounded-full border-4 border-white shadow-lg z-10'></div>
-                  <div className='w-1/2'></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        
 
-        {/* Certifications Section */}
-        <div className='mb-20'>
-          <div className='bg-white rounded-2xl shadow-lg p-8'>
-            <div className='text-center mb-8'>
-              <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Certifications & Credentials
-              </h2>
-              <p className='text-gray-600 text-lg'>
-                Professional certifications that demonstrate our expertise and
-                commitment to excellence
-              </p>
-            </div>
-            <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
-              {certifications.map((cert, index) => (
-                <div
-                  key={index}
-                  className='flex items-center p-4 bg-gray-50 rounded-lg'
-                >
-                  <Award className='h-5 w-5 text-yellow-600 mr-3 flex-shrink-0' />
-                  <span className='text-gray-700 font-medium'>{cert}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        
 
         {/* CTA Section */}
         <div className='bg-gradient-to-r from-yellow-500 to-green-600 rounded-2xl p-12 text-center text-white'>

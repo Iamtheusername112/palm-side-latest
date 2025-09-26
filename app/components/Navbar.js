@@ -54,7 +54,9 @@ const Navbar = () => {
   const handleMouseLeave = (event) => {
     // Only hide underline if we're not moving to another link
     const relatedTarget = event.relatedTarget
-    if (!relatedTarget || !relatedTarget.closest('a')) {
+    const movedToLink =
+      relatedTarget && typeof relatedTarget.closest === 'function' && relatedTarget.closest('a')
+    if (!movedToLink) {
       setHoveredLink(null)
 
       // Return to active link position
