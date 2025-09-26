@@ -185,11 +185,11 @@ const Hero = () => {
               <p className='text-lg md:text-xl mb-8 text-gray-200'>
                 {slide.description}
               </p>
-              <div className='flex flex-col items-center gap-3 sm:flex-row sm:gap-4'>
-                <button className='bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
+              <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center'>
+                <button className='bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'>
                   Explore Properties
                 </button>
-                <button className='border-2 border-white text-white hover:bg-white hover:text-amber-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105'>
+                <button className='border-2 border-white text-white hover:bg-white hover:text-amber-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'>
                   Learn More
                 </button>
               </div>
