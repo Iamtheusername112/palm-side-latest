@@ -10,7 +10,7 @@ const Hero = () => {
   const slides = [
     {
       type: 'video',
-      src: '/video/videopalm3.mp4',
+      src: '/video/videopalm3-short.mp4',
       alt: 'Palmside lifestyle video',
       title: 'Start your journey',
       subtitle: 'Begin your adventure in style',

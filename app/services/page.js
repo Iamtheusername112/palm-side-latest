@@ -91,7 +91,7 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
+      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20 pt-32'>
         <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10'></div>
         <video
           className='absolute inset-0 w-full h-full object-cover'
