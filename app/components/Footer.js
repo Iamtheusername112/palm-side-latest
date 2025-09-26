@@ -6,10 +6,21 @@ import {
   Facebook,
   Instagram,
   Linkedin,
-  Twitter,
   ChevronDown,
   ChevronUp,
 } from 'lucide-react'
+
+const TikTokIcon = ({ className = '' }) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 24 24'
+    fill='currentColor'
+    className={className}
+    aria-hidden='true'
+  >
+    <path d='M12.03 2c.47.44.98.83 1.53 1.17 1.14.71 2.48 1.13 3.9 1.18v3.08c-1.85-.05-3.6-.6-5.1-1.5v7.65c0 3.54-2.86 6.41-6.41 6.41S-.26 17.12-.26 13.58C-.26 10.04 2.6 7.18 6.15 7.18c.35 0 .69.03 1.02.09v3.31c-.33-.08-.68-.12-1.02-.12-1.7 0-3.07 1.38-3.07 3.07s1.38 3.07 3.07 3.07 3.07-1.38 3.07-3.07V2h1.81z'/>
+  </svg>
+)
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -169,9 +180,9 @@ const Footer = () => {
             </button>
 
             {/* Desktop Heading */}
-            <h3 className='text-lg font-semibold mb-4 hidden md:block'>
+            <Link href='/contact' className='text-lg font-semibold mb-4 hidden md:block hover:text-amber-400 transition-colors duration-300'>
               Contact Us
-            </h3>
+            </Link>
             <div
               className={`md:block ${
                 openAccordions.contact ? 'block' : 'hidden'
@@ -179,16 +190,24 @@ const Footer = () => {
             >
               <div className='space-y-3'>
                 <div>
-                  <p className='text-gray-300'>123 Palm Street</p>
-                  <p className='text-gray-300'>Miami, FL 33101</p>
+                  <a
+                    href='https://www.google.com/maps/search/?api=1&query=Carrer%20de%20Ametler%203%20%E2%80%93%201B%2C%20ES-07609%20Llucmajor%20Mallorca%20%E2%80%93%20Illes%20Balears'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
+                  >Carrer de Ametler 3 – 1B,
+ES-07609 Llucmajor
+Mallorca – Illes Balears</a>
+                   
                 </div>
                 <div>
-                  <p className='text-gray-300'>Phone: +1 (555) 123-4567</p>
-                  <p className='text-gray-300'>Email: info@palmside.com</p>
+                  <p className='text-gray-300'>Phone: +49 176 534 85 055</p>
+                  <p className='text-gray-300'>Phone: +34 609 06 93 67</p>
+                  <p className='text-gray-300'>Email: <a href='mailto:info@palmside.es' className='hover:text-amber-400 transition-colors duration-300'>info@palmside.es</a></p>
                 </div>
                 <div className='flex space-x-4 mt-4'>
                   <a
-                    href='https://facebook.com'
+                    href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fpalmside.es&h=AT0L6ugT3TGX2KEzBI_r1Q81ZQhJQBOqw9RNIRvcma46p6ThMezzYcCLUFIZBLjecL3ADuza_tDxo03_aHdJtjfNlRd9jUuYzQidaVRyhxGqVTB7olgT8ZO5N2G1oTCT&s=1'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
@@ -196,7 +215,7 @@ const Footer = () => {
                     <Facebook className='h-4 w-4' />
                   </a>
                   <a
-                    href='https://instagram.com'
+                    href='https://www.instagram.com/palmside.es'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
@@ -204,12 +223,20 @@ const Footer = () => {
                     <Instagram className='h-4 w-4' />
                   </a>
                   <a
-                    href='https://linkedin.com'
+                    href='https://www.linkedin.com/in/jeanette-bakacak-50b965376/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
                   >
                     <Linkedin className='h-4 w-4' />
+                  </a>
+                  <a
+                    href='https://www.tiktok.com/@palmside.sl'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
+                  >
+                    <TikTokIcon className='h-4 w-4' />
                   </a>
                 </div>
               </div>
