@@ -86,13 +86,21 @@ const PropertiesPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-yellow-500 to-green-600 py-20'>
-        <div className='absolute inset-0 bg-black/20'></div>
-        <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
+        <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10'></div>
+        <video
+          className='absolute inset-0 w-full h-full object-cover'
+          src='/video/videopalm3.mp4'
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
             Discover Your Dream Property
           </h1>
-          <p className='text-xl md:text-2xl text-yellow-100 max-w-3xl mx-auto'>
+          <p className='text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto'>
             Explore our curated collection of premium properties across South
             Florida and beyond.
           </p>
@@ -323,7 +331,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
                 className='w-full h-full object-cover'
               />
               {property.featured && (
-                <div className='absolute top-4 left-4 bg-gradient-to-r from-blue-600 to-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold'>
+                <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold'>
                   Featured
                 </div>
               )}
@@ -409,7 +417,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
             {/* Actions */}
             <div className='flex items-center justify-between'>
               <div className='flex items-center space-x-3'>
-                <button className='flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-green-600 text-white px-6 py-3 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-colors duration-200'>
+                <button className='flex items-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200'>
                   <Eye className='h-4 w-4' />
                   <span>View Details</span>
                 </button>
@@ -440,7 +448,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
           className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
         />
         {property.featured && (
-          <div className='absolute top-4 left-4 bg-gradient-to-r from-blue-600 to-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold'>
+          <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold'>
             Featured
           </div>
         )}
@@ -523,7 +531,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
 
         {/* Actions */}
         <div className='flex items-center justify-between'>
-          <button className='flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-green-600 text-white px-4 py-2 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-colors duration-200 text-sm'>
+          <button className='flex items-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-4 py-2 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 text-sm'>
             <Eye className='h-4 w-4' />
             <span>View Details</span>
           </button>

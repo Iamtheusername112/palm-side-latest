@@ -131,8 +131,16 @@ const ContactPage = () => {
 
       {/* Hero Section */}
       <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
-        <div className='absolute inset-0 bg-black/20'></div>
-        <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+        <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10'></div>
+        <video
+          className='absolute inset-0 w-full h-full object-cover'
+          src='/video/videopalm3.mp4'
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
             Get In Touch
           </h1>
@@ -336,7 +344,7 @@ const ContactPage = () => {
               {/* Email */}
               <div className='mb-6'>
                 <div className='flex items-center mb-3'>
-                  <div className='w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg flex items-center justify-center text-white mr-3'>
+                  <div className='w-10 h-10 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center text-white mr-3'>
                     <Mail className='h-5 w-5' />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
@@ -352,7 +360,7 @@ const ContactPage = () => {
               {/* Phone */}
               <div className='mb-6'>
                 <div className='flex items-center mb-3'>
-                  <div className='w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white mr-3'>
+                  <div className='w-10 h-10 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center text-white mr-3'>
                     <Phone className='h-5 w-5' />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
@@ -368,7 +376,7 @@ const ContactPage = () => {
               {/* Address */}
               <div className='mb-6'>
                 <div className='flex items-center mb-3'>
-                  <div className='w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white mr-3'>
+                  <div className='w-10 h-10 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center text-white mr-3'>
                     <MapPin className='h-5 w-5' />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>

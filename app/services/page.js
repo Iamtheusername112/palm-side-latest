@@ -91,13 +91,21 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-yellow-500 to-green-600 py-20'>
-        <div className='absolute inset-0 bg-black/20'></div>
-        <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
+        <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10'></div>
+        <video
+          className='absolute inset-0 w-full h-full object-cover'
+          src='/video/videopalm3.mp4'
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
             Our Services
           </h1>
-          <p className='text-xl md:text-2xl text-yellow-100 max-w-3xl mx-auto'>
+          <p className='text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto'>
             We deliver comprehensive real estate services with tailored property solutions and personalized support, making life on Mallorca smooth and worry-free.
           </p>
         </div>
@@ -119,7 +127,7 @@ const ServicesPage = () => {
                   return (
                     <li key={s.id}>
                       <a href={`#${s.id}`} className='flex items-center gap-2 hover:text-yellow-700'>
-                        <span className='inline-flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-r from-yellow-500 to-green-600 text-white'>
+                        <span className='inline-flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-r from-amber-700 to-green-700 text-white'>
                           <IconComponent className='h-3.5 w-3.5' />
                         </span>
                         <span>{s.name}</span>
@@ -141,7 +149,7 @@ const ServicesPage = () => {
                   <div className={`rounded-2xl overflow-hidden shadow-lg bg-white`}>
                     <div className={`p-8 ${isEven ? '' : ''}`}>
                       <div className='flex items-center mb-4'>
-                        <div className='w-12 h-12 bg-gradient-to-r from-yellow-500 to-green-600 rounded-xl flex items-center justify-center text-white mr-4'>
+                        <div className='w-12 h-12 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mr-4'>
                           <IconComponent className='h-6 w-6' />
                         </div>
                         <h3 className='text-2xl font-bold text-gray-900'>
@@ -173,16 +181,16 @@ const ServicesPage = () => {
         
 
         {/* CTA Section */}
-        <div className='bg-gradient-to-r from-yellow-500 to-green-600 rounded-2xl p-12 text-center text-white'>
+        <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white'>
           <h2 className='text-3xl font-bold mb-4'>Ready to Get Started?</h2>
           <p className='text-xl mb-8 text-yellow-100 max-w-2xl mx-auto'>
             Our team of experts is ready to provide the highest level of service and expertise. Have a different request? Feel free to contact us.
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-white text-yellow-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
+            <button className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
               Schedule Consultation
             </button>
-            <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-yellow-600 transition-all duration-300 transform hover:scale-105'>
+            <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-amber-700 transition-all duration-300 transform hover:scale-105'>
               Download Brochure
             </button>
           </div>

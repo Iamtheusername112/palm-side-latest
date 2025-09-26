@@ -93,13 +93,21 @@ const AboutPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-yellow-500 to-green-600 py-20'>
-        <div className='absolute inset-0 bg-black/20'></div>
-        <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
+        <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10'></div>
+        <video
+          className='absolute inset-0 w-full h-full object-cover'
+          src='/video/videopalm3.mp4'
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
             About Palmside Mallorca
           </h1>
-          <p className='text-xl md:text-2xl text-yellow-100 max-w-3xl mx-auto'>
+          <p className='text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto'>
             Local expertise, multilingual guidance, and end-to-end support in Mallorca.
           </p>
         </div>
@@ -154,7 +162,7 @@ const AboutPage = () => {
         {/* Mission & Vision */}
         <div className='grid md:grid-cols-2 gap-8 mb-20'>
           <div className='bg-white rounded-2xl shadow-lg p-8'>
-            <div className='w-16 h-16 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center text-white mb-6'>
+            <div className='w-16 h-16 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mb-6'>
               <Target className='h-8 w-8' />
             </div>
             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
@@ -168,7 +176,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className='bg-white rounded-2xl shadow-lg p-8'>
-            <div className='w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white mb-6'>
+            <div className='w-16 h-16 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mb-6'>
               <Globe className='h-8 w-8' />
             </div>
             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
@@ -200,7 +208,7 @@ const AboutPage = () => {
               return (
                 <div key={index} className='text-center group'>
                   <div
-                    className={`w-20 h-20 bg-gradient-to-r ${value.color} rounded-xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-20 h-20 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
                   >
                     <IconComponent className='h-10 w-10' />
                   </div>
@@ -294,17 +302,17 @@ const AboutPage = () => {
         
 
         {/* CTA Section */}
-        <div className='bg-gradient-to-r from-yellow-500 to-green-600 rounded-2xl p-12 text-center text-white'>
+        <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white'>
           <h2 className='text-3xl font-bold mb-4'>Ready to Work With Us?</h2>
           <p className='text-xl mb-8 text-yellow-100 max-w-2xl mx-auto'>
             Join hundreds of satisfied clients who trust us with their real
             estate investments.
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-white text-yellow-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
+            <button className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
               Get Started Today
             </button>
-            <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-yellow-600 transition-all duration-300 transform hover:scale-105'>
+            <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-amber-700 transition-all duration-300 transform hover:scale-105'>
               Schedule Consultation
             </button>
           </div>

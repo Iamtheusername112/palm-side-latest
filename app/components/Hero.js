@@ -9,6 +9,15 @@ const Hero = () => {
 
   const slides = [
     {
+      type: 'video',
+      src: '/video/videopalm3.mp4',
+      alt: 'Palmside lifestyle video',
+      title: 'Start your journey',
+      subtitle: 'Begin your adventure in style',
+      description:
+        'Your journey begins with comfort and elegance from the very first step.',
+    },
+    {
       type: 'image',
       src: '/heroimages/flugzeugfluegel-hero1.jpeg',
       alt: 'Start your journey',
@@ -163,15 +172,26 @@ const Hero = () => {
             index === currentSlide ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <div className='absolute inset-0 bg-black/40 z-10' />
-          <div
-            className='w-full h-full bg-cover bg-center bg-no-repeat'
-            style={{
-              backgroundImage: `url(${slide.src})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
+          <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10' />
+          {slide.type === 'video' ? (
+            <video
+              className='w-full h-full object-cover'
+              src={slide.src}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <div
+              className='w-full h-full bg-cover bg-center bg-no-repeat'
+              style={{
+                backgroundImage: `url(${slide.src})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            />
+          )}
 
           {/* Content Overlay */}
           <div className='absolute inset-0 z-20 flex items-center justify-center'>
