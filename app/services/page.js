@@ -161,7 +161,9 @@ const ServicesPage = () => {
           <aside className='lg:col-span-1'>
             <div className='lg:sticky lg:top-28 bg-white rounded-2xl shadow-md p-6'>
               <h3 className='text-lg font-semibold text-gray-900 mb-4'>
-                Quick Navigation
+                <Translate staticKey='services.quickNavigation'>
+                  Quick Navigation
+                </Translate>
               </h3>
               <ul className='space-y-2 text-gray-700'>
                 {services.map((s) => {
@@ -175,7 +177,9 @@ const ServicesPage = () => {
                         <span className='inline-flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-r from-amber-700 to-green-700 text-white'>
                           <IconComponent className='h-3.5 w-3.5' />
                         </span>
-                        <span>{s.name}</span>
+                        <span>
+                          <Translate staticKey={s.nameKey}>{s.name}</Translate>
+                        </span>
                       </a>
                     </li>
                   )

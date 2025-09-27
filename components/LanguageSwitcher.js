@@ -52,9 +52,9 @@ export default function LanguageSwitcher({
 
   // Size classes
   const sizeClasses = {
-    sm: 'text-sm px-2 py-1',
-    md: 'text-base px-3 py-2',
-    lg: 'text-lg px-4 py-3',
+    sm: 'text-sm px-3 py-1.5',
+    md: 'text-base px-4 py-2',
+    lg: 'text-lg px-6 py-3',
   }
 
   if (variant === 'buttons') {
@@ -69,11 +69,11 @@ export default function LanguageSwitcher({
               key={lang}
               onClick={() => handleLanguageChange(lang)}
               className={`
-                flex items-center gap-2 px-3 py-2 rounded-md transition-colors
+                flex items-center gap-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105
                 ${
                   isActive
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    ? 'bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white shadow-lg'
+                    : 'bg-white border border-gray-300 hover:border-amber-500 text-gray-700 hover:text-amber-700'
                 }
                 ${sizeClasses[size]}
               `}
@@ -93,8 +93,9 @@ export default function LanguageSwitcher({
         value={currentLanguage}
         onChange={(e) => handleLanguageChange(e.target.value)}
         className={`
-          appearance-none bg-white border border-gray-300 rounded-md px-3 py-2 pr-8
-          focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+          appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 font-semibold
+          focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          hover:border-amber-500 hover:text-amber-700 transition-all duration-300
           ${sizeClasses[size]} ${className}
         `}
         {...props}
@@ -117,8 +118,9 @@ export default function LanguageSwitcher({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center gap-2 bg-white border border-gray-300 rounded-md px-3 py-2
-          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+          flex items-center gap-2 bg-white border border-gray-300 rounded-lg font-semibold
+          hover:border-amber-500 hover:text-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          transition-all duration-300
           ${sizeClasses[size]}
         `}
       >
@@ -142,7 +144,7 @@ export default function LanguageSwitcher({
       </button>
 
       {isOpen && (
-        <div className='absolute right-0 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-50'>
+        <div className='absolute right-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 overflow-hidden'>
           {availableLanguages.map((lang) => {
             const config = languageConfig[lang]
             const isActive = lang === currentLanguage
@@ -152,11 +154,11 @@ export default function LanguageSwitcher({
                 key={lang}
                 onClick={() => handleLanguageChange(lang)}
                 className={`
-                  w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-gray-50
+                  w-full flex items-center gap-2 px-4 py-2 text-left transition-all duration-200
                   ${
                     isActive
-                      ? 'bg-emerald-50 text-emerald-700'
-                      : 'text-gray-700'
+                      ? 'bg-gradient-to-r from-amber-700 to-green-700 text-white'
+                      : 'text-gray-700 hover:bg-amber-50 hover:text-amber-700'
                   }
                   ${sizeClasses[size]}
                 `}
