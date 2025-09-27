@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import Link from 'next/link'
 import PageBanner from '../components/PageBanner'
 
 const AboutPage = () => {
@@ -290,12 +291,9 @@ const AboutPage = () => {
             estate investments.
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
-              Get Started Today
-            </button>
-            <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-amber-700 transition-all duration-300 transform hover:scale-105'>
+            <Link href='/contact' className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
               Schedule Consultation
-            </button>
+            </Link>
           </div>
         </div>
       </div>
