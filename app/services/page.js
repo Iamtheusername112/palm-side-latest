@@ -162,7 +162,7 @@ const ServicesPage = () => {
         
 
         {/* CTA Section */}
-        <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white'>
+        <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white mt-20'>
           <h2 className='text-3xl font-bold mb-4'>Ready to Get Started?</h2>
           <p className='text-xl mb-8 text-yellow-100 max-w-2xl mx-auto'>
             Our team of experts is ready to provide the highest level of service and expertise. Have a different request? Feel free to contact us.
