@@ -13,6 +13,7 @@ import { toast } from 'sonner'
 import { useContactContext } from '../contexts/ContactContext'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import PageBanner from '../components/PageBanner'
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -129,31 +130,10 @@ const ContactPage = () => {
       {/* Navbar */}
       <Navbar />
 
-      {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20'>
-        <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10'></div>
-        <video
-          className='absolute inset-0 w-full h-full object-cover'
-          src='/video/videopalm3.mp4'
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-        <div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
-          <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in'>
-            Get In Touch
-          </h1>
-          <p className='text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto'>
-            Ready to start your real estate journey? We're here to help you find
-            your perfect property.
-          </p>
-        </div>
-
-        {/* Decorative Elements */}
-        <div className='absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full -translate-x-36 -translate-y-36'></div>
-        <div className='absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-48 translate-y-48'></div>
-      </div>
+      <PageBanner
+        title='Get In Touch'
+        subtitle="Ready to start your real estate journey? We're here to help you find your perfect property."
+      />
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
         <div className='grid lg:grid-cols-2 gap-12 items-start'>
