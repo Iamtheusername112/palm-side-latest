@@ -7,14 +7,14 @@ import {
   Bath,
   Square,
   Star,
-  Heart,
   Eye,
-  Share2,
-  ArrowRight,
   Loader2,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import PropertyDetailsModal from '../components/PropertyDetailsModal'
 
 const PropertiesPage = () => {
   const [viewMode, setViewMode] = useState('grid')
@@ -22,6 +22,8 @@ const PropertiesPage = () => {
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [selectedProperty, setSelectedProperty] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [filters, setFilters] = useState({
     type: 'all',
     status: 'all',
@@ -79,6 +81,29 @@ const PropertiesPage = () => {
       ...prev,
       [filterType]: value,
     }))
+  }
+
+  const handleViewDetails = (property) => {
+    setSelectedProperty(property)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedProperty(null)
+  }
+
+  const handleToggleFavorite = async (propertyId) => {
+    const newFavorites = new Set(favorites)
+    if (newFavorites.has(propertyId)) {
+      newFavorites.delete(propertyId)
+    } else {
+      newFavorites.add(propertyId)
+    }
+    setFavorites(newFavorites)
+
+    // Here you could also make an API call to persist the favorite
+    // await fetch(`/api/properties/${propertyId}/favorite`, { method: 'POST' })
   }
 
   return (
@@ -277,7 +302,7 @@ const PropertiesPage = () => {
             </div>
           </div>
         ) : viewMode === 'grid' ? (
-          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
+          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch'>
             {properties.map((property) => (
               <PropertyCard
                 key={property.id}
@@ -285,6 +310,7 @@ const PropertiesPage = () => {
                 viewMode='grid'
                 isFavorite={favorites.has(property.id)}
                 onToggleFavorite={() => toggleFavorite(property.id)}
+                onViewDetails={() => handleViewDetails(property)}
               />
             ))}
           </div>
@@ -297,6 +323,7 @@ const PropertiesPage = () => {
                 viewMode='list'
                 isFavorite={favorites.has(property.id)}
                 onToggleFavorite={() => toggleFavorite(property.id)}
+                onViewDetails={() => handleViewDetails(property)}
               />
             ))}
           </div>
@@ -304,11 +331,25 @@ const PropertiesPage = () => {
       </div>
 
       <Footer />
+
+      {/* Property Details Modal */}
+      <PropertyDetailsModal
+        property={selectedProperty}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onToggleFavorite={handleToggleFavorite}
+      />
     </div>
   )
 }
 
-const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
+const PropertyCard = ({
+  property,
+  viewMode,
+  isFavorite,
+  onToggleFavorite,
+  onViewDetails,
+}) => {
   const formatPrice = (price) => {
     if (price >= 1000000) {
       return `$${(price / 1000000).toFixed(1)}M`
@@ -318,69 +359,154 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
     return `$${price.toLocaleString()}`
   }
 
+  // Get all available images - prioritize admin uploaded images
+  const allImages =
+    property?.images &&
+    Array.isArray(property.images) &&
+    property.images.length > 0
+      ? property.images // Use all admin uploaded images
+      : [property?.image].filter(Boolean) // Fallback to main image only
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
   if (viewMode === 'list') {
     return (
-      <div className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden'>
-        <div className='flex flex-col lg:flex-row'>
-          {/* Image */}
-          <div className='lg:w-1/3 h-64 lg:h-auto'>
-            <div className='relative h-full'>
+      <div className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full'>
+        <div className='flex flex-col lg:flex-row h-full'>
+          {/* Image Gallery - Show Multiple Images */}
+          <div className='lg:w-1/3 h-64 lg:h-80 flex-shrink-0'>
+            <div className='relative h-full group'>
               <img
-                src={property.image}
+                src={allImages[currentImageIndex]}
                 alt={property.title}
                 className='w-full h-full object-cover'
               />
+
+              {/* Image Navigation */}
+              {allImages.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setCurrentImageIndex((prev) =>
+                        prev === 0 ? allImages.length - 1 : prev - 1
+                      )
+                    }}
+                    className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 z-10'
+                  >
+                    <ChevronLeft className='h-4 w-4' />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setCurrentImageIndex((prev) =>
+                        prev === allImages.length - 1 ? 0 : prev + 1
+                      )
+                    }}
+                    className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 z-10'
+                  >
+                    <ChevronRight className='h-4 w-4' />
+                  </button>
+                </>
+              )}
+
+              {/* Image Counter */}
+              {allImages.length > 1 && (
+                <div className='absolute top-2 right-2 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium z-10'>
+                  {currentImageIndex + 1} / {allImages.length}
+                </div>
+              )}
+
               {property.featured && (
-                <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold'>
+                <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
                   Featured
                 </div>
               )}
               <div
                 className={`absolute ${
                   property.featured ? 'top-16' : 'top-4'
-                } left-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold`}
+                } left-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold z-10`}
               >
                 {property.status}
               </div>
-              <button
-                onClick={onToggleFavorite}
-                className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-200 ${
-                  isFavorite
-                    ? 'bg-red-500 text-white'
-                    : 'bg-white/90 text-gray-600 hover:bg-white'
-                }`}
-              >
-                <Heart
-                  className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`}
-                />
-              </button>
+              <div className='absolute bottom-4 right-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold z-10'>
+                {formatPrice(property.price)}
+              </div>
+
+              {/* Image Grid Preview - Show Multiple Images */}
+              {allImages.length > 1 && (
+                <div className='absolute bottom-2 left-2 flex space-x-1 z-10'>
+                  {allImages.slice(0, 6).map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setCurrentImageIndex(index)
+                      }}
+                      className={`w-8 h-8 rounded overflow-hidden border-2 transition-all duration-200 ${
+                        index === currentImageIndex
+                          ? 'border-amber-500 ring-2 ring-amber-200'
+                          : 'border-transparent hover:border-gray-300'
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${property.title} ${index + 1}`}
+                        className='w-full h-full object-cover'
+                      />
+                    </button>
+                  ))}
+                  {allImages.length > 6 && (
+                    <div className='w-8 h-8 rounded bg-gradient-to-r from-amber-600 to-green-600 text-white flex items-center justify-center text-xs font-bold'>
+                      +{allImages.length - 6}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* View All Images Button */}
+              {allImages.length > 6 && (
+                <div className='absolute bottom-2 right-2'>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onViewDetails()
+                    }}
+                    className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-lg shadow-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
+                  >
+                    <Eye className='h-3 w-3' />
+                    <span>View All</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Content */}
-          <div className='lg:w-2/3 p-6'>
+          <div className='lg:w-2/3 p-6 flex flex-col flex-grow'>
             <div className='flex justify-between items-start mb-4'>
-              <div>
+              <div className='flex-1 pr-4'>
                 <h3 className='text-2xl font-bold text-gray-900 mb-2'>
                   {property.title}
                 </h3>
                 <div className='flex items-center text-gray-600 mb-3'>
-                  <MapPin className='h-4 w-4 mr-1' />
-                  {property.location}
+                  <MapPin className='h-4 w-4 mr-1 flex-shrink-0' />
+                  <span className='truncate'>{property.location}</span>
                 </div>
               </div>
-              <div className='text-right'>
-                <div className='text-3xl font-bold text-blue-600 mb-1'>
-                  {formatPrice(property.price)}
-                </div>
-                <div className='flex items-center text-gray-600'>
+              <div className='text-right flex-shrink-0'>
+                <div className='flex items-center text-gray-600 justify-end'>
                   <Star className='h-4 w-4 text-yellow-400 mr-1 fill-current' />
-                  {property.rating}
+                  <span className='font-semibold'>{property.rating}</span>
                 </div>
               </div>
             </div>
 
-            <p className='text-gray-600 mb-4'>{property.description}</p>
+            <div className='mb-4 flex-grow'>
+              <p className='text-gray-600 line-clamp-3 min-h-[3.6rem]'>
+                {property.description}
+              </p>
+            </div>
 
             {/* Property Details */}
             <div className='flex items-center space-x-6 mb-4'>
@@ -403,7 +529,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
             </div>
 
             {/* Features */}
-            <div className='flex flex-wrap gap-2 mb-6'>
+            <div className='flex flex-wrap gap-2 mb-6 min-h-[2rem]'>
               {property.features.slice(0, 4).map((feature, index) => (
                 <span
                   key={index}
@@ -414,21 +540,14 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
               ))}
             </div>
 
-            {/* Actions */}
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center space-x-3'>
-                <button className='flex items-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200'>
-                  <Eye className='h-4 w-4' />
-                  <span>View Details</span>
-                </button>
-                <button className='flex items-center space-x-2 bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200'>
-                  <Share2 className='h-4 w-4' />
-                  <span>Share</span>
-                </button>
-              </div>
-              <button className='text-yellow-600 hover:text-yellow-700 font-semibold flex items-center space-x-1 transition-colors duration-200'>
-                <span>Learn More</span>
-                <ArrowRight className='h-4 w-4' />
+            {/* Actions - Fixed at bottom */}
+            <div className='flex items-center justify-center mt-auto'>
+              <button
+                onClick={onViewDetails}
+                className='w-full lg:w-auto flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 font-medium'
+              >
+                <Eye className='h-4 w-4' />
+                <span>View Property Details</span>
               </button>
             </div>
           </div>
@@ -439,61 +558,143 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
 
   // Grid view
   return (
-    <div className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group'>
-      {/* Image */}
-      <div className='relative h-64 overflow-hidden'>
+    <div className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full flex flex-col'>
+      {/* Image Gallery - Show Multiple Images */}
+      <div className='relative h-64 overflow-hidden flex-shrink-0'>
+        {/* Main Image Display */}
         <img
-          src={property.image}
+          src={allImages[currentImageIndex]}
           alt={property.title}
           className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
         />
+
+        {/* Image Navigation */}
+        {allImages.length > 1 && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setCurrentImageIndex((prev) =>
+                  prev === 0 ? allImages.length - 1 : prev - 1
+                )
+              }}
+              className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 z-10'
+            >
+              <ChevronLeft className='h-4 w-4' />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setCurrentImageIndex((prev) =>
+                  prev === allImages.length - 1 ? 0 : prev + 1
+                )
+              }}
+              className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 z-10'
+            >
+              <ChevronRight className='h-4 w-4' />
+            </button>
+          </>
+        )}
+
+        {/* Image Counter */}
+        {allImages.length > 1 && (
+          <div className='absolute top-2 right-2 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium z-10'>
+            {currentImageIndex + 1} / {allImages.length}
+          </div>
+        )}
+
+        {/* Status Badges */}
         {property.featured && (
-          <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold'>
+          <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
             Featured
           </div>
         )}
         <div
           className={`absolute ${
             property.featured ? 'top-16' : 'top-4'
-          } left-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold`}
+          } left-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold z-10`}
         >
           {property.status}
         </div>
-        <button
-          onClick={onToggleFavorite}
-          className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-200 ${
-            isFavorite
-              ? 'bg-red-500 text-white'
-              : 'bg-white/90 text-gray-600 hover:bg-white'
-          }`}
-        >
-          <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
-        </button>
-        <div className='absolute bottom-4 right-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold'>
+
+        {/* Price */}
+        <div className='absolute bottom-4 right-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold z-10'>
           {formatPrice(property.price)}
         </div>
+
+        {/* Image Grid Preview - Show Multiple Images */}
+        {allImages.length > 1 && (
+          <div className='absolute bottom-2 left-2 flex space-x-1 z-10'>
+            {allImages.slice(0, 6).map((img, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setCurrentImageIndex(index)
+                }}
+                className={`w-8 h-8 rounded overflow-hidden border-2 transition-all duration-200 ${
+                  index === currentImageIndex
+                    ? 'border-amber-500 ring-2 ring-amber-200'
+                    : 'border-transparent hover:border-gray-300'
+                }`}
+              >
+                <img
+                  src={img}
+                  alt={`${property.title} ${index + 1}`}
+                  className='w-full h-full object-cover'
+                />
+              </button>
+            ))}
+            {allImages.length > 6 && (
+              <div className='w-8 h-8 rounded bg-gradient-to-r from-amber-600 to-green-600 text-white flex items-center justify-center text-xs font-bold'>
+                +{allImages.length - 6}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* View All Images Button */}
+        {allImages.length > 6 && (
+          <div className='absolute bottom-2 right-2'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onViewDetails()
+              }}
+              className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-lg shadow-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
+            >
+              <Eye className='h-3 w-3' />
+              <span>View All</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Content */}
-      <div className='p-6'>
+      <div className='p-6 flex flex-col flex-grow'>
+        {/* Header */}
         <div className='flex items-start justify-between mb-3'>
-          <h3 className='text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200'>
+          <h3 className='text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 flex-1 pr-2'>
             {property.title}
           </h3>
-          <div className='flex items-center text-gray-600'>
+          <div className='flex items-center text-gray-600 flex-shrink-0'>
             <Star className='h-4 w-4 text-yellow-400 mr-1 fill-current' />
             {property.rating}
           </div>
         </div>
 
+        {/* Location */}
         <div className='flex items-center text-gray-600 mb-4'>
-          <MapPin className='h-4 w-4 mr-1' />
-          {property.location}
+          <MapPin className='h-4 w-4 mr-1 flex-shrink-0' />
+          <span className='truncate'>{property.location}</span>
         </div>
 
-        <p className='text-gray-600 text-sm mb-4 line-clamp-2'>
-          {property.description}
-        </p>
+        {/* Description */}
+        <div className='mb-4 flex-grow'>
+          <p className='text-gray-600 text-sm line-clamp-2 min-h-[2.5rem]'>
+            {property.description}
+          </p>
+        </div>
 
         {/* Property Details */}
         <div className='flex items-center justify-between mb-4'>
@@ -518,7 +719,7 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
         </div>
 
         {/* Features */}
-        <div className='flex flex-wrap gap-2 mb-6'>
+        <div className='flex flex-wrap gap-2 mb-6 min-h-[2rem]'>
           {property.features.slice(0, 3).map((feature, index) => (
             <span
               key={index}
@@ -529,15 +730,14 @@ const PropertyCard = ({ property, viewMode, isFavorite, onToggleFavorite }) => {
           ))}
         </div>
 
-        {/* Actions */}
-        <div className='flex items-center justify-between'>
-          <button className='flex items-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-4 py-2 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 text-sm'>
+        {/* Actions - Fixed at bottom */}
+        <div className='flex items-center justify-center mt-auto'>
+          <button
+            onClick={onViewDetails}
+            className='w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-4 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 text-sm font-medium'
+          >
             <Eye className='h-4 w-4' />
-            <span>View Details</span>
-          </button>
-          <button className='text-yellow-600 hover:text-yellow-700 font-semibold text-sm flex items-center space-x-1 transition-colors duration-200'>
-            <span>Learn More</span>
-            <ArrowRight className='h-4 w-4' />
+            <span>View Property Details</span>
           </button>
         </div>
       </div>

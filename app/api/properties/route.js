@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '../../../lib/db'
 import { properties } from '../../../lib/schema'
-import { desc, eq, asc, like, and, gte, lte } from 'drizzle-orm'
+import { eq, and, like, desc, asc, gte, lte } from 'drizzle-orm'
 
 export async function GET(request) {
   try {
@@ -86,6 +86,7 @@ export async function GET(request) {
         (property.images && property.images.length > 0
           ? property.images[0]
           : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80'),
+      images: property.images || [], // Include all images uploaded by admin
       rating: 4.5, // Default rating since we don't have this in the database yet
       featured: property.isFeatured || false,
       status: property.status || 'For Sale',
