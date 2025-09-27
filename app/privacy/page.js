@@ -35,20 +35,36 @@ const PrivacyPolicy = () => {
             </p>
 
             <section className='mb-8'>
+              <h2 className='text-2xl font-bold text-gray-900 mb-4'>Who We Are (Data Controller)</h2>
+              <p className='text-gray-600'>
+                This Privacy Policy describes how Palmside S.L. ("we", "us", "our") collects and processes
+                your personal data when you use our website and app or contact us. Palmside S.L. is the data
+                controller responsible for your personal data.
+              </p>
+              <div className='bg-gray-50 rounded-lg p-4 mt-4'>
+                <p className='text-gray-600'>
+                  <strong>Company:</strong> Palmside S.L.<br />
+                  <strong>Registered address:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares<br />
+                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
+                  <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a>
+                </p>
+              </div>
+            </section>
+
+            <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
                 1. Information We Collect
               </h2>
               <p className='text-gray-600 mb-4'>
-                We collect information you provide directly to us, such as when
-                you create an account, contact us, or use our services. This may
-                include:
+                We collect information you provide directly to us when you submit the contact form, call us,
+                or email us. This may include:
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>Name and contact information</li>
-                <li>Email address and phone number</li>
-                <li>Property preferences and requirements</li>
-                <li>Communication preferences</li>
-                <li>Any other information you choose to provide</li>
+                <li>Name and surname</li>
+                <li>Email address</li>
+                <li>Phone number</li>
+                <li>Message content and subject of inquiry</li>
+                <li>Optional property preferences or requirements you decide to share</li>
               </ul>
             </section>
 
@@ -57,39 +73,58 @@ const PrivacyPolicy = () => {
                 2. How We Use Your Information
               </h2>
               <p className='text-gray-600 mb-4'>
-                We use the information we collect to:
+                We use your information to:
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>Provide, maintain, and improve our services</li>
-                <li>Process transactions and send related information</li>
-                <li>Send technical notices and support messages</li>
-                <li>Respond to your comments and questions</li>
-                <li>Comply with legal obligations</li>
+                <li>Respond to your inquiries sent via the contact form, phone, or email</li>
+                <li>Provide requested information about properties and services</li>
+                <li>Improve our website/app and customer support</li>
+                <li>Comply with legal and regulatory obligations</li>
+              </ul>
+              <p className='text-gray-600 mt-4'>
+                We do not sell your personal data.
+              </p>
+            </section>
+
+            <section className='mb-8'>
+              <h2 className='text-2xl font-bold text-gray-900 mb-4'>3. Legal Bases (GDPR)</h2>
+              <p className='text-gray-600 mb-4'>
+                We process your personal data under the following legal bases (GDPR Art. 6):
+              </p>
+              <ul className='list-disc list-inside text-gray-600 space-y-2'>
+                <li><strong>Consent</strong> when you submit the contact form or request a call-back.</li>
+                <li><strong>Legitimate interests</strong> to respond to your inquiries and operate our business.</li>
+                <li><strong>Legal obligation</strong> where processing is necessary to comply with applicable laws.</li>
               </ul>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                3. Information Sharing
+                4. Information Sharing
               </h2>
               <p className='text-gray-600 mb-4'>
-                We do not sell, trade, or otherwise transfer your personal
-                information to third parties without your consent, except as
-                described in this policy. We may share your information:
+                We do not sell your personal information. We may share your information only as necessary:
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>
-                  With service providers who assist us in operating our website
-                </li>
-                <li>When required by law or to protect our rights</li>
-                <li>In connection with a business transfer or acquisition</li>
+                <li>With trusted service providers (e.g., hosting, email delivery) acting as processors</li>
+                <li>When required by law, court order, or public authority</li>
+                <li>In connection with corporate transactions (merger, acquisition) subject to safeguards</li>
                 <li>With your explicit consent</li>
               </ul>
             </section>
 
             <section className='mb-8'>
+              <h2 className='text-2xl font-bold text-gray-900 mb-4'>5. Data Retention</h2>
+              <p className='text-gray-600'>
+                We retain your personal data only for as long as necessary to respond to your inquiry and for
+                a reasonable period thereafter to maintain records and comply with legal obligations. We delete
+                or anonymize data when it is no longer needed.
+              </p>
+            </section>
+
+            <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                4. Data Security
+                6. Data Security
               </h2>
               <p className='text-gray-600 mb-4'>
                 We implement appropriate security measures to protect your
@@ -100,8 +135,16 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className='mb-8'>
+              <h2 className='text-2xl font-bold text-gray-900 mb-4'>7. International Data Transfers</h2>
+              <p className='text-gray-600'>
+                If personal data is transferred outside the EU/EEA, we will ensure appropriate safeguards are
+                in place (e.g., EU Standard Contractual Clauses) and that your rights remain protected.
+              </p>
+            </section>
+
+            <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                5. Your Rights
+                8. Your Rights (GDPR)
               </h2>
               <p className='text-gray-600 mb-4'>You have the right to:</p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
@@ -110,12 +153,18 @@ const PrivacyPolicy = () => {
                 <li>Opt-out of marketing communications</li>
                 <li>Request a copy of your data</li>
                 <li>Withdraw consent at any time</li>
+                <li>Restrict or object to processing in certain circumstances</li>
               </ul>
+              <p className='text-gray-600 mt-4'>
+                To exercise your rights, contact us at <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a>.
+                You also have the right to lodge a complaint with your local data protection authority. In Spain,
+                this is the Agencia Española de Protección de Datos (AEPD).
+              </p>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                6. Cookies and Tracking
+                9. Cookies and Tracking
               </h2>
               <p className='text-gray-600 mb-4'>
                 We use cookies and similar tracking technologies to enhance your
@@ -126,7 +175,7 @@ const PrivacyPolicy = () => {
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                7. Contact Us
+                10. Contact Us
               </h2>
               <p className='text-gray-600 mb-4'>
                 If you have any questions about this Privacy Policy, please
@@ -134,18 +183,17 @@ const PrivacyPolicy = () => {
               </p>
               <div className='bg-gray-50 rounded-lg p-4'>
                 <p className='text-gray-600'>
-                  <strong>Email:</strong> privacy@palmside.com
-                  <br />
-                  <strong>Phone:</strong> +1 (555) 123-4567
-                  <br />
-                  <strong>Address:</strong> 123 Palm Street, Miami, FL 33101
+                  <strong>Company:</strong> Palmside S.L.<br />
+                  <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a><br />
+                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
+                  <strong>Address:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares
                 </p>
               </div>
             </section>
 
             <section>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                8. Changes to This Policy
+                11. Changes to This Policy
               </h2>
               <p className='text-gray-600'>
                 We may update this Privacy Policy from time to time. We will

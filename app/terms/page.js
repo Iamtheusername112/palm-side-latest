@@ -34,6 +34,18 @@ const TermsOfService = () => {
             </p>
 
             <section className='mb-8'>
+              <h2 className='text-2xl font-bold text-gray-900 mb-4'>Company Details</h2>
+              <div className='bg-gray-50 rounded-lg p-4'>
+                <p className='text-gray-600'>
+                  <strong>Company:</strong> Palmside S.L.<br />
+                  <strong>Registered address:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares<br />
+                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
+                  <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a>
+                </p>
+              </div>
+            </section>
+
+            <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
                 1. Acceptance of Terms
               </h2>
@@ -138,9 +150,9 @@ const TermsOfService = () => {
                 7. Privacy and Data Protection
               </h2>
               <p className='text-gray-600 mb-4'>
-                Your privacy is important to us. Our collection and use of
-                personal information is governed by our Privacy Policy, which is
-                incorporated into these Terms of Service by reference.
+                Your privacy is important to us. Our collection and use of personal information is governed by
+                our Privacy Policy, which is incorporated into these Terms of Service by reference and complies
+                with the EU General Data Protection Regulation (GDPR).
               </p>
             </section>
 
@@ -160,9 +172,9 @@ const TermsOfService = () => {
                 9. Governing Law
               </h2>
               <p className='text-gray-600 mb-4'>
-                These Terms of Service shall be governed by and construed in
-                accordance with the laws of the State of Florida, without regard
-                to conflict of law principles.
+                These Terms of Service are governed by and construed in accordance with the laws of Spain and
+                applicable European Union law. Any disputes shall be subject to the exclusive jurisdiction of
+                the courts of Palma de Mallorca, Spain.
               </p>
             </section>
 
@@ -176,11 +188,10 @@ const TermsOfService = () => {
               </p>
               <div className='bg-gray-50 rounded-lg p-4'>
                 <p className='text-gray-600'>
-                  <strong>Email:</strong> legal@palmside.com
-                  <br />
-                  <strong>Phone:</strong> +1 (555) 123-4567
-                  <br />
-                  <strong>Address:</strong> 123 Palm Street, Miami, FL 33101
+                  <strong>Company:</strong> Palmside S.L.<br />
+                  <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a><br />
+                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
+                  <strong>Address:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares
                 </p>
               </div>
             </section>
