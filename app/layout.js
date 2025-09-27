@@ -15,6 +15,15 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: 'Palmside Real Estate',
   description: 'Your trusted partner in real estate services',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', type: 'image/png' },
+    ],
+  },
 }
 
 export default function RootLayout({ children }) {

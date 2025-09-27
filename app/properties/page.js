@@ -14,11 +14,8 @@ import {
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-<<<<<<< HEAD
 import PropertyDetailsModal from '../components/PropertyDetailsModal'
-=======
 import PageBanner from '../components/PageBanner'
->>>>>>> feature/servicesnew
 
 const PropertiesPage = () => {
   const [viewMode, setViewMode] = useState('grid')
