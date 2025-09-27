@@ -13,10 +13,10 @@ const Hero = () => {
       type: 'video',
       src: '/video/videopalm3-short.mp4',
       alt: 'Palmside lifestyle video',
-      title: 'Start your journey',
-      subtitle: 'Begin your adventure in style',
+      title: 'Welcome to Palmside',
+      subtitle: 'Your trusted partner in real estates',
       description:
-        'Your journey begins with comfort and elegance from the very first step.',
+        'Discover the perfect place to call home in Mallorca with us by your side.',
     },
     {
       type: 'image',
@@ -54,7 +54,7 @@ const Hero = () => {
       type: 'image',
       src: '/heroimages/drinks-hero5.jpeg',
       alt: 'Sunset & Cocktails',
-      title: 'Sunset & Cocktails',
+      title: 'Sunset & Drinks',
       subtitle: 'Relax with a perfect view',
       description: 'Enjoy unforgettable evenings with vibrant sunsets and drinks.',
     },
@@ -222,16 +222,16 @@ const Hero = () => {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className='absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300'
+        className='absolute left-4 bottom-24 md:bottom-auto md:top-1/2 md:transform md:-translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all duration-300'
       >
-        <ChevronLeft className='h-6 w-6' />
+        <ChevronLeft className='h-5 w-5 md:h-6 md:w-6' />
       </button>
 
       <button
         onClick={nextSlide}
-        className='absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300'
+        className='absolute right-4 bottom-24 md:bottom-auto md:top-1/2 md:transform md:-translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all duration-300'
       >
-        <ChevronRight className='h-6 w-6' />
+        <ChevronRight className='h-5 w-5 md:h-6 md:w-6' />
       </button>
 
       {/* Play/Pause Button */}
