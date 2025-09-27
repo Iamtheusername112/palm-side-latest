@@ -332,8 +332,9 @@ const ContactPage = () => {
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
-                  <p className='text-gray-600'>info@palmside.com</p>
-                  <p className='text-gray-600'>support@palmside.com</p>
+                  <a href='mailto:info@palmside.es' className='text-gray-600 hover:text-yellow-700'>
+                    info@palmside.es
+                  </a>
                 </div>
               </div>
 
@@ -348,8 +349,8 @@ const ContactPage = () => {
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
-                  <p className='text-gray-600'>+1 (555) 123-4567</p>
-                  <p className='text-gray-600'>+1 (555) 987-6543</p>
+                  <p className='text-gray-600'>+49 176 534 85 055</p>
+                  <p className='text-gray-600'>+34 609 06 93 67</p>
                 </div>
               </div>
 
@@ -364,11 +365,30 @@ const ContactPage = () => {
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
-                  <p className='text-gray-600'>123 Palm Street</p>
-                  <p className='text-gray-600'>Miami, FL 33101</p>
+                  <p className='text-gray-600'>Carrer de l'Ametler 3 – 1B, ES-07609 Llucmajor Mallorca – Illes Balears</p>
+                
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Map */}
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16'>
+        <div className='mt-8'>
+          <h2 className='text-3xl font-bold text-gray-900 mb-4'>Find Us on the Map</h2>
+          <p className='text-gray-600 mb-4'>Our office in Llucmajor, with Palma de Mallorca Airport visible on the map.</p>
+          <div className='rounded-xl overflow-hidden shadow-lg h-[360px]'>
+            <iframe
+              title='Palmside Office Map'
+              width='100%'
+              height='100%'
+              style={{ border: 0 }}
+              loading='lazy'
+              referrerPolicy='no-referrer-when-downgrade'
+              src={'https://www.google.com/maps?q=Carrer%20de%20l\'Ametler%203%2C%2007609%20Llucmajor%2C%20Illes%20Balears&z=11&output=embed'}
+            />
           </div>
         </div>
       </div>
