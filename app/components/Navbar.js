@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
+import Translate from '../../components/Translate'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,7 +58,9 @@ const Navbar = () => {
     // Only hide underline if we're not moving to another link
     const relatedTarget = event.relatedTarget
     const movedToLink =
-      relatedTarget && typeof relatedTarget.closest === 'function' && relatedTarget.closest('a')
+      relatedTarget &&
+      typeof relatedTarget.closest === 'function' &&
+      relatedTarget.closest('a')
     if (!movedToLink) {
       setHoveredLink(null)
 
@@ -141,7 +145,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                Home
+                <Translate staticKey='nav.home'>Home</Translate>
               </Link>
 
               <Link
@@ -150,7 +154,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                Services
+                <Translate staticKey='nav.services'>Services</Translate>
               </Link>
 
               <Link
@@ -159,7 +163,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                Properties
+                <Translate staticKey='nav.properties'>Properties</Translate>
               </Link>
               <Link
                 href='/about'
@@ -167,7 +171,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                About Us
+                <Translate staticKey='nav.about'>About Us</Translate>
               </Link>
               <Link
                 href='/contact'
@@ -175,9 +179,14 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                Contact Us
+                <Translate staticKey='nav.contact'>Contact Us</Translate>
               </Link>
             </div>
+          </div>
+
+          {/* Language Switcher */}
+          <div className='hidden md:block ml-4'>
+            <LanguageSwitcher size='sm' />
           </div>
 
           {/* Mobile menu button */}
@@ -204,32 +213,37 @@ const Navbar = () => {
               href='/'
               className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
             >
-              Home
+              <Translate staticKey='nav.home'>Home</Translate>
             </Link>
             <Link
               href='/services'
               className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
             >
-              Services
+              <Translate staticKey='nav.services'>Services</Translate>
             </Link>
             <Link
               href='/properties'
               className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
             >
-              Properties
+              <Translate staticKey='nav.properties'>Properties</Translate>
             </Link>
             <Link
               href='/about'
               className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
             >
-              About Us
+              <Translate staticKey='nav.about'>About Us</Translate>
             </Link>
             <Link
               href='/contact'
               className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
             >
-              Contact Us
+              <Translate staticKey='nav.contact'>Contact Us</Translate>
             </Link>
+
+            {/* Mobile Language Switcher */}
+            <div className='px-6 py-4 border-t border-gray-200'>
+              <LanguageSwitcher variant='buttons' size='sm' />
+            </div>
           </div>
         </div>
       )}

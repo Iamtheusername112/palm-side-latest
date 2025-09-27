@@ -19,6 +19,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Link from 'next/link'
 import PageBanner from '../components/PageBanner'
+import Translate from '../../components/Translate'
 
 const AboutPage = () => {
   const teamMembers = [
@@ -79,8 +80,6 @@ const AboutPage = () => {
     },
   ]
 
-  
-
   const certifications = [
     'Certified Commercial Investment Member (CCIM)',
     'Real Estate Broker License',
@@ -95,47 +94,129 @@ const AboutPage = () => {
       <Navbar />
 
       <PageBanner
-        title='About Palmside Mallorca'
-        subtitle='Local expertise, multilingual guidance, and end-to-end support in Mallorca.'
+        title={
+          <Translate staticKey='banner.about'>
+            About Palmside Mallorca
+          </Translate>
+        }
+        subtitle={
+          <Translate staticKey='banner.aboutSubtitle'>
+            Local expertise, multilingual guidance, and end-to-end support in
+            Mallorca.
+          </Translate>
+        }
       />
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
         {/* Company Story Section */}
         <div className='grid lg:grid-cols-2 gap-12 mb-20'>
           <div>
-            <h2 className='text-3xl font-bold text-gray-900 mb-6'>Our Story</h2>
+            <h2 className='text-3xl font-bold text-gray-900 mb-6'>
+              <Translate staticKey='about.ourStory'>Our Story</Translate>
+            </h2>
             <div className='space-y-4 text-gray-600 leading-relaxed'>
               <p>
-                We're three real estate professionals united by our love for Mallorca and years of experience in the island's property market.
+                <Translate staticKey='about.story1'>
+                  We're three real estate professionals united by our love for
+                  Mallorca and years of experience in the island's property
+                  market.
+                </Translate>
               </p>
               <p>
-                After years of helping people navigate the island's property market, we founded Palmside Mallorca to combine our professional expertise with our genuine love for this incredible place.
+                <Translate staticKey='about.story2'>
+                  After years of helping people navigate the island's property
+                  market, we founded Palmside Mallorca to combine our
+                  professional expertise with our genuine love for this
+                  incredible place.
+                </Translate>
               </p>
               <p>
-                From your first visit to the island, we're here to guide you through finding, buying, and truly enjoying your perfect home in Mallorca. We know the process can feel overwhelming when you're dealing with a foreign market, different legal systems, and language barriers – that's exactly why we're here.
+                <Translate staticKey='about.story3'>
+                  From your first visit to the island, we're here to guide you
+                  through finding, buying, and truly enjoying your perfect home
+                  in Mallorca. We know the process can feel overwhelming when
+                  you're dealing with a foreign market, different legal systems,
+                  and language barriers – that's exactly why we're here.
+                </Translate>
               </p>
               <p>
-                Between the three of us, we speak English, German, Spanish, and French, so you'll never feel lost in translation during viewings, negotiations, or paperwork. Whether you're searching for your dream home, navigating the complexities of Spanish property law, managing an existing investment, or planning a renovation, we handle every detail from the legal maze to helping you find the best local property.
+                <Translate staticKey='about.story4'>
+                  Between the three of us, we speak English, German, Spanish,
+                  and French, so you'll never feel lost in translation during
+                  viewings, negotiations, or paperwork. Whether you're searching
+                  for your dream home, navigating the complexities of Spanish
+                  property law, managing an existing investment, or planning a
+                  renovation, we handle every detail from the legal maze to
+                  helping you find the best local property.
+                </Translate>
               </p>
             </div>
           </div>
           <div className='relative'>
             <div className='bg-white rounded-2xl p-8 h-full flex flex-col justify-center shadow-lg'>
-              <h3 className='text-xl font-semibold text-gray-900 mb-4'>Languages & Support</h3>
+              <h3 className='text-xl font-semibold text-gray-900 mb-4'>
+                <Translate staticKey='about.languagesSupport'>
+                  Languages & Support
+                </Translate>
+              </h3>
               <div className='grid grid-cols-2 gap-4 text-gray-700'>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>English</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>German</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>Spanish</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-green-600 mr-2'/>French</div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
+                  <Translate staticKey='about.english'>English</Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
+                  <Translate staticKey='about.german'>German</Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
+                  <Translate staticKey='about.spanish'>Spanish</Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
+                  <Translate staticKey='about.french'>French</Translate>
+                </div>
               </div>
-              <h3 className='text-xl font-semibold text-gray-900 mt-8 mb-4'>How We Help</h3>
+              <h3 className='text-xl font-semibold text-gray-900 mt-8 mb-4'>
+                <Translate staticKey='about.howWeHelp'>How We Help</Translate>
+              </h3>
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700'>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Home search & viewings</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Negotiations & offers</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Legal & notary coordination</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Due diligence & valuation</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Renovation planning</div>
-                <div className='flex items-center'><CheckCircle className='h-4 w-4 text-yellow-600 mr-2'/>Property management</div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <Translate staticKey='about.homeSearch'>
+                    Home search & viewings
+                  </Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <Translate staticKey='about.negotiations'>
+                    Negotiations & offers
+                  </Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <Translate staticKey='about.legalCoordination'>
+                    Legal & notary coordination
+                  </Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <Translate staticKey='about.dueDiligence'>
+                    Due diligence & valuation
+                  </Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <Translate staticKey='about.renovationPlanning'>
+                    Renovation planning
+                  </Translate>
+                </div>
+                <div className='flex items-center'>
+                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <Translate staticKey='about.propertyManagement'>
+                    Property management
+                  </Translate>
+                </div>
               </div>
             </div>
           </div>
@@ -148,13 +229,15 @@ const AboutPage = () => {
               <Target className='h-8 w-8' />
             </div>
             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
-              Our Mission
+              <Translate staticKey='about.ourMission'>Our Mission</Translate>
             </h3>
             <p className='text-gray-600 leading-relaxed'>
-              To empower our clients with innovative real estate solutions that
-              maximize returns, minimize risks, and create lasting value. We
-              strive to be the most trusted partner in every client's real
-              estate journey.
+              <Translate staticKey='about.missionText'>
+                To empower our clients with innovative real estate solutions
+                that maximize returns, minimize risks, and create lasting value.
+                We strive to be the most trusted partner in every client's real
+                estate journey.
+              </Translate>
             </p>
           </div>
           <div className='bg-white rounded-2xl shadow-lg p-8'>
@@ -162,13 +245,15 @@ const AboutPage = () => {
               <Globe className='h-8 w-8' />
             </div>
             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
-              Our Vision
+              <Translate staticKey='about.ourVision'>Our Vision</Translate>
             </h3>
             <p className='text-gray-600 leading-relaxed'>
-              To be the leading real estate company in South Florida, recognized
-              for our innovation, integrity, and exceptional client outcomes. We
-              envision a future where real estate investment is accessible,
-              profitable, and rewarding for everyone.
+              <Translate staticKey='about.visionText'>
+                To be the leading real estate company in South Florida,
+                recognized for our innovation, integrity, and exceptional client
+                outcomes. We envision a future where real estate investment is
+                accessible, profitable, and rewarding for everyone.
+              </Translate>
             </p>
           </div>
         </div>
@@ -245,7 +330,10 @@ const AboutPage = () => {
                       {member.email && (
                         <div className='flex items-center text-gray-600'>
                           <Mail className='h-4 w-4 mr-2 text-yellow-600' />
-                          <a href={`mailto:${member.email}`} className='hover:text-yellow-700'>
+                          <a
+                            href={`mailto:${member.email}`}
+                            className='hover:text-yellow-700'
+                          >
                             {member.email}
                           </a>
                         </div>
@@ -253,7 +341,10 @@ const AboutPage = () => {
                       {member.phone && (
                         <div className='flex items-center text-gray-600'>
                           <Phone className='h-4 w-4 mr-2 text-green-600' />
-                          <a href={`tel:${member.phone}`} className='hover:text-yellow-700'>
+                          <a
+                            href={`tel:${member.phone}`}
+                            className='hover:text-yellow-700'
+                          >
                             {member.phone}
                           </a>
                         </div>
@@ -279,20 +370,27 @@ const AboutPage = () => {
           </div>
         </div>
 
-        
-
-        
-
         {/* CTA Section */}
         <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white'>
-          <h2 className='text-3xl font-bold mb-4'>Ready to Work With Us?</h2>
+          <h2 className='text-3xl font-bold mb-4'>
+            <Translate staticKey='about.readyToWork'>
+              Ready to Work With Us?
+            </Translate>
+          </h2>
           <p className='text-xl mb-8 text-yellow-100 max-w-2xl mx-auto'>
-            Join hundreds of satisfied clients who trust us with their real
-            estate investments.
+            <Translate staticKey='about.readyText'>
+              Join hundreds of satisfied clients who trust us with their real
+              estate investments.
+            </Translate>
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <Link href='/contact' className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
-              Schedule Consultation
+            <Link
+              href='/contact'
+              className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'
+            >
+              <Translate staticKey='about.scheduleConsultation'>
+                Schedule Consultation
+              </Translate>
             </Link>
           </div>
         </div>

@@ -14,8 +14,11 @@ import { useContactContext } from '../contexts/ContactContext'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import PageBanner from '../components/PageBanner'
+import Translate from '../../components/Translate'
+import { useTranslation } from '../../hooks/useTranslation'
 
 const ContactPage = () => {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,32 +34,44 @@ const ContactPage = () => {
   const services = [
     {
       name: 'Property Management',
+      nameKey: 'contact.propertyManagement',
       description: 'Comprehensive property management services',
+      descriptionKey: 'contact.propertyManagementDesc',
       value: 'property-management',
     },
     {
       name: 'Real Estate Investment',
+      nameKey: 'contact.realEstateInvestment',
       description: 'Strategic investment opportunities',
+      descriptionKey: 'contact.realEstateInvestmentDesc',
       value: 'real-estate-investment',
     },
     {
       name: 'Property Development',
+      nameKey: 'contact.propertyDevelopment',
       description: 'Custom development solutions',
+      descriptionKey: 'contact.propertyDevelopmentDesc',
       value: 'property-development',
     },
     {
       name: 'Consulting Services',
+      nameKey: 'contact.consultingServices',
       description: 'Expert real estate consulting',
+      descriptionKey: 'contact.consultingServicesDesc',
       value: 'consulting-services',
     },
     {
       name: 'Legal Services',
+      nameKey: 'contact.legalServices',
       description: 'Real estate legal expertise',
+      descriptionKey: 'contact.legalServicesDesc',
       value: 'legal-services',
     },
     {
       name: 'General Inquiry',
+      nameKey: 'contact.generalInquiry',
       description: 'Other questions or information',
+      descriptionKey: 'contact.generalInquiryDesc',
       value: 'general-inquiry',
     },
   ]
@@ -131,8 +146,13 @@ const ContactPage = () => {
       <Navbar />
 
       <PageBanner
-        title='Get In Touch'
-        subtitle="Ready to start your real estate journey? We're here to help you find your perfect property."
+        title={<Translate staticKey='banner.contact'>Get In Touch</Translate>}
+        subtitle={
+          <Translate staticKey='banner.contactSubtitle'>
+            Ready to start your real estate journey? We're here to help you find
+            your perfect property.
+          </Translate>
+        }
       />
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
@@ -141,11 +161,15 @@ const ContactPage = () => {
           <div className='space-y-8'>
             <div>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Send us a Message
+                <Translate staticKey='contact.sendMessage'>
+                  Send us a Message
+                </Translate>
               </h2>
               <p className='text-gray-600 text-lg'>
-                Fill out the form below and we'll get back to you within 24
-                hours.
+                <Translate staticKey='contact.fillForm'>
+                  Fill out the form below and we'll get back to you within 24
+                  hours.
+                </Translate>
               </p>
             </div>
 
@@ -153,10 +177,14 @@ const ContactPage = () => {
               <div className='bg-green-50 border border-green-200 rounded-xl p-8 text-center'>
                 <CheckCircle className='h-16 w-16 text-green-500 mx-auto mb-4' />
                 <h3 className='text-2xl font-semibold text-green-800 mb-2'>
-                  Message Sent Successfully!
+                  <Translate staticKey='contact.messageSentSuccessfully'>
+                    Message Sent Successfully!
+                  </Translate>
                 </h3>
                 <p className='text-green-600'>
-                  Thank you for contacting us. We'll get back to you soon.
+                  <Translate staticKey='contact.thankYouContacting'>
+                    Thank you for contacting us. We'll get back to you soon.
+                  </Translate>
                 </p>
               </div>
             ) : submitStatus === 'error' ? (
@@ -165,10 +193,14 @@ const ContactPage = () => {
                   <span className='text-2xl'>⚠️</span>
                 </div>
                 <h3 className='text-2xl font-semibold text-red-800 mb-2'>
-                  Submission Failed
+                  <Translate staticKey='contact.submissionFailed'>
+                    Submission Failed
+                  </Translate>
                 </h3>
                 <p className='text-red-600'>
-                  There was an error sending your message. Please try again.
+                  <Translate staticKey='contact.errorSendingMessage'>
+                    There was an error sending your message. Please try again.
+                  </Translate>
                 </p>
               </div>
             ) : (
@@ -179,7 +211,10 @@ const ContactPage = () => {
                       htmlFor='name'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Full Name *
+                      <Translate staticKey='contact.fullName'>
+                        Full Name
+                      </Translate>{' '}
+                      *
                     </label>
                     <input
                       type='text'
@@ -197,7 +232,10 @@ const ContactPage = () => {
                       htmlFor='email'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Email Address *
+                      <Translate staticKey='contact.emailAddress'>
+                        Email Address
+                      </Translate>{' '}
+                      *
                     </label>
                     <input
                       type='email'
@@ -218,7 +256,9 @@ const ContactPage = () => {
                       htmlFor='phone'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Phone Number
+                      <Translate staticKey='contact.phoneNumber'>
+                        Phone Number
+                      </Translate>
                     </label>
                     <input
                       type='tel'
@@ -235,7 +275,10 @@ const ContactPage = () => {
                       htmlFor='subject'
                       className='block text-sm font-medium text-gray-700 mb-2'
                     >
-                      Service Inquiry *
+                      <Translate staticKey='contact.serviceInquiry'>
+                        Service Inquiry
+                      </Translate>{' '}
+                      *
                     </label>
                     <div className='relative'>
                       <select
@@ -246,14 +289,14 @@ const ContactPage = () => {
                         required
                         className='w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none'
                       >
-                        <option value=''>Select a service</option>
+                        <option value=''>{t('contact.selectService')}</option>
                         {services.map((service, index) => (
                           <option
                             key={index}
                             value={service.value}
                             className='py-2'
                           >
-                            {service.name}
+                            {t(service.nameKey)}
                           </option>
                         ))}
                       </select>
@@ -269,7 +312,7 @@ const ContactPage = () => {
                     htmlFor='message'
                     className='block text-sm font-medium text-gray-700 mb-2'
                   >
-                    Message *
+                    <Translate staticKey='contact.message'>Message</Translate> *
                   </label>
                   <textarea
                     id='message'
@@ -291,12 +334,20 @@ const ContactPage = () => {
                   {isSubmitting ? (
                     <>
                       <div className='w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                      <span>Sending...</span>
+                      <span>
+                        <Translate staticKey='contact.sending'>
+                          Sending...
+                        </Translate>
+                      </span>
                     </>
                   ) : (
                     <>
                       <Send className='h-5 w-5' />
-                      <span>Send Message</span>
+                      <span>
+                        <Translate staticKey='contact.sendMessage'>
+                          Send Message
+                        </Translate>
+                      </span>
                     </>
                   )}
                 </button>
@@ -308,17 +359,23 @@ const ContactPage = () => {
           <div className='space-y-6'>
             <div>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Contact Information
+                <Translate staticKey='contact.contactInformation'>
+                  Contact Information
+                </Translate>
               </h2>
               <p className='text-gray-600 text-lg'>
-                Reach out to us through any of these channels. We're always here
-                to help.
+                <Translate staticKey='contact.reachOutChannels'>
+                  Reach out to us through any of these channels. We're always
+                  here to help.
+                </Translate>
               </p>
             </div>
 
             <div className='bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full'>
               <h3 className='text-2xl font-bold text-gray-900 mb-6'>
-                Get In Touch
+                <Translate staticKey='contact.getInTouch'>
+                  Get In Touch
+                </Translate>
               </h3>
 
               {/* Email */}
@@ -328,11 +385,14 @@ const ContactPage = () => {
                     <Mail className='h-5 w-5' />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
-                    Email Us
+                    <Translate staticKey='contact.emailUs'>Email Us</Translate>
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
-                  <a href='mailto:info@palmside.es' className='text-gray-600 hover:text-yellow-700'>
+                  <a
+                    href='mailto:info@palmside.es'
+                    className='text-gray-600 hover:text-yellow-700'
+                  >
                     info@palmside.es
                   </a>
                 </div>
@@ -345,7 +405,7 @@ const ContactPage = () => {
                     <Phone className='h-5 w-5' />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
-                    Call Us
+                    <Translate staticKey='contact.callUs'>Call Us</Translate>
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
@@ -361,12 +421,14 @@ const ContactPage = () => {
                     <MapPin className='h-5 w-5' />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
-                    Visit Us
+                    <Translate staticKey='contact.visitUs'>Visit Us</Translate>
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
-                  <p className='text-gray-600'>Carrer de Ametler 3 -1B, ES-07609 Son Veri Nou, Islas Baleares</p>
-                
+                  <p className='text-gray-600'>
+                    Carrer de Ametler 3 -1B, ES-07609 Son Veri Nou, Islas
+                    Baleares
+                  </p>
                 </div>
               </div>
             </div>
@@ -377,8 +439,17 @@ const ContactPage = () => {
       {/* Map */}
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16'>
         <div className='mt-8'>
-          <h2 className='text-3xl font-bold text-gray-900 mb-4'>Find Us on the Map</h2>
-          <p className='text-gray-600 mb-4'>Our office in Son Verí Nou, with Palma de Mallorca Airport visible on the map.</p>
+          <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+            <Translate staticKey='contact.findUsOnMap'>
+              Find Us on the Map
+            </Translate>
+          </h2>
+          <p className='text-gray-600 mb-4'>
+            <Translate staticKey='contact.officeDescription'>
+              Our office in Son Verí Nou, with Palma de Mallorca Airport visible
+              on the map.
+            </Translate>
+          </p>
           <div className='rounded-xl overflow-hidden shadow-lg h-[360px]'>
             <iframe
               title='Palmside Office Map'
@@ -387,7 +458,9 @@ const ContactPage = () => {
               style={{ border: 0 }}
               loading='lazy'
               referrerPolicy='no-referrer-when-downgrade'
-              src={'https://maps.google.com/maps?q=Carrer%20de%20Ametler%203%20-1B%2C%20Son%20Ver%C3%AD%20Nou%2C%20Llucmajor%2C%20Mallorca&z=12&iwloc=near&output=embed'}
+              src={
+                'https://maps.google.com/maps?q=Carrer%20de%20Ametler%203%20-1B%2C%20Son%20Ver%C3%AD%20Nou%2C%20Llucmajor%2C%20Mallorca&z=12&iwloc=near&output=embed'
+              }
             />
           </div>
         </div>

@@ -10,6 +10,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from 'lucide-react'
+import Translate from '../../components/Translate'
 
 const TikTokIcon = ({ className = '' }) => (
   <svg
@@ -19,7 +20,7 @@ const TikTokIcon = ({ className = '' }) => (
     className={className}
     aria-hidden='true'
   >
-    <path d='M12.03 2c.47.44.98.83 1.53 1.17 1.14.71 2.48 1.13 3.9 1.18v3.08c-1.85-.05-3.6-.6-5.1-1.5v7.65c0 3.54-2.86 6.41-6.41 6.41S-.26 17.12-.26 13.58C-.26 10.04 2.6 7.18 6.15 7.18c.35 0 .69.03 1.02.09v3.31c-.33-.08-.68-.12-1.02-.12-1.7 0-3.07 1.38-3.07 3.07s1.38 3.07 3.07 3.07 3.07-1.38 3.07-3.07V2h1.81z'/>
+    <path d='M12.03 2c.47.44.98.83 1.53 1.17 1.14.71 2.48 1.13 3.9 1.18v3.08c-1.85-.05-3.6-.6-5.1-1.5v7.65c0 3.54-2.86 6.41-6.41 6.41S-.26 17.12-.26 13.58C-.26 10.04 2.6 7.18 6.15 7.18c.35 0 .69.03 1.02.09v3.31c-.33-.08-.68-.12-1.02-.12-1.7 0-3.07 1.38-3.07 3.07s1.38 3.07 3.07 3.07 3.07-1.38 3.07-3.07V2h1.81z' />
   </svg>
 )
 
@@ -51,8 +52,10 @@ const Footer = () => {
               />
             </div>
             <p className='text-gray-300 mb-6'>
-              Your trusted partner in real estate services. We specialize in
-              luxury properties and investment opportunities.
+              <Translate staticKey='footer.companyDescription'>
+                Your trusted partner in real estate services. We specialize in
+                luxury properties and investment opportunities.
+              </Translate>
             </p>
           </div>
 
@@ -63,7 +66,9 @@ const Footer = () => {
               onClick={() => toggleAccordion('quickLinks')}
               className='flex items-center justify-between w-full mb-4 md:hidden'
             >
-              <h3 className='text-lg font-semibold'>Quick Links</h3>
+              <h3 className='text-lg font-semibold'>
+                <Translate>Quick Links</Translate>
+              </h3>
               {openAccordions.quickLinks ? (
                 <ChevronUp className='h-5 w-5' />
               ) : (
@@ -73,7 +78,7 @@ const Footer = () => {
 
             {/* Desktop Heading */}
             <h3 className='text-lg font-semibold mb-4 hidden md:block'>
-              Quick Links
+              <Translate>Quick Links</Translate>
             </h3>
             <div
               className={`md:block ${
@@ -86,7 +91,7 @@ const Footer = () => {
                     href='/'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Home
+                    <Translate staticKey='nav.home'>Home</Translate>
                   </Link>
                 </li>
                 <li>
@@ -94,7 +99,7 @@ const Footer = () => {
                     href='/properties'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Properties
+                    <Translate staticKey='nav.properties'>Properties</Translate>
                   </Link>
                 </li>
                 <li>
@@ -102,7 +107,7 @@ const Footer = () => {
                     href='/about'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    About Us
+                    <Translate staticKey='nav.about'>About Us</Translate>
                   </Link>
                 </li>
                 <li>
@@ -110,7 +115,7 @@ const Footer = () => {
                     href='/services'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Services
+                    <Translate staticKey='nav.services'>Services</Translate>
                   </Link>
                 </li>
                 <li>
@@ -118,7 +123,7 @@ const Footer = () => {
                     href='/contact'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Contact Us
+                    <Translate staticKey='nav.contact'>Contact Us</Translate>
                   </Link>
                 </li>
               </ul>
@@ -132,7 +137,9 @@ const Footer = () => {
               onClick={() => toggleAccordion('services')}
               className='flex items-center justify-between w-full mb-4 md:hidden'
             >
-              <h3 className='text-lg font-semibold'>Our Services</h3>
+              <h3 className='text-lg font-semibold'>
+                <Translate>Our Services</Translate>
+              </h3>
               {openAccordions.services ? (
                 <ChevronUp className='h-5 w-5' />
               ) : (
@@ -142,7 +149,7 @@ const Footer = () => {
 
             {/* Desktop Heading */}
             <h3 className='text-lg font-semibold mb-4 hidden md:block'>
-              Our Services
+              <Translate>Our Services</Translate>
             </h3>
             <div
               className={`md:block ${
@@ -155,7 +162,9 @@ const Footer = () => {
                     href='/services#property-search'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Property Search
+                    <Translate staticKey='footer.propertySearch'>
+                      Property Search
+                    </Translate>
                   </Link>
                 </li>
                 <li>
@@ -163,7 +172,9 @@ const Footer = () => {
                     href='/services#investment-consulting'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Investment Consulting
+                    <Translate staticKey='footer.investmentConsulting'>
+                      Investment Consulting
+                    </Translate>
                   </Link>
                 </li>
                 <li>
@@ -171,7 +182,9 @@ const Footer = () => {
                     href='/services#market-analysis'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Market Analysis
+                    <Translate staticKey='footer.marketAnalysis'>
+                      Market Analysis
+                    </Translate>
                   </Link>
                 </li>
                 <li>
@@ -179,7 +192,9 @@ const Footer = () => {
                     href='/services#luxury-concierge'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Luxury Concierge
+                    <Translate staticKey='footer.luxuryConcierge'>
+                      Luxury Concierge
+                    </Translate>
                   </Link>
                 </li>
                 <li>
@@ -187,7 +202,9 @@ const Footer = () => {
                     href='/services#construction-renovation'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Construction & Renovation
+                    <Translate staticKey='footer.constructionRenovation'>
+                      Construction & Renovation
+                    </Translate>
                   </Link>
                 </li>
                 <li>
@@ -195,7 +212,9 @@ const Footer = () => {
                     href='/services#marketing-presentation'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
                   >
-                    Marketing & Presentation
+                    <Translate staticKey='footer.marketingPresentation'>
+                      Marketing & Presentation
+                    </Translate>
                   </Link>
                 </li>
               </ul>
@@ -209,7 +228,9 @@ const Footer = () => {
               onClick={() => toggleAccordion('contact')}
               className='flex items-center justify-between w-full mb-4 md:hidden'
             >
-              <h3 className='text-lg font-semibold'>Contact Us</h3>
+              <h3 className='text-lg font-semibold'>
+                <Translate staticKey='nav.contact'>Contact Us</Translate>
+              </h3>
               {openAccordions.contact ? (
                 <ChevronUp className='h-5 w-5' />
               ) : (
@@ -218,8 +239,11 @@ const Footer = () => {
             </button>
 
             {/* Desktop Heading */}
-            <Link href='/contact' className='text-lg font-semibold mb-4 hidden md:block hover:text-amber-400 transition-colors duration-300'>
-              Contact Us
+            <Link
+              href='/contact'
+              className='text-lg font-semibold mb-4 hidden md:block hover:text-amber-400 transition-colors duration-300'
+            >
+              <Translate staticKey='nav.contact'>Contact Us</Translate>
             </Link>
             <div
               className={`md:block ${
@@ -233,15 +257,31 @@ const Footer = () => {
                     target='_blank'
                     rel='noopener noreferrer'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
-                  >Carrer de Ametler 3 -1B,
-ES-07609 Son Veri Nou,
-Islas Baleares</a>
-                   
+                  >
+                    <Translate staticKey='footer.address'>
+                      Carrer de Ametler 3 -1B, ES-07609 Son Veri Nou, Islas
+                      Baleares
+                    </Translate>
+                  </a>
                 </div>
                 <div>
-                  <p className='text-gray-300'>Phone: +49 176 534 85 055</p>
-                  <p className='text-gray-300'>Phone: +34 609 06 93 67</p>
-                  <p className='text-gray-300'>Email: <a href='mailto:info@palmside.es' className='hover:text-amber-400 transition-colors duration-300'>info@palmside.es</a></p>
+                  <p className='text-gray-300'>
+                    <Translate staticKey='footer.phone'>Phone:</Translate> +49
+                    176 534 85 055
+                  </p>
+                  <p className='text-gray-300'>
+                    <Translate staticKey='footer.phone'>Phone:</Translate> +34
+                    609 06 93 67
+                  </p>
+                  <p className='text-gray-300'>
+                    <Translate staticKey='footer.email'>Email:</Translate>{' '}
+                    <a
+                      href='mailto:info@palmside.es'
+                      className='hover:text-amber-400 transition-colors duration-300'
+                    >
+                      info@palmside.es
+                    </a>
+                  </p>
                 </div>
                 <div className='flex space-x-4 mt-4'>
                   <a
@@ -286,26 +326,29 @@ Islas Baleares</a>
         <div className='border-t border-gray-500 mt-8 pt-8'>
           <div className='flex flex-col md:flex-row justify-between items-center'>
             <p className='text-gray-400 text-sm'>
-              © {currentYear} Palmside S.L. All rights reserved.
+              © {currentYear}{' '}
+              <Translate staticKey='footer.copyright'>
+                Palmside S.L. All rights reserved.
+              </Translate>
             </p>
             <div className='flex space-x-6 mt-4 md:mt-0'>
               <Link
                 href='/site-notice'
                 className='text-gray-400 hover:text-white text-sm transition-colors duration-300'
               >
-                Site Notice
+                <Translate staticKey='footer.siteNotice'>Site Notice</Translate>
               </Link>
               <Link
                 href='/privacy'
                 className='text-gray-400 hover:text-white text-sm transition-colors duration-300'
               >
-                Privacy Policy
+                <Translate staticKey='footer.privacy'>Privacy Policy</Translate>
               </Link>
               <Link
                 href='/terms'
                 className='text-gray-400 hover:text-white text-sm transition-colors duration-300'
               >
-                Terms of Service
+                <Translate staticKey='footer.terms'>Terms of Service</Translate>
               </Link>
             </div>
           </div>

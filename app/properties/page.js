@@ -16,8 +16,11 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import PropertyDetailsModal from '../components/PropertyDetailsModal'
 import PageBanner from '../components/PageBanner'
+import Translate from '../../components/Translate'
+import { useTranslation } from '../../hooks/useTranslation'
 
 const PropertiesPage = () => {
+  const { t } = useTranslation()
   const [viewMode, setViewMode] = useState('grid')
   const [favorites, setFavorites] = useState(new Set())
   const [properties, setProperties] = useState([])
@@ -112,8 +115,17 @@ const PropertiesPage = () => {
       <Navbar />
 
       <PageBanner
-        title='Discover Your Dream Property'
-        subtitle='Explore our curated collection of premium properties across Mallorca and beyond.'
+        title={
+          <Translate staticKey='banner.properties'>
+            Discover Your Dream Property
+          </Translate>
+        }
+        subtitle={
+          <Translate staticKey='banner.propertiesSubtitle'>
+            Explore our curated collection of premium properties across Mallorca
+            and beyond.
+          </Translate>
+        }
       />
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
@@ -122,49 +134,57 @@ const PropertiesPage = () => {
           <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Property Type
+                <Translate staticKey='properties.propertyType'>
+                  Property Type
+                </Translate>
               </label>
               <select
                 value={filters.type}
                 onChange={(e) => handleFilterChange('type', e.target.value)}
                 className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               >
-                <option value='all'>All Types</option>
-                <option value='Luxury Homes'>Luxury Homes</option>
+                <option value='all'>{t('properties.allTypes')}</option>
+                <option value='Luxury Homes'>
+                  {t('properties.luxuryHomes')}
+                </option>
                 <option value='Investment Properties'>
-                  Investment Properties
+                  {t('properties.investmentProperties')}
                 </option>
                 <option value='Commercial Real Estate'>
-                  Commercial Real Estate
+                  {t('properties.commercialProperties')}
                 </option>
                 <option value='Property Development'>
-                  Property Development
+                  {t('properties.propertyDevelopment')}
                 </option>
-                <option value='Residential'>Residential</option>
+                <option value='Residential'>
+                  {t('properties.residential')}
+                </option>
               </select>
             </div>
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Status
+                <Translate staticKey='properties.status'>Status</Translate>
               </label>
               <select
                 value={filters.status}
                 onChange={(e) => handleFilterChange('status', e.target.value)}
                 className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               >
-                <option value='all'>All Status</option>
-                <option value='For Sale'>For Sale</option>
-                <option value='For Lease'>For Lease</option>
-                <option value='Sold'>Sold</option>
-                <option value='Leased'>Leased</option>
-                <option value='Pre-Construction'>Pre-Construction</option>
+                <option value='all'>{t('properties.allStatus')}</option>
+                <option value='For Sale'>{t('properties.forSale')}</option>
+                <option value='For Lease'>{t('properties.forLease')}</option>
+                <option value='Sold'>{t('properties.sold')}</option>
+                <option value='Leased'>{t('properties.leased')}</option>
+                <option value='Pre-Construction'>
+                  {t('properties.preConstruction')}
+                </option>
               </select>
             </div>
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Location
+                <Translate staticKey='properties.location'>Location</Translate>
               </label>
               <input
                 type='text'
@@ -179,15 +199,15 @@ const PropertiesPage = () => {
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Featured
+                <Translate staticKey='properties.featured'>Featured</Translate>
               </label>
               <select
                 value={filters.featured}
                 onChange={(e) => handleFilterChange('featured', e.target.value)}
                 className='w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent'
               >
-                <option value='all'>All Properties</option>
-                <option value='true'>Featured Only</option>
+                <option value='all'>{t('properties.allProperties')}</option>
+                <option value='true'>{t('properties.featured')} Only</option>
               </select>
             </div>
           </div>
@@ -199,11 +219,18 @@ const PropertiesPage = () => {
             {loading ? (
               <div className='flex items-center space-x-2'>
                 <Loader2 className='h-4 w-4 animate-spin' />
-                <span className='text-gray-600'>Loading properties...</span>
+                <span className='text-gray-600'>
+                  <Translate staticKey='properties.loadingProperties'>
+                    Loading properties...
+                  </Translate>
+                </span>
               </div>
             ) : (
               <span className='text-gray-600'>
-                {properties.length} properties available
+                {properties.length}{' '}
+                <Translate staticKey='properties.propertiesAvailable'>
+                  properties available
+                </Translate>
               </span>
             )}
           </div>
@@ -246,7 +273,11 @@ const PropertiesPage = () => {
           <div className='flex justify-center items-center py-20'>
             <div className='text-center'>
               <Loader2 className='h-12 w-12 animate-spin text-blue-600 mx-auto mb-4' />
-              <p className='text-gray-600'>Loading properties...</p>
+              <p className='text-gray-600'>
+                <Translate staticKey='properties.loadingProperties'>
+                  Loading properties...
+                </Translate>
+              </p>
             </div>
           </div>
         ) : error ? (
@@ -256,7 +287,9 @@ const PropertiesPage = () => {
                 <span className='text-red-600 text-2xl'>⚠</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                Error Loading Properties
+                <Translate staticKey='properties.errorLoading'>
+                  Error Loading Properties
+                </Translate>
               </h3>
               <p className='text-gray-600 mb-4'>{error}</p>
               <button
@@ -399,7 +432,9 @@ const PropertyCard = ({
 
               {property.featured && (
                 <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
-                  Featured
+                  <Translate staticKey='properties.featured'>
+                    Featured
+                  </Translate>
                 </div>
               )}
               <div
@@ -455,7 +490,11 @@ const PropertyCard = ({
                     className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-lg shadow-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
                   >
                     <Eye className='h-3 w-3' />
-                    <span>View All</span>
+                    <span>
+                      <Translate staticKey='properties.viewAll'>
+                        View All
+                      </Translate>
+                    </span>
                   </button>
                 </div>
               )}
@@ -527,7 +566,11 @@ const PropertyCard = ({
                 className='w-full lg:w-auto flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 font-medium'
               >
                 <Eye className='h-4 w-4' />
-                <span>View Property Details</span>
+                <span>
+                  <Translate staticKey='properties.viewDetails'>
+                    View Property Details
+                  </Translate>
+                </span>
               </button>
             </div>
           </div>
@@ -717,7 +760,11 @@ const PropertyCard = ({
             className='w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-4 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 text-sm font-medium'
           >
             <Eye className='h-4 w-4' />
-            <span>View Property Details</span>
+            <span>
+              <Translate staticKey='properties.viewDetails'>
+                View Property Details
+              </Translate>
+            </span>
           </button>
         </div>
       </div>

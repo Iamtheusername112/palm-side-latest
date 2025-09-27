@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
+import Translate from '../../components/Translate'
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -14,132 +15,182 @@ const Hero = () => {
       src: '/video/videopalm3-short.mp4',
       alt: 'Palmside lifestyle video',
       title: 'Welcome to Palmside',
+      titleKey: 'hero.welcome',
       subtitle: 'Your trusted partner in real estates',
+      subtitleKey: 'hero.subtitle',
       description:
         'Discover the perfect place to call home in Mallorca with us by your side.',
+      descriptionKey: 'hero.description',
     },
     {
       type: 'image',
       src: '/heroimages/flugzeugfluegel-hero1.jpeg',
       alt: 'Start your journey',
       title: 'Start your journey',
+      titleKey: 'hero.startJourney',
       subtitle: 'Begin your adventure in style',
-      description: 'Your journey begins with comfort and elegance from the very first step.',
+      subtitleKey: 'hero.beginAdventure',
+      description:
+        'Your journey begins with comfort and elegance from the very first step.',
+      descriptionKey: 'hero.journeyDescription',
     },
     {
       type: 'image',
       src: '/heroimages/flugzeuglandet-hero2.jpeg',
       alt: 'Seamless Transfer',
       title: 'Seamless Transfer',
+      titleKey: 'hero.seamlessTransfer',
       subtitle: 'From runway to relaxation',
-      description: 'Your next chapter begins smoothly, transitioning effortlessly to the destination that awaits.',
+      subtitleKey: 'hero.runwayToRelaxation',
+      description:
+        'Your next chapter begins smoothly, transitioning effortlessly to the destination that awaits.',
+      descriptionKey: 'hero.transferDescription',
     },
     {
       type: 'image',
       src: '/heroimages/beach6-hero3.jpeg',
       alt: 'Endless Coastlines',
       title: 'Endless Coastlines',
+      titleKey: 'hero.endlessCoastlines',
       subtitle: 'Relax by the Mediterranean sea',
+      subtitleKey: 'hero.mediterraneanSea',
       description: 'Soak up the sun and enjoy the turquoise waters.',
+      descriptionKey: 'hero.coastlineDescription',
     },
     {
       type: 'image',
       src: '/heroimages/kathedrale-hero4.jpeg',
       alt: 'Cathedral Views',
       title: 'Historic Elegance',
+      titleKey: 'hero.historicElegance',
       subtitle: 'Discover the timeless beauty of Mallorca',
+      subtitleKey: 'hero.timelessBeauty',
       description: 'Immerse yourself in culture and architectural splendor.',
+      descriptionKey: 'hero.eleganceDescription',
     },
     {
       type: 'image',
       src: '/heroimages/drinks-hero5.jpeg',
       alt: 'Sunset & Cocktails',
       title: 'Sunset & Drinks',
+      titleKey: 'hero.sunsetDrinks',
       subtitle: 'Relax with a perfect view',
-      description: 'Enjoy unforgettable evenings with vibrant sunsets and drinks.',
+      subtitleKey: 'hero.perfectView',
+      description:
+        'Enjoy unforgettable evenings with vibrant sunsets and drinks.',
+      descriptionKey: 'hero.drinksDescription',
     },
     {
       type: 'image',
       src: '/heroimages/property5-hero6.jpeg',
       alt: 'Luxury Villa',
       title: 'Discover Your Dream Home',
+      titleKey: 'hero.dreamHome',
       subtitle: 'Luxury properties in prime locations',
+      subtitleKey: 'hero.luxuryProperties',
       description: 'Experience the perfect blend of comfort and elegance.',
+      descriptionKey: 'hero.homeDescription',
     },
     {
       type: 'image',
       src: '/heroimages/pooloutside-hero7.jpeg',
       alt: 'Private Pool',
       title: 'Dive Into Relaxation',
+      titleKey: 'hero.diveRelaxation',
       subtitle: 'Luxury living with your own pool',
+      subtitleKey: 'hero.ownPool',
       description: 'Refresh in style with exclusive poolside moments.',
+      descriptionKey: 'hero.poolDescription',
     },
     {
       type: 'image',
       src: '/heroimages/terrasse-hero8.jpeg',
       alt: 'Terrace with Pool',
       title: 'Terrace with Pool',
+      titleKey: 'hero.terracePool',
       subtitle: 'Enjoy outdoor living',
+      subtitleKey: 'hero.outdoorLiving',
       description: 'A perfect blend of comfort, style, and sunshine.',
+      descriptionKey: 'hero.terraceDescription',
     },
     {
       type: 'image',
       src: '/heroimages/dining-hero9.jpeg',
       alt: 'Modern Dining Spaces',
       title: 'Modern Dining Spaces',
+      titleKey: 'hero.modernDining',
       subtitle: 'Modern brightful rooms',
+      subtitleKey: 'hero.brightfulRooms',
       description: 'Savor exquisite meals in a modern setting.',
+      descriptionKey: 'hero.diningDescription',
     },
     {
       type: 'image',
       src: '/heroimages/wohnzimmer-hero10.jpeg',
       alt: 'Stylish Living Room',
       title: 'Stylish Living Room',
+      titleKey: 'hero.stylishLiving',
       subtitle: 'Elegant interiors for relaxed living',
+      subtitleKey: 'hero.elegantInteriors',
       description: 'Comfort and luxury in perfect harmony.',
+      descriptionKey: 'hero.livingDescription',
     },
     {
       type: 'image',
       src: '/heroimages/schlafzimmer3-hero11.jpeg',
       alt: 'Luxury Bedroom',
       title: 'Luxury Bedroom',
+      titleKey: 'hero.luxuryBedroom',
       subtitle: 'Rest in style and comfort',
+      subtitleKey: 'hero.restInStyle',
       description: 'A sanctuary designed for relaxation and tranquility.',
+      descriptionKey: 'hero.bedroomDescription',
     },
     {
       type: 'image',
       src: '/heroimages/kueche-hero12.jpeg',
       alt: 'Modern Kitchen',
       title: 'Modern Kitchen',
+      titleKey: 'hero.modernKitchen',
       subtitle: 'Enjoy cooking in modern, well-equipped kitchens',
+      subtitleKey: 'hero.wellEquipped',
       description: 'A kitchen designed for ease, style, and everyday living.',
+      descriptionKey: 'hero.kitchenDescription',
     },
     {
       type: 'image',
       src: '/heroimages/glasboden2-hero13.jpeg',
       alt: 'Stylish Interior with Glass Floor',
       title: 'Stylish Interior',
+      titleKey: 'hero.stylishInterior',
       subtitle: 'Innovative designs for modern living',
+      subtitleKey: 'hero.innovativeDesigns',
       description: 'Unique interiors combining beauty and function.',
+      descriptionKey: 'hero.interiorDescription',
     },
     {
       type: 'image',
       src: '/heroimages/sauna-hero14.jpeg',
       alt: 'Wellness and Relaxation',
       title: 'Sauna & Wellness',
+      titleKey: 'hero.saunaWellness',
       subtitle: 'Relax your body and mind',
+      subtitleKey: 'hero.relaxBodyMind',
       description: 'The ultimate wellness experience in your private retreat.',
+      descriptionKey: 'hero.wellnessDescription',
     },
     {
       type: 'image',
       src: '/heroimages/poolinside-hero15.jpeg',
       alt: 'Indoor Wellness Pool',
       title: 'Wellness',
+      titleKey: 'hero.wellness',
       subtitle: 'Rejuvenate indoors',
+      subtitleKey: 'hero.rejuvenateIndoors',
       description: 'Luxury spa and wellness at your fingertips.',
+      descriptionKey: 'hero.wellnessIndoorsDescription',
     },
   ]
-  
 
   useEffect(() => {
     if (!isPlaying) return
@@ -198,20 +249,32 @@ const Hero = () => {
           <div className='absolute inset-0 z-20 flex items-center justify-center'>
             <div className='text-center text-white max-w-4xl mx-auto px-4'>
               <h1 className='text-5xl md:text-7xl font-bold mb-4 animate-fade-in'>
-                {slide.title}
+                <Translate staticKey={slide.titleKey}>{slide.title}</Translate>
               </h1>
               <h2 className='text-2xl md:text-3xl font-semibold mb-4 text-amber-100'>
-                {slide.subtitle}
+                <Translate staticKey={slide.subtitleKey}>
+                  {slide.subtitle}
+                </Translate>
               </h2>
               <p className='text-lg md:text-xl mb-8 text-gray-200'>
-                {slide.description}
+                <Translate staticKey={slide.descriptionKey}>
+                  {slide.description}
+                </Translate>
               </p>
               <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center'>
-                <Link href='/properties' className='inline-block text-center bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'>
-                  Explore Properties
+                <Link
+                  href='/properties'
+                  className='inline-block text-center bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'
+                >
+                  <Translate staticKey='hero.exploreProperties'>
+                    Explore Properties
+                  </Translate>
                 </Link>
-                <Link href='/services' className='inline-block text-center border-2 border-white text-white hover:bg-white hover:text-amber-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'>
-                  Learn More
+                <Link
+                  href='/services'
+                  className='inline-block text-center border-2 border-white text-white hover:bg-white hover:text-amber-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'
+                >
+                  <Translate staticKey='hero.learnMore'>Learn More</Translate>
                 </Link>
               </div>
             </div>
