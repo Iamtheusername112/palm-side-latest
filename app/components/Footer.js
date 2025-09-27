@@ -229,13 +229,13 @@ const Footer = () => {
               <div className='space-y-3'>
                 <div>
                   <a
-                    href='https://www.google.com/maps/search/?api=1&query=Carrer%20de%20Ametler%203%20%E2%80%93%201B%2C%20ES-07609%20Llucmajor%20Mallorca%20%E2%80%93%20Illes%20Balears'
+                    href='https://www.google.com/maps/search/?api=1&query=Carrer%20de%20Ametler%203%20-1B%2C%20ES-07609%20Son%20Veri%20Nou%2C%20Islas%20Baleares'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='text-gray-300 hover:text-amber-400 transition-colors duration-300'
-                  >Carrer de l'Ametler 3 – 1B,
-ES-07609 Llucmajor
-Mallorca – Illes Balears</a>
+                  >Carrer de Ametler 3 -1B,
+ES-07609 Son Veri Nou,
+Islas Baleares</a>
                    
                 </div>
                 <div>

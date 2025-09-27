@@ -365,7 +365,7 @@ const ContactPage = () => {
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>
-                  <p className='text-gray-600'>Carrer de l'Ametler 3 – 1B, ES-07609 Llucmajor Mallorca – Illes Balears</p>
+                  <p className='text-gray-600'>Carrer de Ametler 3 -1B, ES-07609 Son Veri Nou, Islas Baleares</p>
                 
                 </div>
               </div>
@@ -378,7 +378,7 @@ const ContactPage = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16'>
         <div className='mt-8'>
           <h2 className='text-3xl font-bold text-gray-900 mb-4'>Find Us on the Map</h2>
-          <p className='text-gray-600 mb-4'>Our office in Llucmajor, with Palma de Mallorca Airport visible on the map.</p>
+          <p className='text-gray-600 mb-4'>Our office in Son Verí Nou, with Palma de Mallorca Airport visible on the map.</p>
           <div className='rounded-xl overflow-hidden shadow-lg h-[360px]'>
             <iframe
               title='Palmside Office Map'
@@ -387,7 +387,7 @@ const ContactPage = () => {
               style={{ border: 0 }}
               loading='lazy'
               referrerPolicy='no-referrer-when-downgrade'
-              src={'https://www.google.com/maps?q=Carrer%20de%20l\'Ametler%203%2C%2007609%20Llucmajor%2C%20Illes%20Balears&z=11&output=embed'}
+              src={'https://maps.google.com/maps?q=Carrer%20de%20Ametler%203%20-1B%2C%20Son%20Ver%C3%AD%20Nou%2C%20Llucmajor%2C%20Mallorca&z=12&iwloc=near&output=embed'}
             />
           </div>
         </div>
