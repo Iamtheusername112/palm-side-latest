@@ -274,10 +274,11 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Language Switcher */}
-          <div className='px-6 py-4 border-t border-gray-200'>
+          <div className='px-4 py-4 border-t border-gray-200'>
             <LanguageSwitcher
               variant='buttons'
               size='sm'
+              className='[&>div]:gap-1 [&_button]:text-xs [&_button]:px-2 [&_button]:py-1 [&_span]:text-sm'
               onLanguageChange={() => setIsOpen(false)}
             />
           </div>
