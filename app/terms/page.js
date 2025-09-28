@@ -256,71 +256,111 @@ const TermsOfService = () => {
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                6. Intellectual Property
+                <Translate staticKey='terms.intellectualProperty'>
+                  6. Intellectual Property
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                All content, trademarks, and intellectual property on this
-                website are owned by Palmside Real Estate or our licensors. You
-                may not:
+                <Translate staticKey='terms.intellectualPropertyText'>
+                  All content, trademarks, and intellectual property on this
+                  website are owned by Palmside Real Estate or our licensors.
+                  You may not:
+                </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
                 <li>
-                  Copy, modify, or distribute our content without permission
+                  <Translate staticKey='terms.noCopyContent'>
+                    Copy, modify, or distribute our content without permission
+                  </Translate>
                 </li>
-                <li>Use our trademarks or logos without authorization</li>
-                <li>Reverse engineer or attempt to extract source code</li>
-                <li>Remove copyright or proprietary notices</li>
+                <li>
+                  <Translate staticKey='terms.noUseTrademarks'>
+                    Use our trademarks or logos without authorization
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.noReverseEngineer'>
+                    Reverse engineer or attempt to extract source code
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.noRemoveNotices'>
+                    Remove copyright or proprietary notices
+                  </Translate>
+                </li>
               </ul>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                7. Privacy and Data Protection
+                <Translate staticKey='terms.privacyDataProtection'>
+                  7. Privacy and Data Protection
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                Your privacy is important to us. Our collection and use of
-                personal information is governed by our Privacy Policy, which is
-                incorporated into these Terms of Service by reference and
-                complies with the EU General Data Protection Regulation (GDPR).
+                <Translate staticKey='terms.privacyDataProtectionText'>
+                  Your privacy is important to us. Our collection and use of
+                  personal information is governed by our Privacy Policy, which
+                  is incorporated into these Terms of Service by reference and
+                  complies with the EU General Data Protection Regulation
+                  (GDPR).
+                </Translate>
               </p>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                8. Termination
+                <Translate staticKey='terms.termination'>
+                  8. Termination
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                We reserve the right to terminate or suspend your access to our
-                services at any time, with or without notice, for any reason,
-                including violation of these terms.
+                <Translate staticKey='terms.terminationText'>
+                  We reserve the right to terminate or suspend your access to
+                  our services at any time, with or without notice, for any
+                  reason, including violation of these terms.
+                </Translate>
               </p>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                9. Governing Law
+                <Translate staticKey='terms.governingLaw'>
+                  9. Governing Law
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                These Terms of Service are governed by and construed in
-                accordance with the laws of Spain and applicable European Union
-                law. Any disputes shall be subject to the exclusive jurisdiction
-                of the courts of Palma de Mallorca, Spain.
+                <Translate staticKey='terms.governingLawText'>
+                  These Terms of Service are governed by and construed in
+                  accordance with the laws of Spain and applicable European
+                  Union law. Any disputes shall be subject to the exclusive
+                  jurisdiction of the courts of Palma de Mallorca, Spain.
+                </Translate>
               </p>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                10. Contact Information
+                <Translate staticKey='terms.contactInformation'>
+                  10. Contact Information
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                If you have any questions about these Terms of Service, please
-                contact us:
+                <Translate staticKey='terms.contactInformationText'>
+                  If you have any questions about these Terms of Service, please
+                  contact us:
+                </Translate>
               </p>
               <div className='bg-gray-50 rounded-lg p-4'>
                 <p className='text-gray-600'>
-                  <strong>Company:</strong> Palmside S.L.
+                  <strong>
+                    <Translate staticKey='terms.company'>Company:</Translate>
+                  </strong>{' '}
+                  Palmside S.L.
                   <br />
-                  <strong>Email:</strong>{' '}
+                  <strong>
+                    <Translate staticKey='terms.email'>Email:</Translate>
+                  </strong>{' '}
                   <a
                     href='mailto:info@palmside.es'
                     className='text-yellow-700 hover:underline'
@@ -328,23 +368,32 @@ const TermsOfService = () => {
                     info@palmside.es
                   </a>
                   <br />
-                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67
+                  <strong>
+                    <Translate staticKey='terms.phone'>Phone:</Translate>
+                  </strong>{' '}
+                  +49 176 534 85 055 / +34 609 06 93 67
                   <br />
-                  <strong>Address:</strong> Carrer de Ametler 3 -1B, ES-07609
-                  Son Verí Nou, Islas Baleares
+                  <strong>
+                    <Translate staticKey='terms.address'>Address:</Translate>
+                  </strong>{' '}
+                  Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares
                 </p>
               </div>
             </section>
 
             <section>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                11. Changes to Terms
+                <Translate staticKey='terms.changesToTerms'>
+                  11. Changes to Terms
+                </Translate>
               </h2>
               <p className='text-gray-600'>
-                We reserve the right to modify these Terms of Service at any
-                time. We will notify users of any material changes by posting
-                the updated terms on this page and updating the "Last updated"
-                date.
+                <Translate staticKey='terms.changesToTermsText'>
+                  We reserve the right to modify these Terms of Service at any
+                  time. We will notify users of any material changes by posting
+                  the updated terms on this page and updating the "Last updated"
+                  date.
+                </Translate>
               </p>
             </section>
           </div>
