@@ -28,8 +28,8 @@ const AboutPage = () => {
       positionKey: 'about.jeanettePosition',
       position: 'Founder/CEO',
       image: '/aboutusimages/jeanette_neu.jpeg',
-      email: 'ceo@palmside.es',
-      phone: '+34 600 000 000',
+      email: 'info@palmside.es',
+      phones: ['+49 176 534 85 055', '+34 609 06 93 67'],
       bioKey: 'about.jeanetteBio',
       bio: "I'm a bridge builder between people, markets, and opportunities – with over 30 years of experience in two worlds: international wholesale and the real estate industry. I've built academies, served clients worldwide, coordinated construction projects, managed commercial properties, and managed homeowners' associations and retirement communities. My drive? Optimizing processes, connecting people, and making every project a success – with heart, mind, and a keen eye for detail.",
     },
@@ -49,7 +49,7 @@ const AboutPage = () => {
       position: 'Technical Director',
       image: '/aboutusimages/taner_neu.jpeg',
       email: 'technical@palmside.es',
-      phone: '+34 600 000 001',
+      phone: '+34 609 06 93 67',
       bioKey: 'about.tanerBio',
       bio: "I've stood for technical excellence in skilled trades for over 30 years – as a senior electrician on large-scale construction sites, in high-end private residences, and in complex industrial projects. My expertise spans modern building technology, photovoltaic systems, and professional facility management, with a focus on quality, efficiency, and practical solutions. At Palmside S.L., I combine precision, efficiency, and a problem-solving mindset to deliver top-tier technical results – reliably and at scale.",
     },
@@ -340,7 +340,7 @@ const AboutPage = () => {
                       {member.bio}
                     </Translate>
                   </p>
-                  {(member.email || member.phone) && (
+                  {(member.email || member.phone || member.phones) && (
                     <div className='flex flex-col gap-2 mb-4 text-sm'>
                       {member.email && (
                         <div className='flex items-center text-gray-600'>
@@ -364,6 +364,15 @@ const AboutPage = () => {
                           </a>
                         </div>
                       )}
+                      {member.phones &&
+                        member.phones.map((p, i) => (
+                          <div key={i} className='flex items-center text-gray-600'>
+                            <Phone className='h-4 w-4 mr-2 text-green-600' />
+                            <a href={`tel:${p}`} className='hover:text-yellow-700'>
+                              {p}
+                            </a>
+                          </div>
+                        ))}
                     </div>
                   )}
                   {member.specialties && member.specialties.length > 0 && (
