@@ -206,47 +206,83 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className='md:hidden'>
-          <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg'>
+      <div
+        className={`md:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-sm transform transition-transform duration-700 ease-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`fixed inset-0 bg-black transition-opacity duration-500 ${
+            isOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setIsOpen(false)}
+        />
+
+        {/* Menu Panel */}
+        <div className='relative flex flex-col h-full bg-white shadow-xl'>
+          {/* Header */}
+          <div className='flex items-center justify-between p-6 border-b border-gray-200'>
+            <h2 className='text-xl font-semibold text-gray-900'>
+              <Translate staticKey='nav.menu'>Menu</Translate>
+            </h2>
+            <button
+              onClick={() => setIsOpen(false)}
+              className='text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition-colors'
+            >
+              <X className='h-6 w-6' />
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <div className='flex-1 px-6 py-4 space-y-2'>
             <Link
               href='/'
-              className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
+              onClick={() => setIsOpen(false)}
+              className='text-gray-700 hover:text-yellow-600 hover:bg-gray-50 block px-4 py-3 text-lg font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:bg-gray-50'
             >
               <Translate staticKey='nav.home'>Home</Translate>
             </Link>
             <Link
               href='/services'
-              className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
+              onClick={() => setIsOpen(false)}
+              className='text-gray-700 hover:text-yellow-600 hover:bg-gray-50 block px-4 py-3 text-lg font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:bg-gray-50'
             >
               <Translate staticKey='nav.services'>Services</Translate>
             </Link>
             <Link
               href='/properties'
-              className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
+              onClick={() => setIsOpen(false)}
+              className='text-gray-700 hover:text-yellow-600 hover:bg-gray-50 block px-4 py-3 text-lg font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:bg-gray-50'
             >
               <Translate staticKey='nav.properties'>Properties</Translate>
             </Link>
             <Link
               href='/about'
-              className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
+              onClick={() => setIsOpen(false)}
+              className='text-gray-700 hover:text-yellow-600 hover:bg-gray-50 block px-4 py-3 text-lg font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:bg-gray-50'
             >
               <Translate staticKey='nav.about'>About Us</Translate>
             </Link>
             <Link
               href='/contact'
-              className='text-gray-700 hover:text-yellow-600 block px-6 py-4 text-xl font-medium focus:outline-none focus:ring-0 focus:bg-transparent'
+              onClick={() => setIsOpen(false)}
+              className='text-gray-700 hover:text-yellow-600 hover:bg-gray-50 block px-4 py-3 text-lg font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:bg-gray-50'
             >
               <Translate staticKey='nav.contact'>Contact Us</Translate>
             </Link>
+          </div>
 
-            {/* Mobile Language Switcher */}
-            <div className='px-6 py-4 border-t border-gray-200'>
-              <LanguageSwitcher variant='buttons' size='sm' />
-            </div>
+          {/* Mobile Language Switcher */}
+          <div className='px-6 py-4 border-t border-gray-200'>
+            <LanguageSwitcher
+              variant='buttons'
+              size='sm'
+              onLanguageChange={() => setIsOpen(false)}
+            />
           </div>
         </div>
-      )}
+      </div>
     </nav>
   )
 }
