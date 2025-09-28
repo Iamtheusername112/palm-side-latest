@@ -154,7 +154,7 @@ export default function LanguageSwitcher({
                 key={lang}
                 onClick={() => handleLanguageChange(lang)}
                 className={`
-                  w-full flex items-center gap-2 px-4 py-2 text-left transition-all duration-200
+                  w-full flex items-center gap-2 text-left transition-all duration-200
                   ${
                     isActive
                       ? 'bg-gradient-to-r from-amber-700 to-green-700 text-white'
