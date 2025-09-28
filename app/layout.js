@@ -33,8 +33,6 @@ export const metadata = {
     shortcut: '/favicon.ico',
   },
   manifest: '/site.webmanifest',
-  themeColor: '#059669',
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   openGraph: {
     title: 'Palmside S.L.',
@@ -43,6 +41,12 @@ export const metadata = {
     locale: 'en_US',
     siteName: 'Palmside S.L.',
   },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#059669',
 }
 
 export default function RootLayout({ children }) {
