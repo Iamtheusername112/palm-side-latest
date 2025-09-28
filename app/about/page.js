@@ -25,26 +25,32 @@ const AboutPage = () => {
   const teamMembers = [
     {
       name: 'Jeanette Bakacak',
+      positionKey: 'about.jeanettePosition',
       position: 'Founder/CEO',
       image: '/aboutusimages/jeanette_neu.jpeg',
       email: 'ceo@palmside.es',
       phone: '+34 600 000 000',
-      bio: "I'm a bridge builder between people, markets, and opportunities – with over 30 years of experience in two worlds: international wholesale and the real estate industry. I've built academies, served clients worldwide, coordinated construction projects, managed commercial properties, and managed homeowners’ associations and retirement communities. My drive? Optimizing processes, connecting people, and making every project a success – with heart, mind, and a keen eye for detail.",
+      bioKey: 'about.jeanetteBio',
+      bio: "I'm a bridge builder between people, markets, and opportunities – with over 30 years of experience in two worlds: international wholesale and the real estate industry. I've built academies, served clients worldwide, coordinated construction projects, managed commercial properties, and managed homeowners' associations and retirement communities. My drive? Optimizing processes, connecting people, and making every project a success – with heart, mind, and a keen eye for detail.",
     },
     {
       name: 'Claudia Launer',
+      positionKey: 'about.claudiaPosition',
       position: 'Consulting',
       image: '/aboutusimages/Claudia_neu.jpeg',
       email: 'consulting@palmside.es',
       phone: '+49 1573 4903876',
+      bioKey: 'about.claudiaBio',
       bio: 'With over 20 years of experience in the international real estate business, Claudia is a proven expert in the global real estate market. After many successful years as a real estate agent in New York and New Jersey – focusing on business and private clients – she has specialized in the DD/A/D region, mainland Spain, and Mallorca since 2016. She works as a real estate consultant in these markets, supporting clients with their search, valuation, and brokerage.',
     },
     {
       name: 'Taner Bakacak',
+      positionKey: 'about.tanerPosition',
       position: 'Technical Director',
       image: '/aboutusimages/taner_neu.jpeg',
       email: 'technical@palmside.es',
       phone: '+34 600 000 001',
+      bioKey: 'about.tanerBio',
       bio: "I've stood for technical excellence in skilled trades for over 30 years – as a senior electrician on large-scale construction sites, in high-end private residences, and in complex industrial projects. My expertise spans modern building technology, photovoltaic systems, and professional facility management, with a focus on quality, efficiency, and practical solutions. At Palmside S.L., I combine precision, efficiency, and a problem-solving mindset to deliver top-tier technical results – reliably and at scale.",
     },
   ]
@@ -262,11 +268,15 @@ const AboutPage = () => {
         <div className='mb-20'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Our Core Values
+              <Translate staticKey='about.ourCoreValues'>
+                Our Core Values
+              </Translate>
             </h2>
             <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              The principles that guide everything we do and every decision we
-              make
+              <Translate staticKey='about.coreValuesDescription'>
+                The principles that guide everything we do and every decision we
+                make
+              </Translate>
             </p>
           </div>
           <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
@@ -280,10 +290,14 @@ const AboutPage = () => {
                     <IconComponent className='h-10 w-10' />
                   </div>
                   <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                    {value.title}
+                    <Translate staticKey={`about.value${index + 1}Title`}>
+                      {value.title}
+                    </Translate>
                   </h3>
                   <p className='text-gray-600 leading-relaxed'>
-                    {value.description}
+                    <Translate staticKey={`about.value${index + 1}Description`}>
+                      {value.description}
+                    </Translate>
                   </p>
                 </div>
               )
@@ -295,10 +309,12 @@ const AboutPage = () => {
         <div className='mb-20'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Meet the Team
+              <Translate staticKey='about.meetTheTeam'>Meet the Team</Translate>
             </h2>
             <p className='text-gray-600 text-lg max-w-2xl mx-auto'>
-              Local experts in Mallorca guiding you every step of the way
+              <Translate staticKey='about.teamDescription'>
+                Local experts in Mallorca guiding you every step of the way
+              </Translate>
             </p>
           </div>
           <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
@@ -320,10 +336,14 @@ const AboutPage = () => {
                     {member.name}
                   </h3>
                   <p className='text-yellow-600 font-medium mb-3'>
-                    {member.position}
+                    <Translate staticKey={member.positionKey}>
+                      {member.position}
+                    </Translate>
                   </p>
                   <p className='text-gray-600 text-sm mb-4 leading-relaxed'>
-                    {member.bio}
+                    <Translate staticKey={member.bioKey}>
+                      {member.bio}
+                    </Translate>
                   </p>
                   {(member.email || member.phone) && (
                     <div className='flex flex-col gap-2 mb-4 text-sm'>
