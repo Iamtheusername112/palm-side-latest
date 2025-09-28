@@ -100,11 +100,7 @@ const AboutPage = () => {
       <Navbar />
 
       <PageBanner
-        title={
-          <Translate staticKey='banner.about'>
-            About Palmside Mallorca
-          </Translate>
-        }
+        title={<Translate staticKey='banner.about'>About Palmside</Translate>}
         subtitle={
           <Translate staticKey='banner.aboutSubtitle'>
             Local expertise, multilingual guidance, and end-to-end support in
@@ -131,9 +127,8 @@ const AboutPage = () => {
               <p>
                 <Translate staticKey='about.story2'>
                   After years of helping people navigate the island's property
-                  market, we founded Palmside Mallorca to combine our
-                  professional expertise with our genuine love for this
-                  incredible place.
+                  market, we founded Palmside to combine our professional
+                  expertise with our genuine love for this incredible place.
                 </Translate>
               </p>
               <p>
@@ -255,10 +250,10 @@ const AboutPage = () => {
             </h3>
             <p className='text-gray-600 leading-relaxed'>
               <Translate staticKey='about.visionText'>
-                To be the leading real estate company in South Florida,
-                recognized for our innovation, integrity, and exceptional client
-                outcomes. We envision a future where real estate investment is
-                accessible, profitable, and rewarding for everyone.
+                To be the leading real estate company in Mallorca, recognized
+                for our innovation, integrity, and exceptional client outcomes.
+                We envision a future where real estate investment is accessible,
+                profitable, and rewarding for everyone.
               </Translate>
             </p>
           </div>

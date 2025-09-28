@@ -89,10 +89,10 @@ const TermsOfService = () => {
               </h2>
               <p className='text-gray-600 mb-4'>
                 <Translate staticKey='terms.acceptanceDescription'>
-                  By accessing and using Palmside Real Estate services, you
-                  accept and agree to be bound by the terms and provision of
-                  this agreement. If you do not agree to abide by the above,
-                  please do not use this service.
+                  By accessing and using Palmside S.L. services, you accept and
+                  agree to be bound by the terms and provision of this
+                  agreement. If you do not agree to abide by the above, please
+                  do not use this service.
                 </Translate>
               </p>
             </section>
@@ -105,8 +105,8 @@ const TermsOfService = () => {
               </h2>
               <p className='text-gray-600 mb-4'>
                 <Translate staticKey='terms.descriptionOfServiceText'>
-                  Palmside Real Estate provides real estate services including
-                  but not limited to:
+                  Palmside S.L. provides real estate services including but not
+                  limited to:
                 </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
@@ -224,10 +224,10 @@ const TermsOfService = () => {
               </h2>
               <p className='text-gray-600 mb-4'>
                 <Translate staticKey='terms.limitationDescription'>
-                  Palmside Real Estate shall not be liable for any direct,
-                  indirect, incidental, special, or consequential damages
-                  resulting from the use or inability to use our services,
-                  including but not limited to:
+                  Palmside S.L. shall not be liable for any direct, indirect,
+                  incidental, special, or consequential damages resulting from
+                  the use or inability to use our services, including but not
+                  limited to:
                 </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
@@ -263,8 +263,8 @@ const TermsOfService = () => {
               <p className='text-gray-600 mb-4'>
                 <Translate staticKey='terms.intellectualPropertyText'>
                   All content, trademarks, and intellectual property on this
-                  website are owned by Palmside Real Estate or our licensors.
-                  You may not:
+                  website are owned by Palmside S.L. or our licensors. You may
+                  not:
                 </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>

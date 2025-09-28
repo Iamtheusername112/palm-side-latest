@@ -1,4 +1,4 @@
-# Palmside Real Estate Admin Dashboard
+# Palmside S.L. Admin Dashboard
 
 A modern, secure admin dashboard for real estate management built with Next.js 15 and PostgreSQL.
 

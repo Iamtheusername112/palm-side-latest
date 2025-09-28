@@ -296,7 +296,7 @@ const PropertiesPage = () => {
                 onClick={() => window.location.reload()}
                 className='bg-gradient-to-r from-yellow-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-all duration-300'
               >
-                Try Again
+                <Translate staticKey='properties.tryAgain'>Try Again</Translate>
               </button>
             </div>
           </div>
@@ -307,10 +307,14 @@ const PropertiesPage = () => {
                 <span className='text-gray-600 text-2xl'>🏠</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                No Properties Found
+                <Translate staticKey='properties.noPropertiesFound'>
+                  No Properties Found
+                </Translate>
               </h3>
               <p className='text-gray-600'>
-                Try adjusting your filters to see more properties.
+                <Translate staticKey='properties.tryAdjustingFilters'>
+                  Try adjusting your filters to see more properties.
+                </Translate>
               </p>
             </div>
           </div>
@@ -532,18 +536,27 @@ const PropertyCard = ({
               {property.beds > 0 && (
                 <div className='flex items-center text-gray-600'>
                   <Bed className='h-4 w-4 mr-1' />
-                  <span>{property.beds} beds</span>
+                  <span>
+                    {property.beds}{' '}
+                    <Translate staticKey='properties.beds'>beds</Translate>
+                  </span>
                 </div>
               )}
               {property.baths > 0 && (
                 <div className='flex items-center text-gray-600'>
                   <Bath className='h-4 w-4 mr-1' />
-                  <span>{property.baths} baths</span>
+                  <span>
+                    {property.baths}{' '}
+                    <Translate staticKey='properties.baths'>baths</Translate>
+                  </span>
                 </div>
               )}
               <div className='flex items-center text-gray-600'>
                 <Square className='h-4 w-4 mr-1' />
-                <span>{property.sqft.toLocaleString('en-US')} sq ft</span>
+                <span>
+                  {property.sqft.toLocaleString('en-US')}{' '}
+                  <Translate staticKey='properties.sqft'>sq ft</Translate>
+                </span>
               </div>
             </div>
 
@@ -629,7 +642,7 @@ const PropertyCard = ({
         {/* Status Badges */}
         {property.featured && (
           <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
-            Featured
+            <Translate staticKey='properties.featured'>Featured</Translate>
           </div>
         )}
         <div
@@ -687,7 +700,9 @@ const PropertyCard = ({
               className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-lg shadow-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
             >
               <Eye className='h-3 w-3' />
-              <span>View All</span>
+              <span>
+                <Translate staticKey='properties.viewAll'>View All</Translate>
+              </span>
             </button>
           </div>
         )}
@@ -725,18 +740,27 @@ const PropertyCard = ({
             {property.beds > 0 && (
               <div className='flex items-center text-gray-600 text-sm'>
                 <Bed className='h-4 w-4 mr-1' />
-                <span>{property.beds}</span>
+                <span>
+                  {property.beds}{' '}
+                  <Translate staticKey='properties.beds'>beds</Translate>
+                </span>
               </div>
             )}
             {property.baths > 0 && (
               <div className='flex items-center text-gray-600 text-sm'>
                 <Bath className='h-4 w-4 mr-1' />
-                <span>{property.baths}</span>
+                <span>
+                  {property.baths}{' '}
+                  <Translate staticKey='properties.baths'>baths</Translate>
+                </span>
               </div>
             )}
             <div className='flex items-center text-gray-600 text-sm'>
               <Square className='h-4 w-4 mr-1' />
-              <span>{property.sqft.toLocaleString('en-US')}</span>
+              <span>
+                {property.sqft.toLocaleString('en-US')}{' '}
+                <Translate staticKey='properties.sqft'>sq ft</Translate>
+              </span>
             </div>
           </div>
         </div>

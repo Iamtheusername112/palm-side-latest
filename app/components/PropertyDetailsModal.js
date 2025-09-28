@@ -23,6 +23,7 @@ import {
   Mountain,
   Building,
 } from 'lucide-react'
+import Translate from '../../components/Translate'
 
 const PropertyDetailsModal = ({
   property,
@@ -138,7 +139,7 @@ const PropertyDetailsModal = ({
             </h2>
             {property.featured && (
               <span className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold'>
-                Featured
+                <Translate staticKey='properties.featured'>Featured</Translate>
               </span>
             )}
           </div>
@@ -260,7 +261,9 @@ const PropertyDetailsModal = ({
             {/* Description */}
             <div className='mb-6'>
               <h3 className='text-lg font-semibold text-gray-900 mb-3'>
-                Description
+                <Translate staticKey='properties.description'>
+                  Description
+                </Translate>
               </h3>
               <p className='text-gray-600 leading-relaxed'>
                 {property.description}
@@ -272,7 +275,11 @@ const PropertyDetailsModal = ({
               <div className='bg-gray-50 rounded-lg p-4'>
                 <div className='flex items-center text-gray-700 mb-2'>
                   <Bed className='h-5 w-5 mr-2' />
-                  <span className='font-semibold'>Bedrooms</span>
+                  <span className='font-semibold'>
+                    <Translate staticKey='properties.bedrooms'>
+                      Bedrooms
+                    </Translate>
+                  </span>
                 </div>
                 <div className='text-2xl font-bold text-gray-900'>
                   {property.beds || 'N/A'}
@@ -281,7 +288,11 @@ const PropertyDetailsModal = ({
               <div className='bg-gray-50 rounded-lg p-4'>
                 <div className='flex items-center text-gray-700 mb-2'>
                   <Bath className='h-5 w-5 mr-2' />
-                  <span className='font-semibold'>Bathrooms</span>
+                  <span className='font-semibold'>
+                    <Translate staticKey='properties.bathrooms'>
+                      Bathrooms
+                    </Translate>
+                  </span>
                 </div>
                 <div className='text-2xl font-bold text-gray-900'>
                   {property.baths || 'N/A'}
@@ -290,7 +301,11 @@ const PropertyDetailsModal = ({
               <div className='bg-gray-50 rounded-lg p-4'>
                 <div className='flex items-center text-gray-700 mb-2'>
                   <Square className='h-5 w-5 mr-2' />
-                  <span className='font-semibold'>Square Feet</span>
+                  <span className='font-semibold'>
+                    <Translate staticKey='properties.squareFeet'>
+                      Square Feet
+                    </Translate>
+                  </span>
                 </div>
                 <div className='text-2xl font-bold text-gray-900'>
                   {property.sqft ? property.sqft.toLocaleString() : 'N/A'}
@@ -299,7 +314,11 @@ const PropertyDetailsModal = ({
               <div className='bg-gray-50 rounded-lg p-4'>
                 <div className='flex items-center text-gray-700 mb-2'>
                   <Calendar className='h-5 w-5 mr-2' />
-                  <span className='font-semibold'>Year Built</span>
+                  <span className='font-semibold'>
+                    <Translate staticKey='properties.yearBuilt'>
+                      Year Built
+                    </Translate>
+                  </span>
                 </div>
                 <div className='text-2xl font-bold text-gray-900'>
                   {property.yearBuilt || 'N/A'}
@@ -311,14 +330,20 @@ const PropertyDetailsModal = ({
             {(property.lotSize || property.address) && (
               <div className='mb-6'>
                 <h3 className='text-lg font-semibold text-gray-900 mb-3'>
-                  Additional Details
+                  <Translate staticKey='properties.additionalDetails'>
+                    Additional Details
+                  </Translate>
                 </h3>
                 <div className='space-y-2 text-gray-600'>
                   {property.lotSize && (
                     <div className='flex items-center'>
                       <TreePine className='h-4 w-4 mr-2' />
                       <span>
-                        Lot Size: {property.lotSize.toLocaleString()} sq ft
+                        <Translate staticKey='properties.lotSize'>
+                          Lot Size
+                        </Translate>
+                        : {property.lotSize.toLocaleString()}{' '}
+                        <Translate staticKey='properties.sqft'>sq ft</Translate>
                       </span>
                     </div>
                   )}
@@ -346,7 +371,9 @@ const PropertyDetailsModal = ({
             {property.features && property.features.length > 0 && (
               <div className='mb-6'>
                 <h3 className='text-lg font-semibold text-gray-900 mb-3'>
-                  Features & Amenities
+                  <Translate staticKey='properties.featuresAmenities'>
+                    Features & Amenities
+                  </Translate>
                 </h3>
                 <div className='grid grid-cols-2 gap-3'>
                   {property.features.map((feature, index) => (
@@ -369,7 +396,9 @@ const PropertyDetailsModal = ({
             {/* Contact Actions */}
             <div className='border-t border-gray-200 pt-6'>
               <h3 className='text-lg font-semibold text-gray-900 mb-4'>
-                Interested in this property?
+                <Translate staticKey='properties.interestedInProperty'>
+                  Interested in this property?
+                </Translate>
               </h3>
               <div className='flex flex-col sm:flex-row gap-3'>
                 <Link
@@ -378,7 +407,11 @@ const PropertyDetailsModal = ({
                   className='flex-1 bg-gradient-to-r from-amber-600 to-green-600 text-white px-6 py-3 rounded-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center justify-center'
                 >
                   <Phone className='h-5 w-5 mr-2' />
-                  <span>Contact Agent</span>
+                  <span>
+                    <Translate staticKey='properties.contactAgent'>
+                      Contact Agent
+                    </Translate>
+                  </span>
                 </Link>
                 <Link
                   href='/contact'
@@ -386,7 +419,11 @@ const PropertyDetailsModal = ({
                   className='flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center'
                 >
                   <Mail className='h-5 w-5 mr-2' />
-                  <span>Send Inquiry</span>
+                  <span>
+                    <Translate staticKey='properties.sendInquiry'>
+                      Send Inquiry
+                    </Translate>
+                  </span>
                 </Link>
               </div>
             </div>
@@ -394,12 +431,21 @@ const PropertyDetailsModal = ({
             {/* Property Information Footer */}
             <div className='mt-6 pt-4 border-t border-gray-200 text-xs text-gray-500 text-center'>
               <p>
-                Property ID: {property.id} • Listed on{' '}
+                <Translate staticKey='properties.propertyId'>
+                  Property ID
+                </Translate>
+                : {property.id} •{' '}
+                <Translate staticKey='properties.listedOn'>Listed on</Translate>{' '}
                 {formatDate(property.createdAt)}
               </p>
               {property.updatedAt &&
                 property.updatedAt !== property.createdAt && (
-                  <p>Last updated: {formatDate(property.updatedAt)}</p>
+                  <p>
+                    <Translate staticKey='properties.lastUpdated'>
+                      Last updated
+                    </Translate>
+                    : {formatDate(property.updatedAt)}
+                  </p>
                 )}
             </div>
           </div>

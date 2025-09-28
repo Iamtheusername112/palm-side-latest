@@ -70,7 +70,7 @@ const SiteNotice = () => {
                 <strong>
                   <Translate staticKey='legal.tradeName'>Trade name:</Translate>
                 </strong>{' '}
-                Palmside Real Estate
+                Palmside S.L.
                 <br />
                 <strong>
                   <Translate staticKey='legal.managingDirector'>

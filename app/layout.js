@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata = {
-  title: 'Palmside Real Estate',
+  title: 'Palmside S.L.',
   description: 'Your trusted partner in real estate services',
   keywords:
-    'real estate, luxury properties, investment properties, South Florida, property management',
-  authors: [{ name: 'Palmside Real Estate' }],
+    'real estate, luxury properties, investment properties, Mallorca, property management',
+  authors: [{ name: 'Palmside S.L.' }],
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -37,11 +37,11 @@ export const metadata = {
   viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   openGraph: {
-    title: 'Palmside Real Estate',
+    title: 'Palmside S.L.',
     description: 'Your trusted partner in real estate services',
     type: 'website',
     locale: 'en_US',
-    siteName: 'Palmside Real Estate',
+    siteName: 'Palmside S.L.',
   },
 }
 
