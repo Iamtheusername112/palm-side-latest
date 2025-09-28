@@ -2,6 +2,7 @@
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import Translate from '../../components/Translate'
 
 const TermsOfService = () => {
   return (
@@ -14,10 +15,14 @@ const TermsOfService = () => {
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6'>
-            Terms of Service
+            <Translate staticKey='terms.termsOfService'>
+              Terms of Service
+            </Translate>
           </h1>
           <p className='text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto'>
-            Please read these terms carefully before using our services.
+            <Translate staticKey='terms.termsDescription'>
+              Please read these terms carefully before using our services.
+            </Translate>
           </p>
         </div>
         {/* Decorative Elements */}
@@ -30,99 +35,222 @@ const TermsOfService = () => {
         <div className='bg-white rounded-xl shadow-lg p-8'>
           <div className='prose prose-lg max-w-none'>
             <p className='text-gray-600 mb-6'>
-              <strong>Last updated:</strong> {new Date().toLocaleDateString()}
+              <strong>
+                <Translate staticKey='terms.lastUpdated'>
+                  Last updated:
+                </Translate>
+              </strong>{' '}
+              {new Date().toLocaleDateString()}
             </p>
 
             <section className='mb-8'>
-              <h2 className='text-2xl font-bold text-gray-900 mb-4'>Company Details</h2>
+              <h2 className='text-2xl font-bold text-gray-900 mb-4'>
+                <Translate staticKey='terms.companyDetails'>
+                  Company Details
+                </Translate>
+              </h2>
               <div className='bg-gray-50 rounded-lg p-4'>
                 <p className='text-gray-600'>
-                  <strong>Company:</strong> Palmside S.L.<br />
-                  <strong>Registered address:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares<br />
-                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
-                  <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a>
+                  <strong>
+                    <Translate staticKey='terms.company'>Company:</Translate>
+                  </strong>{' '}
+                  Palmside S.L.
+                  <br />
+                  <strong>
+                    <Translate staticKey='terms.registeredAddress'>
+                      Registered address:
+                    </Translate>
+                  </strong>{' '}
+                  Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares
+                  <br />
+                  <strong>
+                    <Translate staticKey='terms.phone'>Phone:</Translate>
+                  </strong>{' '}
+                  +49 176 534 85 055 / +34 609 06 93 67
+                  <br />
+                  <strong>
+                    <Translate staticKey='terms.email'>Email:</Translate>
+                  </strong>{' '}
+                  <a
+                    href='mailto:info@palmside.es'
+                    className='text-yellow-700 hover:underline'
+                  >
+                    info@palmside.es
+                  </a>
                 </p>
               </div>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                1. Acceptance of Terms
+                <Translate staticKey='terms.acceptanceOfTerms'>
+                  1. Acceptance of Terms
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                By accessing and using Palmside Real Estate services, you accept
-                and agree to be bound by the terms and provision of this
-                agreement. If you do not agree to abide by the above, please do
-                not use this service.
+                <Translate staticKey='terms.acceptanceDescription'>
+                  By accessing and using Palmside Real Estate services, you
+                  accept and agree to be bound by the terms and provision of
+                  this agreement. If you do not agree to abide by the above,
+                  please do not use this service.
+                </Translate>
               </p>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                2. Description of Service
+                <Translate staticKey='terms.descriptionOfService'>
+                  2. Description of Service
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                Palmside Real Estate provides real estate services including but
-                not limited to:
+                <Translate staticKey='terms.descriptionOfServiceText'>
+                  Palmside Real Estate provides real estate services including
+                  but not limited to:
+                </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>Property sales and purchases</li>
-                <li>Investment consulting</li>
-                <li>Property management</li>
-                <li>Market analysis</li>
-                <li>Legal support and guidance</li>
+                <li>
+                  <Translate staticKey='terms.propertySales'>
+                    Property sales and purchases
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.investmentConsulting'>
+                    Investment consulting
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.propertyManagement'>
+                    Property management
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.marketAnalysis'>
+                    Market analysis
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.legalSupport'>
+                    Legal support and guidance
+                  </Translate>
+                </li>
               </ul>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                3. User Responsibilities
+                <Translate staticKey='terms.userResponsibilities'>
+                  3. User Responsibilities
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                As a user of our services, you agree to:
+                <Translate staticKey='terms.userResponsibilitiesText'>
+                  As a user of our services, you agree to:
+                </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>Provide accurate and complete information</li>
-                <li>Use our services only for lawful purposes</li>
-                <li>Respect the rights of other users</li>
-                <li>Not engage in fraudulent or deceptive practices</li>
-                <li>Comply with all applicable laws and regulations</li>
+                <li>
+                  <Translate staticKey='terms.provideAccurateInfo'>
+                    Provide accurate and complete information
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.lawfulPurposes'>
+                    Use our services only for lawful purposes
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.respectRights'>
+                    Respect the rights of other users
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.noFraudulent'>
+                    Not engage in fraudulent or deceptive practices
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.complyLaws'>
+                    Comply with all applicable laws and regulations
+                  </Translate>
+                </li>
               </ul>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                4. Property Information
+                <Translate staticKey='terms.propertyInformation'>
+                  4. Property Information
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                While we strive to provide accurate property information, we
-                cannot guarantee the completeness or accuracy of all property
-                details. Property information is subject to change without
-                notice. We recommend:
+                <Translate staticKey='terms.propertyInformationText'>
+                  While we strive to provide accurate property information, we
+                  cannot guarantee the completeness or accuracy of all property
+                  details. Property information is subject to change without
+                  notice. We recommend:
+                </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>Verifying all property details independently</li>
-                <li>Conducting your own inspections</li>
-                <li>Consulting with legal and financial advisors</li>
-                <li>Reviewing all contracts carefully</li>
+                <li>
+                  <Translate staticKey='terms.verifyDetails'>
+                    Verifying all property details independently
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.conductInspections'>
+                    Conducting your own inspections
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.consultAdvisors'>
+                    Consulting with legal and financial advisors
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.reviewContracts'>
+                    Reviewing all contracts carefully
+                  </Translate>
+                </li>
               </ul>
             </section>
 
             <section className='mb-8'>
               <h2 className='text-2xl font-bold text-gray-900 mb-4'>
-                5. Limitation of Liability
+                <Translate staticKey='terms.limitationOfLiability'>
+                  5. Limitation of Liability
+                </Translate>
               </h2>
               <p className='text-gray-600 mb-4'>
-                Palmside Real Estate shall not be liable for any direct,
-                indirect, incidental, special, or consequential damages
-                resulting from the use or inability to use our services,
-                including but not limited to:
+                <Translate staticKey='terms.limitationDescription'>
+                  Palmside Real Estate shall not be liable for any direct,
+                  indirect, incidental, special, or consequential damages
+                  resulting from the use or inability to use our services,
+                  including but not limited to:
+                </Translate>
               </p>
               <ul className='list-disc list-inside text-gray-600 space-y-2'>
-                <li>Property value fluctuations</li>
-                <li>Market conditions</li>
-                <li>Third-party actions or omissions</li>
-                <li>Technical issues or service interruptions</li>
+                <li>
+                  <Translate staticKey='terms.propertyValueFluctuations'>
+                    Property value fluctuations
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.marketConditions'>
+                    Market conditions
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.thirdPartyActions'>
+                    Third-party actions or omissions
+                  </Translate>
+                </li>
+                <li>
+                  <Translate staticKey='terms.technicalIssues'>
+                    Technical issues or service interruptions
+                  </Translate>
+                </li>
               </ul>
             </section>
 
@@ -150,9 +278,10 @@ const TermsOfService = () => {
                 7. Privacy and Data Protection
               </h2>
               <p className='text-gray-600 mb-4'>
-                Your privacy is important to us. Our collection and use of personal information is governed by
-                our Privacy Policy, which is incorporated into these Terms of Service by reference and complies
-                with the EU General Data Protection Regulation (GDPR).
+                Your privacy is important to us. Our collection and use of
+                personal information is governed by our Privacy Policy, which is
+                incorporated into these Terms of Service by reference and
+                complies with the EU General Data Protection Regulation (GDPR).
               </p>
             </section>
 
@@ -172,9 +301,10 @@ const TermsOfService = () => {
                 9. Governing Law
               </h2>
               <p className='text-gray-600 mb-4'>
-                These Terms of Service are governed by and construed in accordance with the laws of Spain and
-                applicable European Union law. Any disputes shall be subject to the exclusive jurisdiction of
-                the courts of Palma de Mallorca, Spain.
+                These Terms of Service are governed by and construed in
+                accordance with the laws of Spain and applicable European Union
+                law. Any disputes shall be subject to the exclusive jurisdiction
+                of the courts of Palma de Mallorca, Spain.
               </p>
             </section>
 
@@ -188,10 +318,20 @@ const TermsOfService = () => {
               </p>
               <div className='bg-gray-50 rounded-lg p-4'>
                 <p className='text-gray-600'>
-                  <strong>Company:</strong> Palmside S.L.<br />
-                  <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a><br />
-                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
-                  <strong>Address:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares
+                  <strong>Company:</strong> Palmside S.L.
+                  <br />
+                  <strong>Email:</strong>{' '}
+                  <a
+                    href='mailto:info@palmside.es'
+                    className='text-yellow-700 hover:underline'
+                  >
+                    info@palmside.es
+                  </a>
+                  <br />
+                  <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67
+                  <br />
+                  <strong>Address:</strong> Carrer de Ametler 3 -1B, ES-07609
+                  Son Verí Nou, Islas Baleares
                 </p>
               </div>
             </section>

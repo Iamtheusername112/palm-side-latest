@@ -67,7 +67,7 @@ const Footer = () => {
               className='flex items-center justify-between w-full mb-4 md:hidden'
             >
               <h3 className='text-lg font-semibold'>
-                <Translate>Quick Links</Translate>
+                <Translate staticKey='footer.quickLinks'>Quick Links</Translate>
               </h3>
               {openAccordions.quickLinks ? (
                 <ChevronUp className='h-5 w-5' />
@@ -78,7 +78,7 @@ const Footer = () => {
 
             {/* Desktop Heading */}
             <h3 className='text-lg font-semibold mb-4 hidden md:block'>
-              <Translate>Quick Links</Translate>
+              <Translate staticKey='footer.quickLinks'>Quick Links</Translate>
             </h3>
             <div
               className={`md:block ${
@@ -138,7 +138,9 @@ const Footer = () => {
               className='flex items-center justify-between w-full mb-4 md:hidden'
             >
               <h3 className='text-lg font-semibold'>
-                <Translate>Our Services</Translate>
+                <Translate staticKey='footer.ourServices'>
+                  Our Services
+                </Translate>
               </h3>
               {openAccordions.services ? (
                 <ChevronUp className='h-5 w-5' />
@@ -149,7 +151,7 @@ const Footer = () => {
 
             {/* Desktop Heading */}
             <h3 className='text-lg font-semibold mb-4 hidden md:block'>
-              <Translate>Our Services</Translate>
+              <Translate staticKey='footer.ourServices'>Our Services</Translate>
             </h3>
             <div
               className={`md:block ${
