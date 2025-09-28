@@ -78,7 +78,7 @@ export default function LanguageSwitcher({
                 ${
                   isActive
                     ? 'bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white shadow-lg'
-                    : 'bg-white border border-gray-300 hover:border-amber-500 text-gray-700 hover:text-amber-700'
+                    : 'bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white shadow-lg opacity-60 hover:opacity-100'
                 }
                 ${sizeClasses[size]}
               `}
@@ -98,9 +98,9 @@ export default function LanguageSwitcher({
         value={currentLanguage}
         onChange={(e) => handleLanguageChange(e.target.value)}
         className={`
-          appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 font-semibold
+          appearance-none bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white rounded-lg px-4 py-2 pr-8 font-semibold
           focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
-          hover:border-amber-500 hover:text-amber-700 transition-all duration-300
+          transition-all duration-300 shadow-lg
           ${sizeClasses[size]} ${className}
         `}
         {...props}
@@ -123,9 +123,9 @@ export default function LanguageSwitcher({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center gap-2 bg-white border border-gray-300 rounded-lg font-semibold
-          hover:border-amber-500 hover:text-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
-          transition-all duration-300
+          flex items-center gap-2 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white rounded-lg font-semibold
+          focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          transition-all duration-300 transform hover:scale-105 shadow-lg
           ${sizeClasses[size]}
         `}
       >
@@ -163,7 +163,7 @@ export default function LanguageSwitcher({
                   ${
                     isActive
                       ? 'bg-gradient-to-r from-amber-700 to-green-700 text-white'
-                      : 'text-gray-700 hover:bg-amber-50 hover:text-amber-700'
+                      : 'text-gray-700 hover:bg-gradient-to-r hover:from-amber-600 hover:to-green-600 hover:text-white'
                   }
                   ${sizeClasses[size]}
                 `}
