@@ -18,6 +18,7 @@ export default function LanguageSwitcher({
   showFlags = true,
   className = '',
   size = 'md',
+  onLanguageChange,
   ...props
 }) {
   const { currentLanguage, changeLanguage, availableLanguages } = useLanguage()
@@ -46,6 +47,10 @@ export default function LanguageSwitcher({
   const handleLanguageChange = (langCode) => {
     changeLanguage(langCode)
     setIsOpen(false)
+    // Call the callback if provided (e.g., to close mobile menu)
+    if (onLanguageChange) {
+      onLanguageChange(langCode)
+    }
   }
 
   const currentLang = languageConfig[currentLanguage] || languageConfig.en
