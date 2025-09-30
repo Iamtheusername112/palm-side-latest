@@ -184,38 +184,38 @@ const AboutPage = () => {
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700'>
                 <div className='flex items-center'>
                   <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
-                  <Translate staticKey='about.homeSearch'>
-                    Home search & viewings
+                  <Translate staticKey='services.propertySearch'>
+                    Property Search
                   </Translate>
                 </div>
                 <div className='flex items-center'>
                   <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
-                  <Translate staticKey='about.negotiations'>
-                    Negotiations & offers
+                  <Translate staticKey='services.investmentConsulting'>
+                    Investment Consulting
                   </Translate>
                 </div>
                 <div className='flex items-center'>
                   <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
-                  <Translate staticKey='about.legalCoordination'>
-                    Legal & notary coordination
+                  <Translate staticKey='services.marketAnalysis'>
+                    Market Analysis
                   </Translate>
                 </div>
                 <div className='flex items-center'>
                   <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
-                  <Translate staticKey='about.dueDiligence'>
-                    Due diligence & valuation
+                  <Translate staticKey='services.luxuryConcierge'>
+                    Luxury Concierge
                   </Translate>
                 </div>
                 <div className='flex items-center'>
                   <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
-                  <Translate staticKey='about.renovationPlanning'>
-                    Renovation planning
+                  <Translate staticKey='services.constructionRenovation'>
+                    Construction & Renovation
                   </Translate>
                 </div>
                 <div className='flex items-center'>
                   <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
-                  <Translate staticKey='about.propertyManagement'>
-                    Property management
+                  <Translate staticKey='services.marketingPresentation'>
+                    Marketing & Presentation
                   </Translate>
                 </div>
               </div>
