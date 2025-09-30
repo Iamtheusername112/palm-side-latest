@@ -5,6 +5,13 @@ import Footer from '../components/Footer'
 import Translate from '../../components/Translate'
 
 const SiteNotice = () => {
+  const lastUpdated = (() => {
+    const now = new Date()
+    const yyyy = now.getUTCFullYear()
+    const mm = String(now.getUTCMonth() + 1).padStart(2, '0')
+    const dd = String(now.getUTCDate()).padStart(2, '0')
+    return `${dd}.${mm}.${yyyy}`
+  })()
   return (
     <div className='min-h-screen bg-gradient-to-br from-amber-50 to-green-50'>
       <Navbar />
@@ -34,8 +41,8 @@ const SiteNotice = () => {
                 <Translate staticKey='legal.lastUpdated'>
                   Last updated:
                 </Translate>
-              </strong>{' '}
-              {new Date().toLocaleDateString()}
+            </strong>{' '}
+              {lastUpdated}
             </p>
 
             <section className='mb-8'>
