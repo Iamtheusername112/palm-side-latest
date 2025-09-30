@@ -68,9 +68,25 @@ const SiteNotice = () => {
                 Palmside S.L.
                 <br />
                 <strong>
-                  <Translate staticKey='legal.tradeName'>Trade name:</Translate>
+                  <Translate staticKey='legal.registeredOffice'>
+                    Registered office:
+                  </Translate>
                 </strong>{' '}
-                Palmside S.L.
+                Calle Ametler, Otr 3, Puerta B, 07609 Llucmajor (Illes Balears), Spain
+                <br />
+                <strong>
+                  <Translate staticKey='legal.taxId'>
+                    Tax Identification Number (NIF):
+                  </Translate>
+                </strong>{' '}
+                B21804570
+                <br />
+                <strong>
+                  <Translate staticKey='legal.commercialRegistry'>
+                    Commercial Registry:
+                  </Translate>
+                </strong>{' '}
+                Registered in the Commercial Registry of Palma de Mallorca, Page (Hoja) PM-103580, Inscription 1
                 <br />
                 <strong>
                   <Translate staticKey='legal.managingDirector'>
@@ -78,29 +94,6 @@ const SiteNotice = () => {
                   </Translate>
                 </strong>{' '}
                 Jeanette Bakacak
-                <br />
-                <strong>
-                  <Translate staticKey='legal.registeredOffice'>
-                    Registered office:
-                  </Translate>
-                </strong>{' '}
-                Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares,
-                Spain
-                <br />
-                <strong>
-                  <Translate staticKey='legal.cifNif'>CIF/NIF:</Translate>
-                </strong>{' '}
-                [Insert CIF/NIF here]
-                <br />
-                <strong>
-                  <Translate staticKey='legal.commercialRegistry'>
-                    Commercial Registry:
-                  </Translate>
-                </strong>{' '}
-                <Translate staticKey='legal.registeredInRegistry'>
-                  Registered in the Commercial Registry of Palma de Mallorca,
-                  Volume [XXX], Sheet [XXX], Page [XXX]
-                </Translate>
                 <br />
                 <strong>
                   <Translate staticKey='legal.phone'>Phone:</Translate>

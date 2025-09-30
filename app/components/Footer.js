@@ -338,7 +338,7 @@ const Footer = () => {
                 href='/site-notice'
                 className='text-gray-400 hover:text-white text-sm transition-colors duration-300'
               >
-                <Translate staticKey='footer.siteNotice'>Site Notice</Translate>
+                <Translate staticKey='footer.legalNotice'>Legal Notice</Translate>
               </Link>
               <Link
                 href='/privacy'
