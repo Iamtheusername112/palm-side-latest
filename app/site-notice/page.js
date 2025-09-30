@@ -41,11 +41,10 @@ const SiteNotice = () => {
               <h3 className='text-xl font-semibold text-gray-900 mb-3'>1. Company Identification</h3>
               <p className='text-gray-600'>
                 <strong>Company name:</strong> Palmside S.L.<br />
-                <strong>Trade name:</strong> Palmside Real Estate<br />
+                <strong>Registered office:</strong> Calle Ametler, Otr 3, Puerta B, 07609 Llucmajor (Illes Balears), Spain<br />
+                <strong>Tax Identification Number (NIF):</strong> B21804570<br />
+                <strong>Commercial Registry:</strong> Registered in the Commercial Registry of Palma de Mallorca, Page (Hoja) PM-103580, Inscription 1<br />
                 <strong>Managing Director:</strong> Jeanette Bakacak<br />
-                <strong>Registered office:</strong> Carrer de Ametler 3 -1B, ES-07609 Son Verí Nou, Islas Baleares, Spain<br />
-                <strong>CIF/NIF:</strong> [Insert CIF/NIF here]<br />
-                <strong>Commercial Registry:</strong> Registered in the Commercial Registry of Palma de Mallorca, Volume [XXX], Sheet [XXX], Page [XXX]<br />
                 <strong>Phone:</strong> +49 176 534 85 055 / +34 609 06 93 67<br />
                 <strong>Email:</strong> <a href='mailto:info@palmside.es' className='text-yellow-700 hover:underline'>info@palmside.es</a>
               </p>

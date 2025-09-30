@@ -293,7 +293,7 @@ Islas Baleares</a>
                 href='/site-notice'
                 className='text-gray-400 hover:text-white text-sm transition-colors duration-300'
               >
-                Site Notice
+                Legal Notice
               </Link>
               <Link
                 href='/privacy'

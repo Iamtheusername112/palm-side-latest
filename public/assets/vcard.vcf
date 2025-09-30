@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Bakacak;Jeanette;;;
+FN:Jeanette Bakacak
+ORG:Palmside S.L.
+TITLE:CEO
+TEL;TYPE=CELL:+49 176 534 85 055
+TEL;TYPE=CELL:+34 609 06 93 67
+EMAIL;TYPE=WORK:info@palmside.es
+ADR;TYPE=WORK:;;Carrer de Ametler 3 -1B;Son Veri Nou;Islas Baleares;07609;Spain
+END:VCARD
