@@ -13,6 +13,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import PageBanner from '../components/PageBanner'
 import Translate from '../../components/Translate'
+import Link from 'next/link'
 
 const ServicesPage = () => {
   const services = [
@@ -256,16 +257,14 @@ const ServicesPage = () => {
             </Translate>
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'>
+            <Link
+              href='/contact'
+              className='bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105'
+            >
               <Translate staticKey='services.scheduleConsultation'>
                 Schedule Consultation
               </Translate>
-            </button>
-            <button className='border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-amber-700 transition-all duration-300 transform hover:scale-105'>
-              <Translate staticKey='services.downloadBrochure'>
-                Download Brochure
-              </Translate>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
