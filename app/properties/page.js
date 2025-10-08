@@ -11,6 +11,8 @@ import {
   Loader2,
   ChevronLeft,
   ChevronRight,
+  SlidersHorizontal,
+  X,
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -28,6 +30,7 @@ const PropertiesPage = () => {
   const [error, setError] = useState(null)
   const [selectedProperty, setSelectedProperty] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
   const [filters, setFilters] = useState({
     type: 'all',
     status: 'all',
@@ -129,8 +132,48 @@ const PropertiesPage = () => {
       />
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-        {/* Filters */}
-        <div className='bg-white rounded-2xl shadow-lg p-6 mb-8'>
+        {/* Mobile Filter Toggle Button */}
+        <div className='lg:hidden mb-4'>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className='w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-all duration-300 shadow-lg font-medium'
+          >
+            {showFilters ? (
+              <>
+                <X className='h-5 w-5' />
+                <span>
+                  <Translate staticKey='properties.hideFilters'>
+                    Hide Filters
+                  </Translate>
+                </span>
+              </>
+            ) : (
+              <>
+                <SlidersHorizontal className='h-5 w-5' />
+                <span>
+                  <Translate staticKey='properties.showFilters'>
+                    Show Filters
+                  </Translate>
+                </span>
+                {Object.values(filters).filter((v) => v !== 'all').length >
+                  0 && (
+                  <span className='bg-white text-amber-700 px-2 py-0.5 rounded-full text-xs font-bold'>
+                    {Object.values(filters).filter((v) => v !== 'all').length}
+                  </span>
+                )}
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Filters - Collapsible on mobile, always visible on desktop */}
+        <div
+          className={`bg-white rounded-2xl shadow-lg p-6 mb-8 transition-all duration-300 ease-in-out overflow-hidden ${
+            showFilters
+              ? 'max-h-[800px] opacity-100 lg:max-h-none'
+              : 'max-h-0 opacity-0 p-0 mb-0 lg:max-h-none lg:opacity-100 lg:p-6 lg:mb-8'
+          }`}
+        >
           <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
