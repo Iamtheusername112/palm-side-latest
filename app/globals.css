@@ -301,3 +301,54 @@ nav a:visited {
 .float-animation {
   animation: float 3s ease-in-out infinite;
 }
+
+/* Loading screen particle formation animation */
+@keyframes particle-swirl {
+  0% {
+    transform: translate(var(--tx-start), var(--ty-start)) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0, 0) scale(1) rotate(180deg);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx-end), var(--ty-end)) scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes logo-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.particle {
+  animation: particle-swirl 4s ease-in-out infinite;
+}
+
+.animate-logo-reveal {
+  animation: logo-reveal 4s ease-in-out infinite;
+}
