@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm'
 
 export async function PATCH(request, { params }) {
   try {
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const { 
       title, 
@@ -75,7 +75,7 @@ export async function PATCH(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const { id } = params
+    const { id } = await params
 
     if (!id) {
       return NextResponse.json(
