@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '../../../lib/db'
 import { contacts } from '../../../lib/schema'
+import { sendContactNotificationEmail } from '../../../lib/email'
 
 export async function GET() {
   return NextResponse.json({
@@ -54,6 +55,20 @@ export async function POST(request) {
         updatedAt: new Date(),
       })
       .returning()
+
+    // Send email notification to admin (non-blocking)
+    // We don't await this to prevent email failures from affecting the user experience
+    sendContactNotificationEmail({
+      name,
+      email,
+      phone: phone || null,
+      subject,
+      message,
+      contactId: contact.id,
+    }).catch((error) => {
+      // Log email errors but don't fail the request
+      console.error('Failed to send email notification:', error)
+    })
 
     return NextResponse.json({
       success: true,
