@@ -367,6 +367,59 @@ const PropertyDetailsModal = ({
               </div>
             )}
 
+            {/* Area Measurements (Square Meters) */}
+            {(property.plotSizeM2 || property.builtAreaM2 || property.livingSpaceM2) && (
+              <div className='mb-6'>
+                <h3 className='text-lg font-semibold text-gray-900 mb-3'>
+                  📐 Area Measurements (m²)
+                </h3>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                  {property.plotSizeM2 && (
+                    <div className='bg-gradient-to-br from-amber-50 to-green-50 rounded-lg p-4 border border-amber-200'>
+                      <div className='flex items-center text-gray-700 mb-2'>
+                        <Square className='h-5 w-5 mr-2 text-amber-600' />
+                        <span className='font-semibold text-sm'>
+                          Plot Size
+                        </span>
+                      </div>
+                      <div className='text-2xl font-bold text-gray-900'>
+                        {parseFloat(property.plotSizeM2).toLocaleString()} m²
+                      </div>
+                      <div className='text-xs text-gray-600 mt-1'>Total land area</div>
+                    </div>
+                  )}
+                  {property.builtAreaM2 && (
+                    <div className='bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-4 border border-blue-200'>
+                      <div className='flex items-center text-gray-700 mb-2'>
+                        <Building className='h-5 w-5 mr-2 text-blue-600' />
+                        <span className='font-semibold text-sm'>
+                          Built Area
+                        </span>
+                      </div>
+                      <div className='text-2xl font-bold text-gray-900'>
+                        {parseFloat(property.builtAreaM2).toLocaleString()} m²
+                      </div>
+                      <div className='text-xs text-gray-600 mt-1'>Total construction</div>
+                    </div>
+                  )}
+                  {property.livingSpaceM2 && (
+                    <div className='bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200'>
+                      <div className='flex items-center text-gray-700 mb-2'>
+                        <Home className='h-5 w-5 mr-2 text-green-600' />
+                        <span className='font-semibold text-sm'>
+                          Living Space
+                        </span>
+                      </div>
+                      <div className='text-2xl font-bold text-gray-900'>
+                        {parseFloat(property.livingSpaceM2).toLocaleString()} m²
+                      </div>
+                      <div className='text-xs text-gray-600 mt-1'>Usable interior</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Features */}
             {property.features && property.features.length > 0 && (
               <div className='mb-6'>

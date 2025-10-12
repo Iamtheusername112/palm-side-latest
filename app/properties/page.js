@@ -601,6 +601,14 @@ const PropertyCard = ({
                   <Translate staticKey='properties.sqft'>sq ft</Translate>
                 </span>
               </div>
+              {property.livingSpaceM2 && (
+                <div className='flex items-center text-gray-600'>
+                  <Square className='h-4 w-4 mr-1' />
+                  <span>
+                    {parseFloat(property.livingSpaceM2).toLocaleString()} m²
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Features */}
@@ -779,7 +787,7 @@ const PropertyCard = ({
 
         {/* Property Details */}
         <div className='flex items-center justify-between mb-4'>
-          <div className='flex items-center space-x-4'>
+          <div className='flex flex-wrap items-center gap-x-4 gap-y-2'>
             {property.beds > 0 && (
               <div className='flex items-center text-gray-600 text-sm'>
                 <Bed className='h-4 w-4 mr-1' />
@@ -795,6 +803,14 @@ const PropertyCard = ({
                 <span>
                   {property.baths}{' '}
                   <Translate staticKey='properties.baths'>baths</Translate>
+                </span>
+              </div>
+            )}
+            {property.livingSpaceM2 && (
+              <div className='flex items-center text-gray-600 text-sm'>
+                <Square className='h-4 w-4 mr-1' />
+                <span>
+                  {parseFloat(property.livingSpaceM2).toLocaleString()} m²
                 </span>
               </div>
             )}
