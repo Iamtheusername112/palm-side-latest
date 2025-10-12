@@ -101,6 +101,10 @@ export async function GET(request) {
       country: property.country,
       yearBuilt: property.yearBuilt,
       lotSize: property.lotSize,
+      // Area measurements in square meters
+      plotSizeM2: property.plotSizeM2 ? parseFloat(property.plotSizeM2) : null,
+      builtAreaM2: property.builtAreaM2 ? parseFloat(property.builtAreaM2) : null,
+      livingSpaceM2: property.livingSpaceM2 ? parseFloat(property.livingSpaceM2) : null,
       views: property.views || 0,
       favorites: property.favorites || 0,
       contactCount: property.contactCount || 0,
