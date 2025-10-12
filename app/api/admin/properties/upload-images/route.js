@@ -12,9 +12,9 @@ export async function POST(request) {
       return NextResponse.json({ error: 'No images provided' }, { status: 400 })
     }
 
-    if (files.length > 20) {
+    if (files.length > 50) {
       return NextResponse.json(
-        { error: 'Maximum 20 images allowed' },
+        { error: 'Maximum 50 images allowed' },
         { status: 400 }
       )
     }
@@ -28,14 +28,21 @@ export async function POST(request) {
       'image/webp',
       'image/bmp',
       'image/tiff',
+      'image/svg+xml',
+      'image/heic',
+      'image/heif',
+      'image/avif',
+      'image/jfif',
+      'image/pjpeg',
+      'image/pjp',
     ]
-    const maxSize = 10 * 1024 * 1024 // 10MB per file
+    const maxSize = 50 * 1024 * 1024 // 50MB per file
 
     for (const file of files) {
       if (!allowedTypes.includes(file.type)) {
         return NextResponse.json(
           {
-            error: `Invalid file type: ${file.type}. Allowed types: JPEG, PNG, GIF, WebP, BMP, TIFF`,
+            error: `Invalid file type: ${file.type}. Allowed types: JPEG, PNG, GIF, WebP, BMP, TIFF, SVG, HEIC, HEIF, AVIF`,
           },
           { status: 400 }
         )
@@ -43,7 +50,7 @@ export async function POST(request) {
 
       if (file.size > maxSize) {
         return NextResponse.json(
-          { error: `File too large: ${file.name}. Maximum size is 10MB` },
+          { error: `File too large: ${file.name}. Maximum size is 50MB` },
           { status: 400 }
         )
       }
