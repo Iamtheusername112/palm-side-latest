@@ -34,7 +34,7 @@ export async function POST(request) {
       'image/pjpeg',
       'image/pjp',
     ]
-    const maxSize = 50 * 1024 * 1024 // 50MB per file
+    const maxSize = 10 * 1024 * 1024 // 10MB per file (Cloudinary FREE tier limit)
 
     for (const file of files) {
       if (!allowedTypes.includes(file.type)) {
@@ -48,7 +48,9 @@ export async function POST(request) {
 
       if (file.size > maxSize) {
         return NextResponse.json(
-          { error: `File too large: ${file.name}. Maximum size is 50MB` },
+          { 
+            error: `File too large: ${file.name}. Maximum size is 10MB.\n\nTip: Compress your image for free at:\n• TinyPNG.com\n• ImageOptim.app\n\nMost property photos are 2-5MB after proper compression and still look great!` 
+          },
           { status: 400 }
         )
       }

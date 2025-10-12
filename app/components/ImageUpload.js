@@ -15,7 +15,7 @@ const ImageUpload = ({
   images = [],
   onImagesChange,
   maxImages = 50,
-  maxSizePerFile = 50 * 1024 * 1024, // 50MB
+  maxSizePerFile = 10 * 1024 * 1024, // 10MB (Cloudinary FREE tier)
   acceptedTypes = [
     'image/jpeg',
     'image/jpg',
@@ -46,7 +46,7 @@ const ImageUpload = ({
     if (file.size > maxSizePerFile) {
       return `File too large: ${file.name}. Maximum size is ${Math.round(
         maxSizePerFile / (1024 * 1024)
-      )}MB`
+      )}MB. Please compress it first using TinyPNG.com (free) or export for web from your photo editor.`
     }
 
     return null
@@ -303,7 +303,8 @@ const ImageUpload = ({
               <li>• Supported formats: JPEG, PNG, GIF, WebP, BMP, TIFF, SVG, HEIC, HEIF, AVIF</li>
               <li>
                 • Maximum file size:{' '}
-                {Math.round(maxSizePerFile / (1024 * 1024))}MB per image
+                {Math.round(maxSizePerFile / (1024 * 1024))}MB per image{' '}
+                <span className='text-xs text-gray-500'>(Use TinyPNG.com to compress if needed - FREE!)</span>
               </li>
               <li>• You can upload up to {maxImages} images at once</li>
               <li>• Perfect for before/after photos and property showcases</li>

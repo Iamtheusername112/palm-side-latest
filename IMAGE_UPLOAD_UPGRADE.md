@@ -134,11 +134,11 @@ Your property upload system now supports **ALL** major image formats:
 
 | Photo Type | Recommended Size | Max Size |
 |------------|------------------|----------|
-| Standard Room Photos | 2-5 MB | 50 MB |
-| Professional Photos | 5-15 MB | 50 MB |
-| 4K Photos | 10-25 MB | 50 MB |
-| Drone Photography | 15-30 MB | 50 MB |
-| iPhone/HEIC Photos | 3-8 MB | 50 MB |
+| Standard Room Photos | 500KB-2 MB | 10 MB |
+| Professional Photos | 2-5 MB | 10 MB |
+| 4K Photos (compressed) | 3-8 MB | 10 MB |
+| Drone Photography | 4-8 MB | 10 MB |
+| iPhone/HEIC Photos | 2-5 MB | 10 MB |
 
 ### Performance Tips:
 
@@ -162,9 +162,13 @@ Your property upload system now supports **ALL** major image formats:
 ## 🐛 Troubleshooting
 
 ### "File too large" Error:
-- **Cause**: Image exceeds 50MB
-- **Solution**: Compress or resize the image before uploading
-- **Tools**: Use online compressors or image editing software
+- **Cause**: Image exceeds 10MB
+- **Solution**: Compress the image before uploading (maintains quality!)
+- **Free Tools**: 
+  - **TinyPNG.com** - Drag & drop, instant compression
+  - **ImageOptim** - Desktop app (Mac/Windows)
+  - **Photoshop** - Export for web
+  - **GIMP** - Export with quality 85%
 
 ### "Invalid file type" Error:
 - **Cause**: Unsupported file format
