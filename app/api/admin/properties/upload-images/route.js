@@ -3,6 +3,18 @@ import { uploadToCloudinary } from '../../../../lib/cloudinary'
 
 export async function POST(request) {
   try {
+    // Check Cloudinary configuration
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('❌ Cloudinary credentials are not configured')
+      return NextResponse.json(
+        { 
+          error: 'Image upload service is not configured. Please contact the administrator.',
+          details: 'Missing Cloudinary environment variables'
+        },
+        { status: 500 }
+      )
+    }
+
     const formData = await request.formData()
     const files = formData.getAll('images')
 
@@ -81,8 +93,12 @@ export async function POST(request) {
         })
       } catch (error) {
         console.error(`Failed to upload ${file.name}:`, error)
+        const errorMessage = error.message || error.error?.message || 'Unknown error'
         return NextResponse.json(
-          { error: `Failed to upload ${file.name}. Please try again.` },
+          { 
+            error: `Failed to upload ${file.name}: ${errorMessage}`,
+            details: error.http_code ? `Cloudinary error code: ${error.http_code}` : undefined
+          },
           { status: 500 }
         )
       }
@@ -95,8 +111,13 @@ export async function POST(request) {
     })
   } catch (error) {
     console.error('Error uploading images:', error)
+    const errorMessage = error.message || 'Unknown error occurred'
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { 
+        error: 'Internal server error',
+        details: errorMessage,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }
