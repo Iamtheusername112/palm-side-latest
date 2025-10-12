@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { uploadToCloudinary } from '../../../../lib/cloudinary'
 
 export async function POST(request) {
   try {
@@ -56,34 +54,36 @@ export async function POST(request) {
       }
     }
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads', 'properties')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
     const uploadedImages = []
 
+    // Upload to Cloudinary (works in production!)
     for (const file of files) {
       const bytes = await file.arrayBuffer()
       const buffer = Buffer.from(bytes)
 
-      // Generate unique filename
-      const timestamp = Date.now()
-      const randomString = Math.random().toString(36).substring(2, 15)
-      const extension = file.name.split('.').pop()
-      const filename = `property_${timestamp}_${randomString}.${extension}`
+      try {
+        // Upload to Cloudinary
+        const cloudinaryResult = await uploadToCloudinary(
+          buffer,
+          file.name,
+          'palmside/properties'
+        )
 
-      const filepath = join(uploadsDir, filename)
-      await writeFile(filepath, buffer)
-
-      uploadedImages.push({
-        filename,
-        originalName: file.name,
-        size: file.size,
-        type: file.type,
-        url: `/uploads/properties/${filename}`,
-      })
+        uploadedImages.push({
+          filename: cloudinaryResult.publicId.split('/').pop(),
+          originalName: file.name,
+          size: file.size,
+          type: file.type,
+          url: cloudinaryResult.url, // Cloudinary URL
+          publicId: cloudinaryResult.publicId, // For deletion if needed
+        })
+      } catch (error) {
+        console.error(`Failed to upload ${file.name}:`, error)
+        return NextResponse.json(
+          { error: `Failed to upload ${file.name}. Please try again.` },
+          { status: 500 }
+        )
+      }
     }
 
     return NextResponse.json({
