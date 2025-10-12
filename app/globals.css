@@ -25,6 +25,24 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Form field legibility: ensure dark text on light inputs */
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='number'],
+input[type='password'],
+select,
+textarea {
+  color: #111827; /* gray-900 */
+  background-color: #ffffff;
+}
+
+/* Placeholder color for visibility on light background */
+::placeholder {
+  color: #6b7280; /* gray-500 */
+  opacity: 1; /* Ensure consistent across browsers */
+}
+
 /* Custom Animations */
 @keyframes fade-in {
   from {
