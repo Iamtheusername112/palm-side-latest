@@ -46,6 +46,9 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
     squareFeet: '',
     lotSize: '',
     yearBuilt: '',
+    plotSizeM2: '',
+    builtAreaM2: '',
+    livingSpaceM2: '',
     address: '',
     city: '',
     state: '',
@@ -121,6 +124,9 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
         squareFeet: property.squareFeet || '',
         lotSize: property.lotSize || '',
         yearBuilt: property.yearBuilt || '',
+        plotSizeM2: property.plotSizeM2 || '',
+        builtAreaM2: property.builtAreaM2 || '',
+        livingSpaceM2: property.livingSpaceM2 || '',
         address: property.address || '',
         city: property.city || '',
         state: property.state || '',
@@ -467,6 +473,65 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
             </div>
           </div>
 
+          {/* Area Measurements (m²) */}
+          <div className='border-t border-gray-200 pt-6'>
+            <h3 className='text-lg font-semibold text-gray-900 mb-4'>
+              Area Measurements (Square Meters)
+            </h3>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-2'>
+                  Plot Size (m²)
+                </label>
+                <input
+                  type='number'
+                  name='plotSizeM2'
+                  value={formData.plotSizeM2}
+                  onChange={handleInputChange}
+                  min='0'
+                  step='0.01'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  placeholder='0.00'
+                />
+                <p className='mt-1 text-xs text-gray-500'>Total plot/land area</p>
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-2'>
+                  Built Area (m²)
+                </label>
+                <input
+                  type='number'
+                  name='builtAreaM2'
+                  value={formData.builtAreaM2}
+                  onChange={handleInputChange}
+                  min='0'
+                  step='0.01'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  placeholder='0.00'
+                />
+                <p className='mt-1 text-xs text-gray-500'>Total built-up area</p>
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-2'>
+                  Living Space (m²)
+                </label>
+                <input
+                  type='number'
+                  name='livingSpaceM2'
+                  value={formData.livingSpaceM2}
+                  onChange={handleInputChange}
+                  min='0'
+                  step='0.01'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                  placeholder='0.00'
+                />
+                <p className='mt-1 text-xs text-gray-500'>Usable living space</p>
+              </div>
+            </div>
+          </div>
+
           {/* Features */}
           <div>
             <label className='block text-sm font-medium text-gray-700 mb-2'>
@@ -544,7 +609,7 @@ const PropertyForm = ({ property, onSave, onCancel, mode = 'create' }) => {
             <ImageUpload
               images={formData.images}
               onImagesChange={handleImagesChange}
-              maxImages={20}
+              maxImages={50}
             />
           </div>
 

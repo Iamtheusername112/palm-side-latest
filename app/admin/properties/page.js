@@ -1107,6 +1107,12 @@ const AdminPropertiesPage = () => {
                                 {property.squareFeet.toLocaleString()} sq ft
                               </div>
                             )}
+                            {property.livingSpaceM2 && (
+                              <div className='flex items-center'>
+                                <Square className='h-4 w-4 mr-1 text-green-600' />
+                                <span className='text-xs'>{parseFloat(property.livingSpaceM2).toLocaleString()} m²</span>
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
@@ -1468,6 +1474,53 @@ const AdminPropertiesPage = () => {
                       )}
                     </div>
                   </div>
+
+                  {/* Area Measurements (m²) */}
+                  {(selectedProperty.plotSizeM2 || selectedProperty.builtAreaM2 || selectedProperty.livingSpaceM2) && (
+                    <div>
+                      <h4 className='text-lg font-semibold text-gray-900 mb-4'>
+                        📐 Area Measurements (m²)
+                      </h4>
+                      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                        {selectedProperty.plotSizeM2 && (
+                          <div className='bg-gradient-to-br from-amber-50 to-green-50 rounded-lg p-4 border border-amber-200'>
+                            <div className='flex items-center text-gray-700 mb-2'>
+                              <Square className='h-4 w-4 text-amber-600 mr-2' />
+                              <span className='font-semibold text-sm'>Plot Size</span>
+                            </div>
+                            <div className='text-xl font-bold text-gray-900'>
+                              {parseFloat(selectedProperty.plotSizeM2).toLocaleString()} m²
+                            </div>
+                            <div className='text-xs text-gray-600 mt-1'>Total land area</div>
+                          </div>
+                        )}
+                        {selectedProperty.builtAreaM2 && (
+                          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-4 border border-blue-200'>
+                            <div className='flex items-center text-gray-700 mb-2'>
+                              <Square className='h-4 w-4 text-blue-600 mr-2' />
+                              <span className='font-semibold text-sm'>Built Area</span>
+                            </div>
+                            <div className='text-xl font-bold text-gray-900'>
+                              {parseFloat(selectedProperty.builtAreaM2).toLocaleString()} m²
+                            </div>
+                            <div className='text-xs text-gray-600 mt-1'>Total construction</div>
+                          </div>
+                        )}
+                        {selectedProperty.livingSpaceM2 && (
+                          <div className='bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200'>
+                            <div className='flex items-center text-gray-700 mb-2'>
+                              <Square className='h-4 w-4 text-green-600 mr-2' />
+                              <span className='font-semibold text-sm'>Living Space</span>
+                            </div>
+                            <div className='text-xl font-bold text-gray-900'>
+                              {parseFloat(selectedProperty.livingSpaceM2).toLocaleString()} m²
+                            </div>
+                            <div className='text-xs text-gray-600 mt-1'>Usable interior space</div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Features */}
                   {selectedProperty.features &&

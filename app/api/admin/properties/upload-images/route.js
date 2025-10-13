@@ -1,10 +1,20 @@
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { uploadToCloudinary } from '../../../../../lib/cloudinary'
 
 export async function POST(request) {
   try {
+    // Check Cloudinary configuration
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('❌ Cloudinary credentials are not configured')
+      return NextResponse.json(
+        { 
+          error: 'Image upload service is not configured. Please contact the administrator.',
+          details: 'Missing Cloudinary environment variables'
+        },
+        { status: 500 }
+      )
+    }
+
     const formData = await request.formData()
     const files = formData.getAll('images')
 
@@ -12,9 +22,9 @@ export async function POST(request) {
       return NextResponse.json({ error: 'No images provided' }, { status: 400 })
     }
 
-    if (files.length > 20) {
+    if (files.length > 50) {
       return NextResponse.json(
-        { error: 'Maximum 20 images allowed' },
+        { error: 'Maximum 50 images allowed' },
         { status: 400 }
       )
     }
@@ -28,14 +38,21 @@ export async function POST(request) {
       'image/webp',
       'image/bmp',
       'image/tiff',
+      'image/svg+xml',
+      'image/heic',
+      'image/heif',
+      'image/avif',
+      'image/jfif',
+      'image/pjpeg',
+      'image/pjp',
     ]
-    const maxSize = 10 * 1024 * 1024 // 10MB per file
+    const maxSize = 10 * 1024 * 1024 // 10MB per file (Cloudinary FREE tier limit)
 
     for (const file of files) {
       if (!allowedTypes.includes(file.type)) {
         return NextResponse.json(
           {
-            error: `Invalid file type: ${file.type}. Allowed types: JPEG, PNG, GIF, WebP, BMP, TIFF`,
+            error: `Invalid file type: ${file.type}. Allowed types: JPEG, PNG, GIF, WebP, BMP, TIFF, SVG, HEIC, HEIF, AVIF`,
           },
           { status: 400 }
         )
@@ -43,40 +60,48 @@ export async function POST(request) {
 
       if (file.size > maxSize) {
         return NextResponse.json(
-          { error: `File too large: ${file.name}. Maximum size is 10MB` },
+          { 
+            error: `File too large: ${file.name}. Maximum size is 10MB.\n\nTip: Compress your image for free at:\n• TinyPNG.com\n• ImageOptim.app\n\nMost property photos are 2-5MB after proper compression and still look great!` 
+          },
           { status: 400 }
         )
       }
     }
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads', 'properties')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
     const uploadedImages = []
 
+    // Upload to Cloudinary (works in production!)
     for (const file of files) {
       const bytes = await file.arrayBuffer()
       const buffer = Buffer.from(bytes)
 
-      // Generate unique filename
-      const timestamp = Date.now()
-      const randomString = Math.random().toString(36).substring(2, 15)
-      const extension = file.name.split('.').pop()
-      const filename = `property_${timestamp}_${randomString}.${extension}`
+      try {
+        // Upload to Cloudinary
+        const cloudinaryResult = await uploadToCloudinary(
+          buffer,
+          file.name,
+          'palmside/properties'
+        )
 
-      const filepath = join(uploadsDir, filename)
-      await writeFile(filepath, buffer)
-
-      uploadedImages.push({
-        filename,
-        originalName: file.name,
-        size: file.size,
-        type: file.type,
-        url: `/uploads/properties/${filename}`,
-      })
+        uploadedImages.push({
+          filename: cloudinaryResult.publicId.split('/').pop(),
+          originalName: file.name,
+          size: file.size,
+          type: file.type,
+          url: cloudinaryResult.url, // Cloudinary URL
+          publicId: cloudinaryResult.publicId, // For deletion if needed
+        })
+      } catch (error) {
+        console.error(`Failed to upload ${file.name}:`, error)
+        const errorMessage = error.message || error.error?.message || 'Unknown error'
+        return NextResponse.json(
+          { 
+            error: `Failed to upload ${file.name}: ${errorMessage}`,
+            details: error.http_code ? `Cloudinary error code: ${error.http_code}` : undefined
+          },
+          { status: 500 }
+        )
+      }
     }
 
     return NextResponse.json({
@@ -86,8 +111,13 @@ export async function POST(request) {
     })
   } catch (error) {
     console.error('Error uploading images:', error)
+    const errorMessage = error.message || 'Unknown error occurred'
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { 
+        error: 'Internal server error',
+        details: errorMessage,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }

@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm'
 
 export async function PATCH(request, { params }) {
   try {
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const { 
       title, 
@@ -17,6 +17,9 @@ export async function PATCH(request, { params }) {
       bedrooms,
       bathrooms,
       squareFeet,
+      plotSizeM2,
+      builtAreaM2,
+      livingSpaceM2,
       features,
       images
     } = body
@@ -42,6 +45,9 @@ export async function PATCH(request, { params }) {
     if (bedrooms !== undefined) updateData.bedrooms = bedrooms ? parseInt(bedrooms) : null
     if (bathrooms !== undefined) updateData.bathrooms = bathrooms ? parseInt(bathrooms) : null
     if (squareFeet !== undefined) updateData.squareFeet = squareFeet ? parseInt(squareFeet) : null
+    if (plotSizeM2 !== undefined) updateData.plotSizeM2 = plotSizeM2 ? parseFloat(plotSizeM2) : null
+    if (builtAreaM2 !== undefined) updateData.builtAreaM2 = builtAreaM2 ? parseFloat(builtAreaM2) : null
+    if (livingSpaceM2 !== undefined) updateData.livingSpaceM2 = livingSpaceM2 ? parseFloat(livingSpaceM2) : null
     if (features !== undefined) updateData.features = features ? JSON.stringify(features) : null
     if (images !== undefined) updateData.images = images ? JSON.stringify(images) : null
 
@@ -75,7 +81,7 @@ export async function PATCH(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const { id } = params
+    const { id } = await params
 
     if (!id) {
       return NextResponse.json(

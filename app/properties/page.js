@@ -575,7 +575,7 @@ const PropertyCard = ({
             </div>
 
             {/* Property Details */}
-            <div className='flex items-center space-x-6 mb-4'>
+            <div className='flex items-center flex-wrap gap-x-6 gap-y-2 mb-4'>
               {property.beds > 0 && (
                 <div className='flex items-center text-gray-600'>
                   <Bed className='h-4 w-4 mr-1' />
@@ -594,13 +594,39 @@ const PropertyCard = ({
                   </span>
                 </div>
               )}
-              <div className='flex items-center text-gray-600'>
-                <Square className='h-4 w-4 mr-1' />
-                <span>
-                  {property.sqft.toLocaleString('en-US')}{' '}
-                  <Translate staticKey='properties.sqft'>sq ft</Translate>
-                </span>
-              </div>
+              {property.plotSizeM2 && (
+                <div className='flex items-center text-gray-600'>
+                  <Square className='h-4 w-4 mr-1 text-amber-600' />
+                  <span className='font-medium'>
+                    {parseFloat(property.plotSizeM2).toLocaleString()} m² plot
+                  </span>
+                </div>
+              )}
+              {property.builtAreaM2 && (
+                <div className='flex items-center text-gray-600'>
+                  <Square className='h-4 w-4 mr-1 text-blue-600' />
+                  <span className='font-medium'>
+                    {parseFloat(property.builtAreaM2).toLocaleString()} m² built
+                  </span>
+                </div>
+              )}
+              {property.livingSpaceM2 && (
+                <div className='flex items-center text-gray-600'>
+                  <Square className='h-4 w-4 mr-1 text-green-600' />
+                  <span className='font-medium'>
+                    {parseFloat(property.livingSpaceM2).toLocaleString()} m² living
+                  </span>
+                </div>
+              )}
+              {property.sqft > 0 && (
+                <div className='flex items-center text-gray-600'>
+                  <Square className='h-4 w-4 mr-1' />
+                  <span>
+                    {property.sqft.toLocaleString('en-US')}{' '}
+                    <Translate staticKey='properties.sqft'>sq ft</Translate>
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Features */}
@@ -779,7 +805,7 @@ const PropertyCard = ({
 
         {/* Property Details */}
         <div className='flex items-center justify-between mb-4'>
-          <div className='flex items-center space-x-4'>
+          <div className='flex flex-wrap items-center gap-x-4 gap-y-2'>
             {property.beds > 0 && (
               <div className='flex items-center text-gray-600 text-sm'>
                 <Bed className='h-4 w-4 mr-1' />
@@ -798,13 +824,39 @@ const PropertyCard = ({
                 </span>
               </div>
             )}
-            <div className='flex items-center text-gray-600 text-sm'>
-              <Square className='h-4 w-4 mr-1' />
-              <span>
-                {property.sqft.toLocaleString('en-US')}{' '}
-                <Translate staticKey='properties.sqft'>sq ft</Translate>
-              </span>
-            </div>
+            {property.plotSizeM2 && (
+              <div className='flex items-center text-gray-600 text-sm'>
+                <Square className='h-4 w-4 mr-1 text-amber-600' />
+                <span className='font-medium'>
+                  {parseFloat(property.plotSizeM2).toLocaleString()} m² plot
+                </span>
+              </div>
+            )}
+            {property.builtAreaM2 && (
+              <div className='flex items-center text-gray-600 text-sm'>
+                <Square className='h-4 w-4 mr-1 text-blue-600' />
+                <span className='font-medium'>
+                  {parseFloat(property.builtAreaM2).toLocaleString()} m² built
+                </span>
+              </div>
+            )}
+            {property.livingSpaceM2 && (
+              <div className='flex items-center text-gray-600 text-sm'>
+                <Square className='h-4 w-4 mr-1 text-green-600' />
+                <span className='font-medium'>
+                  {parseFloat(property.livingSpaceM2).toLocaleString()} m² living
+                </span>
+              </div>
+            )}
+            {property.sqft > 0 && (
+              <div className='flex items-center text-gray-600 text-sm'>
+                <Square className='h-4 w-4 mr-1' />
+                <span>
+                  {property.sqft.toLocaleString('en-US')}{' '}
+                  <Translate staticKey='properties.sqft'>sq ft</Translate>
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

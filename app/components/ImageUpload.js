@@ -14,8 +14,8 @@ import { toast } from 'sonner'
 const ImageUpload = ({
   images = [],
   onImagesChange,
-  maxImages = 20,
-  maxSizePerFile = 10 * 1024 * 1024, // 10MB
+  maxImages = 50,
+  maxSizePerFile = 10 * 1024 * 1024, // 10MB (Cloudinary FREE tier)
   acceptedTypes = [
     'image/jpeg',
     'image/jpg',
@@ -24,6 +24,13 @@ const ImageUpload = ({
     'image/webp',
     'image/bmp',
     'image/tiff',
+    'image/svg+xml',
+    'image/heic',
+    'image/heif',
+    'image/avif',
+    'image/jfif',
+    'image/pjpeg',
+    'image/pjp',
   ],
 }) => {
   const [isDragging, setIsDragging] = useState(false)
@@ -33,13 +40,13 @@ const ImageUpload = ({
 
   const validateFile = (file) => {
     if (!acceptedTypes.includes(file.type)) {
-      return `Invalid file type: ${file.name}. Allowed types: JPEG, PNG, GIF, WebP, BMP, TIFF`
+      return `Invalid file type: ${file.name}. Allowed types: JPEG, PNG, GIF, WebP, BMP, TIFF, SVG, HEIC, HEIF, AVIF`
     }
 
     if (file.size > maxSizePerFile) {
       return `File too large: ${file.name}. Maximum size is ${Math.round(
         maxSizePerFile / (1024 * 1024)
-      )}MB`
+      )}MB. Please compress it first using TinyPNG.com (free) or export for web from your photo editor.`
     }
 
     return null
@@ -200,7 +207,7 @@ const ImageUpload = ({
                 </p>
               </div>
               <div className='text-xs text-gray-500'>
-                <p>Supports: JPEG, PNG, GIF, WebP, BMP, TIFF</p>
+                <p>Supports: JPEG, PNG, GIF, WebP, BMP, TIFF, SVG, HEIC, HEIF, AVIF</p>
                 <p>
                   Maximum: {maxImages} images,{' '}
                   {Math.round(maxSizePerFile / (1024 * 1024))}MB per file
@@ -293,12 +300,14 @@ const ImageUpload = ({
             <ul className='space-y-1 text-xs'>
               <li>• Upload high-quality images for best results</li>
               <li>• The first image will be the main property photo</li>
-              <li>• Supported formats: JPEG, PNG, GIF, WebP, BMP, TIFF</li>
+              <li>• Supported formats: JPEG, PNG, GIF, WebP, BMP, TIFF, SVG, HEIC, HEIF, AVIF</li>
               <li>
                 • Maximum file size:{' '}
-                {Math.round(maxSizePerFile / (1024 * 1024))}MB per image
+                {Math.round(maxSizePerFile / (1024 * 1024))}MB per image{' '}
+                <span className='text-xs text-gray-500'>(Use TinyPNG.com to compress if needed - FREE!)</span>
               </li>
               <li>• You can upload up to {maxImages} images at once</li>
+              <li>• Perfect for before/after photos and property showcases</li>
             </ul>
           </div>
         </div>
