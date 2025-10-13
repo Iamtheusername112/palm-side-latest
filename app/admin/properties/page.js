@@ -11,7 +11,7 @@ import {
   Trash2,
   Eye,
   MapPin,
-  DollarSign,
+  Euro,
   Bed,
   Bath,
   Square,
@@ -517,9 +517,9 @@ const AdminPropertiesPage = () => {
 
   const formatPrice = (price) => {
     if (!price) return 'N/A'
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('de-DE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price)
@@ -627,7 +627,7 @@ const AdminPropertiesPage = () => {
 
                 <div className='bg-purple-50 p-4 rounded-lg'>
                   <div className='flex items-center'>
-                    <DollarSign className='h-8 w-8 text-purple-600' />
+                    <Euro className='h-8 w-8 text-purple-600' />
                     <div className='ml-3'>
                       <p className='text-sm font-medium text-purple-600'>
                         Avg Price

@@ -228,7 +228,7 @@ export default function TranslationDemo() {
                 <Translate staticKey='property.price'>Price</Translate>
               </h3>
               <p className='text-gray-600'>
-                <Translate>$2,500,000</Translate>
+                <Translate>€2,500,000</Translate>
               </p>
             </div>
 

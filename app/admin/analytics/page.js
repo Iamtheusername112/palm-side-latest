@@ -9,7 +9,7 @@ import {
   Users,
   Building2,
   Mail,
-  DollarSign,
+  Euro,
   Calendar,
   MapPin,
   PieChart,
@@ -159,9 +159,9 @@ const AdminAnalyticsPage = () => {
   }
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('de-DE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount)
@@ -348,7 +348,7 @@ const AdminAnalyticsPage = () => {
                   </p>
                 </div>
                 <div className='p-3 rounded-full bg-emerald-100 text-emerald-600'>
-                  <DollarSign className='h-6 w-6' />
+                  <Euro className='h-6 w-6' />
                 </div>
               </div>
               <div className='mt-4 flex items-center'>

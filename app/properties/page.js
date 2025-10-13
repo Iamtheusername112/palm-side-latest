@@ -412,11 +412,11 @@ const PropertyCard = ({
 }) => {
   const formatPrice = (price) => {
     if (price >= 1000000) {
-      return `$${(price / 1000000).toFixed(1)}M`
+      return `€${(price / 1000000).toFixed(1)}M`
     } else if (price >= 1000) {
-      return `$${(price / 1000).toFixed(0)}K`
+      return `€${(price / 1000).toFixed(0)}K`
     }
-    return `$${price.toLocaleString()}`
+    return `€${price.toLocaleString()}`
   }
 
   // Get all available images - prioritize admin uploaded images

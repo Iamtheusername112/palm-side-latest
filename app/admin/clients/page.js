@@ -16,7 +16,7 @@ import {
   Star,
   MoreVertical,
   Building2,
-  DollarSign,
+  Euro,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import ClientForm from '../../components/ClientForm'
@@ -100,9 +100,9 @@ const AdminClientsPage = () => {
   }
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('de-DE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount)
