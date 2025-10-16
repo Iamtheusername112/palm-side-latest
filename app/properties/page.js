@@ -114,7 +114,7 @@ const PropertiesPage = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-green-50'>
+    <div className='min-h-screen bg-[#F5EFE6]'>
       <Navbar />
 
       <PageBanner
@@ -136,7 +136,7 @@ const PropertiesPage = () => {
         <div className='lg:hidden mb-4'>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className='w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-all duration-300 shadow-lg font-medium'
+            className='w-full flex items-center justify-center space-x-2 bg-[#B08D57] text-white px-6 py-3 rounded-lg hover:bg-[#9C7C49] transition-all duration-300 shadow-lg font-medium'
           >
             {showFilters ? (
               <>
@@ -337,7 +337,7 @@ const PropertiesPage = () => {
               <p className='text-gray-600 mb-4'>{error}</p>
               <button
                 onClick={() => window.location.reload()}
-                className='bg-gradient-to-r from-yellow-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-yellow-600 hover:to-green-700 transition-all duration-300'
+                className='bg-[#B08D57] text-white px-6 py-2 rounded-lg hover:bg-[#9C7C49] transition-all duration-300'
               >
                 <Translate staticKey='properties.tryAgain'>Try Again</Translate>
               </button>
@@ -478,7 +478,7 @@ const PropertyCard = ({
               )}
 
               {property.featured && (
-                <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
+                <div className='absolute top-4 left-4 bg-[#B08D57] text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
                   <Translate staticKey='properties.featured'>
                     Featured
                   </Translate>
@@ -519,7 +519,7 @@ const PropertyCard = ({
                     </button>
                   ))}
                   {allImages.length > 6 && (
-                    <div className='w-8 h-8 rounded bg-gradient-to-r from-amber-600 to-green-600 text-white flex items-center justify-center text-xs font-bold'>
+                    <div className='w-8 h-8 rounded bg-[#B08D57] text-white flex items-center justify-center text-xs font-bold'>
                       +{allImages.length - 6}
                     </div>
                   )}
@@ -534,7 +534,7 @@ const PropertyCard = ({
                       e.stopPropagation()
                       onViewDetails()
                     }}
-                    className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-lg shadow-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
+                    className='bg-[#B08D57] text-white px-3 py-1 rounded-lg shadow-lg hover:bg-[#9C7C49] transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
                   >
                     <Eye className='h-3 w-3' />
                     <span>
@@ -645,7 +645,7 @@ const PropertyCard = ({
             <div className='flex items-center justify-center mt-auto'>
               <button
                 onClick={onViewDetails}
-                className='w-full lg:w-auto flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-6 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 font-medium'
+                className='w-full lg:w-auto flex items-center justify-center space-x-2 bg-[#B08D57] text-white px-6 py-3 rounded-lg hover:bg-[#9C7C49] transition-colors duration-200 font-medium'
               >
                 <Eye className='h-4 w-4' />
                 <span>
@@ -710,7 +710,7 @@ const PropertyCard = ({
 
         {/* Status Badges */}
         {property.featured && (
-          <div className='absolute top-4 left-4 bg-gradient-to-r from-amber-700 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
+          <div className='absolute top-4 left-4 bg-[#B08D57] text-white px-3 py-1 rounded-full text-sm font-semibold z-10'>
             <Translate staticKey='properties.featured'>Featured</Translate>
           </div>
         )}
@@ -751,7 +751,7 @@ const PropertyCard = ({
               </button>
             ))}
             {allImages.length > 6 && (
-              <div className='w-8 h-8 rounded bg-gradient-to-r from-amber-600 to-green-600 text-white flex items-center justify-center text-xs font-bold'>
+              <div className='w-8 h-8 rounded bg-[#B08D57] text-white flex items-center justify-center text-xs font-bold'>
                 +{allImages.length - 6}
               </div>
             )}
@@ -766,7 +766,7 @@ const PropertyCard = ({
                 e.stopPropagation()
                 onViewDetails()
               }}
-              className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-lg shadow-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
+              className='bg-[#B08D57] text-white px-3 py-1 rounded-lg shadow-lg hover:bg-[#9C7C49] transition-all duration-200 flex items-center space-x-1 font-medium text-xs z-10'
             >
               <Eye className='h-3 w-3' />
               <span>
@@ -876,7 +876,7 @@ const PropertyCard = ({
         <div className='flex items-center justify-center mt-auto'>
           <button
             onClick={onViewDetails}
-            className='w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-700 to-green-700 text-white px-4 py-3 rounded-lg hover:from-amber-800 hover:to-green-800 transition-colors duration-200 text-sm font-medium'
+            className='w-full flex items-center justify-center space-x-2 bg-[#B08D57] text-white px-4 py-3 rounded-lg hover:bg-[#9C7C49] transition-colors duration-200 text-sm font-medium'
           >
             <Eye className='h-4 w-4' />
             <span>

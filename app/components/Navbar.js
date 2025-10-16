@@ -131,7 +131,7 @@ const Navbar = () => {
             >
               {/* Animated Underline */}
               <div
-                className='absolute bottom-0 h-1 bg-gradient-to-r from-yellow-500 to-green-600 transition-all duration-300 ease-in-out rounded-full'
+                className='absolute bottom-0 h-1 bg-[#B08D57] transition-all duration-300 ease-in-out rounded-full'
                 style={{
                   width: `${underlineStyle.width}px`,
                   left: `${underlineStyle.left}px`,

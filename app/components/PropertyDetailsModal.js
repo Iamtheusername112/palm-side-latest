@@ -132,13 +132,13 @@ const PropertyDetailsModal = ({
     <div className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4'>
       <div className='bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden'>
         {/* Header */}
-        <div className='flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-amber-50 to-green-50'>
+        <div className='flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-amber-50 to-yellow-50'>
           <div className='flex items-center space-x-4'>
             <h2 className='text-2xl font-bold text-gray-900'>
               {property.title}
             </h2>
             {property.featured && (
-              <span className='bg-gradient-to-r from-amber-600 to-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold'>
+              <span className='bg-[#B08D57] text-white px-3 py-1 rounded-full text-sm font-semibold'>
                 <Translate staticKey='properties.featured'>Featured</Translate>
               </span>
             )}
@@ -457,7 +457,7 @@ const PropertyDetailsModal = ({
                 <Link
                   href='/contact'
                   onClick={onClose}
-                  className='flex-1 bg-gradient-to-r from-amber-600 to-green-600 text-white px-6 py-3 rounded-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200 flex items-center justify-center'
+                  className='flex-1 bg-[#B08D57] text-white px-6 py-3 rounded-lg hover:bg-[#9C7C49] transition-all duration-200 flex items-center justify-center'
                 >
                   <Phone className='h-5 w-5 mr-2' />
                   <span>

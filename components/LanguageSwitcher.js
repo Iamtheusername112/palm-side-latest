@@ -77,8 +77,8 @@ export default function LanguageSwitcher({
                 flex items-center gap-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105
                 ${
                   isActive
-                    ? 'bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white shadow-lg'
-                    : 'bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white shadow-lg opacity-60 hover:opacity-100'
+                    ? 'bg-[#B08D57] hover:bg-[#9C7C49] text-white shadow-lg'
+                    : 'bg-[#B08D57] hover:bg-[#9C7C49] text-white shadow-lg opacity-60 hover:opacity-100'
                 }
                 ${sizeClasses[size]}
               `}
@@ -98,8 +98,8 @@ export default function LanguageSwitcher({
         value={currentLanguage}
         onChange={(e) => handleLanguageChange(e.target.value)}
         className={`
-          appearance-none bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white rounded-lg px-4 py-2 pr-8 font-semibold
-          focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          appearance-none bg-[#B08D57] hover:bg-[#9C7C49] text-white rounded-lg px-4 py-2 pr-8 font-semibold
+          focus:outline-none focus:ring-2 focus:ring-[#B08D57] focus:border-[#B08D57]
           transition-all duration-300 shadow-lg
           ${sizeClasses[size]} ${className}
         `}
@@ -123,8 +123,8 @@ export default function LanguageSwitcher({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center gap-2 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white rounded-lg font-semibold
-          focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          flex items-center gap-2 bg-[#B08D57] hover:bg-[#9C7C49] text-white rounded-lg font-semibold
+          focus:outline-none focus:ring-2 focus:ring-[#B08D57] focus:border-[#B08D57]
           transition-all duration-300 transform hover:scale-105 shadow-lg
           ${sizeClasses[size]}
         `}
@@ -162,8 +162,8 @@ export default function LanguageSwitcher({
                   w-full flex items-center gap-2 text-left transition-all duration-200
                   ${
                     isActive
-                      ? 'bg-gradient-to-r from-amber-700 to-green-700 text-white'
-                      : 'text-gray-700 hover:bg-gradient-to-r hover:from-amber-600 hover:to-green-600 hover:text-white'
+                      ? 'bg-[#B08D57] text-white'
+                      : 'text-gray-700 hover:bg-[#B08D57] hover:text-white'
                   }
                   ${sizeClasses[size]}
                 `}

@@ -141,7 +141,7 @@ const ContactPage = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-amber-50 to-green-50'>
+    <div className='min-h-screen bg-[#F5EFE6]'>
       {/* Navbar */}
       <Navbar />
 
@@ -329,7 +329,7 @@ const ContactPage = () => {
                 <button
                   type='submit'
                   disabled={isSubmitting}
-                  className='w-full bg-gradient-to-r from-amber-700 to-green-700 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:from-amber-800 hover:to-green-800 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2'
+                  className='w-full bg-[#B08D57] text-white py-4 px-8 rounded-lg font-semibold text-lg hover:bg-[#9C7C49] transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2'
                 >
                   {isSubmitting ? (
                     <>
@@ -381,8 +381,8 @@ const ContactPage = () => {
               {/* Email */}
               <div className='mb-6'>
                 <div className='flex items-center mb-3'>
-                  <div className='w-10 h-10 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center text-white mr-3'>
-                    <Mail className='h-5 w-5' />
+                  <div className='w-10 h-10 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-lg flex items-center justify-center mr-3'>
+                    <Mail className='h-5 w-5' strokeWidth={2.25} />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
                     <Translate staticKey='contact.emailUs'>Email Us</Translate>
@@ -401,8 +401,8 @@ const ContactPage = () => {
               {/* Phone */}
               <div className='mb-6'>
                 <div className='flex items-center mb-3'>
-                  <div className='w-10 h-10 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center text-white mr-3'>
-                    <Phone className='h-5 w-5' />
+                  <div className='w-10 h-10 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-lg flex items-center justify-center mr-3'>
+                    <Phone className='h-5 w-5' strokeWidth={2.25} />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
                     <Translate staticKey='contact.callUs'>Call Us</Translate>
@@ -417,11 +417,11 @@ const ContactPage = () => {
               {/* Address */}
               <div className='mb-6'>
                 <div className='flex items-center mb-3'>
-                  <div className='w-10 h-10 bg-gradient-to-r from-amber-700 to-green-700 rounded-lg flex items-center justify-center text-white mr-3'>
-                    <MapPin className='h-5 w-5' />
+                  <div className='w-10 h-10 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-lg flex items-center justify-center mr-3'>
+                    <MapPin className='h-5 w-5' strokeWidth={2.25} />
                   </div>
                   <h4 className='text-lg font-semibold text-gray-900'>
-                    <Translate staticKey='contact.visitUs'>Visit Us</Translate>
+                    <Translate staticKey='contact.officeAddress'>Office Address</Translate>
                   </h4>
                 </div>
                 <div className='ml-13 space-y-1'>

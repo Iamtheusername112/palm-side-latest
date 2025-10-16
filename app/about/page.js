@@ -96,7 +96,7 @@ const AboutPage = () => {
   ]
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-green-50'>
+    <div className='min-h-screen bg-[#F5EFE6]'>
       <Navbar />
 
       <PageBanner
@@ -183,37 +183,37 @@ const AboutPage = () => {
               </h3>
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700'>
                 <div className='flex items-center'>
-                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
                   <Translate staticKey='services.propertySearch'>
                     Property Search
                   </Translate>
                 </div>
                 <div className='flex items-center'>
-                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
                   <Translate staticKey='services.investmentConsulting'>
                     Investment Consulting
                   </Translate>
                 </div>
                 <div className='flex items-center'>
-                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
                   <Translate staticKey='services.marketAnalysis'>
                     Market Analysis
                   </Translate>
                 </div>
                 <div className='flex items-center'>
-                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
                   <Translate staticKey='services.luxuryConcierge'>
                     Luxury Concierge
                   </Translate>
                 </div>
                 <div className='flex items-center'>
-                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
                   <Translate staticKey='services.constructionRenovation'>
                     Construction & Renovation
                   </Translate>
                 </div>
                 <div className='flex items-center'>
-                  <CheckCircle className='h-4 w-4 text-yellow-600 mr-2' />
+                  <CheckCircle className='h-4 w-4 text-green-600 mr-2' />
                   <Translate staticKey='services.marketingPresentation'>
                     Marketing & Presentation
                   </Translate>
@@ -226,8 +226,8 @@ const AboutPage = () => {
         {/* Mission & Vision */}
         <div className='grid md:grid-cols-2 gap-8 mb-20'>
           <div className='bg-white rounded-2xl shadow-lg p-8'>
-            <div className='w-16 h-16 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mb-6'>
-              <Target className='h-8 w-8' />
+            <div className='w-16 h-16 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-xl flex items-center justify-center mb-6'>
+              <Target className='h-8 w-8' strokeWidth={2.25} />
             </div>
             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
               <Translate staticKey='about.ourMission'>Our Mission</Translate>
@@ -242,8 +242,8 @@ const AboutPage = () => {
             </p>
           </div>
           <div className='bg-white rounded-2xl shadow-lg p-8'>
-            <div className='w-16 h-16 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mb-6'>
-              <Globe className='h-8 w-8' />
+            <div className='w-16 h-16 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-xl flex items-center justify-center mb-6'>
+              <Globe className='h-8 w-8' strokeWidth={2.25} />
             </div>
             <h3 className='text-2xl font-bold text-gray-900 mb-4'>
               <Translate staticKey='about.ourVision'>Our Vision</Translate>
@@ -280,9 +280,9 @@ const AboutPage = () => {
               return (
                 <div key={index} className='text-center group'>
                   <div
-                    className={`w-20 h-20 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-20 h-20 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <IconComponent className='h-10 w-10' />
+                    <IconComponent className='h-10 w-10' strokeWidth={2.25} />
                   </div>
                   <h3 className='text-xl font-semibold text-gray-900 mb-3'>
                     <Translate staticKey={`about.value${index + 1}Title`}>
@@ -395,7 +395,7 @@ const AboutPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white'>
+        <div className='bg-[#B08D57] rounded-2xl p-12 text-center text-white'>
           <h2 className='text-3xl font-bold mb-4'>
             <Translate staticKey='about.readyToWork'>
               Ready to Work With Us?

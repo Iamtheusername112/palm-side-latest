@@ -292,31 +292,31 @@ const Footer = () => {
                     href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fpalmside.es&h=AT0L6ugT3TGX2KEzBI_r1Q81ZQhJQBOqw9RNIRvcma46p6ThMezzYcCLUFIZBLjecL3ADuza_tDxo03_aHdJtjfNlRd9jUuYzQidaVRyhxGqVTB7olgT8ZO5N2G1oTCT&s=1'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
+                    className='w-8 h-8 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
                   >
-                    <Facebook className='h-4 w-4' />
+                    <Facebook className='h-4 w-4' strokeWidth={2.25} />
                   </a>
                   <a
                     href='https://www.instagram.com/palmside.es'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
+                    className='w-8 h-8 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
                   >
-                    <Instagram className='h-4 w-4' />
+                    <Instagram className='h-4 w-4' strokeWidth={2.25} />
                   </a>
                   <a
                     href='https://www.linkedin.com/in/jeanette-bakacak-50b965376/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
+                    className='w-8 h-8 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
                   >
-                    <Linkedin className='h-4 w-4' />
+                    <Linkedin className='h-4 w-4' strokeWidth={2.25} />
                   </a>
                   <a
                     href='https://www.tiktok.com/@palmside.sl'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='w-8 h-8 bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
+                  className='w-8 h-8 bg-white border border-[#B08D57]/50 text-[#B08D57] hover:bg-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110'
                   >
                     <TikTokIcon className='h-4 w-4' />
                   </a>

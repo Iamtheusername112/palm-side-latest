@@ -224,7 +224,12 @@ const Hero = () => {
             index === currentSlide ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <div className='absolute inset-0 bg-gradient-to-r from-amber-700/50 to-green-700/50 z-10' />
+          {!(index === 0 && slide.type === 'video') && (
+            <div className='absolute inset-0 z-10 pointer-events-none'>
+              <div className='absolute inset-0 bg-gradient-to-r from-[#704214]/35 via-[#8B5E3C]/25 to-[#B08D57]/20 mix-blend-multiply'></div>
+              <div className='absolute inset-0 bg-amber-900/10'></div>
+            </div>
+          )}
           {slide.type === 'video' ? (
             <video
               className='w-full h-full object-cover'
@@ -264,7 +269,7 @@ const Hero = () => {
               <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center'>
                 <Link
                   href='/properties'
-                  className='inline-block text-center bg-gradient-to-r from-amber-700 to-green-700 hover:from-amber-800 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'
+                  className='inline-block text-center bg-[#B08D57] hover:bg-[#9C7C49] text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto'
                 >
                   <Translate staticKey='hero.exploreProperties'>
                     Explore Properties

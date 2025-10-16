@@ -11,7 +11,7 @@ const TermsOfService = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className='relative overflow-hidden bg-gradient-to-r from-amber-700 to-green-700 py-20 pt-32'>
+      <div className='relative overflow-hidden bg-[#B08D57] py-20 pt-32'>
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h1 className='text-4xl md:text-6xl font-bold text-white mb-6'>

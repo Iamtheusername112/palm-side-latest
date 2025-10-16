@@ -142,7 +142,7 @@ const ServicesPage = () => {
   ]
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-green-50'>
+    <div className='min-h-screen bg-[#F5EFE6]'>
       <Navbar />
 
       <PageBanner
@@ -175,8 +175,8 @@ const ServicesPage = () => {
                         href={`#${s.id}`}
                         className='flex items-center gap-2 hover:text-yellow-700'
                       >
-                        <span className='inline-flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-r from-amber-700 to-green-700 text-white'>
-                          <IconComponent className='h-3.5 w-3.5' />
+                        <span className='inline-flex items-center justify-center w-6 h-6 rounded-md bg-white border border-[#B08D57]/50 text-[#B08D57]'>
+                          <IconComponent className='h-3.5 w-3.5' strokeWidth={2.25} />
                         </span>
                         <span>
                           <Translate staticKey={s.nameKey}>{s.name}</Translate>
@@ -205,8 +205,8 @@ const ServicesPage = () => {
                   >
                     <div className={`p-8 ${isEven ? '' : ''}`}>
                       <div className='flex items-center mb-4'>
-                        <div className='w-12 h-12 bg-gradient-to-r from-amber-700 to-green-700 rounded-xl flex items-center justify-center text-white mr-4'>
-                          <IconComponent className='h-6 w-6' />
+                        <div className='w-12 h-12 bg-white border border-[#B08D57]/50 text-[#B08D57] rounded-xl flex items-center justify-center mr-4'>
+                          <IconComponent className='h-6 w-6' strokeWidth={2.25} />
                         </div>
                         <h3 className='text-2xl font-bold text-gray-900'>
                           <Translate staticKey={service.nameKey}>
@@ -243,7 +243,7 @@ const ServicesPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className='bg-gradient-to-r from-amber-700 to-green-700 rounded-2xl p-12 text-center text-white mt-20'>
+        <div className='bg-[#B08D57] rounded-2xl p-12 text-center text-white mt-20'>
           <h2 className='text-3xl font-bold mb-4'>
             <Translate staticKey='services.readyToStart'>
               Ready to Get Started?

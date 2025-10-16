@@ -29,7 +29,7 @@ export default function Error({ error, reset }) {
         <div className='flex flex-col sm:flex-row gap-4 justify-center'>
           <button
             onClick={reset}
-            className='inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-600 to-green-600 text-white rounded-lg hover:from-amber-700 hover:to-green-700 transition-all duration-200'
+            className='inline-flex items-center px-6 py-3 bg-[#B08D57] text-white rounded-lg hover:bg-[#9C7C49] transition-all duration-200'
           >
             <RefreshCw className='h-5 w-5 mr-2' />
             Try Again
