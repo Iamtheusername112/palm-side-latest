@@ -450,17 +450,11 @@ const ContactPage = () => {
               on the map.
             </Translate>
           </p>
-          <div className='rounded-xl overflow-hidden shadow-lg h-[360px]'>
-            <iframe
-              title='Palmside Office Map'
-              width='100%'
-              height='100%'
-              style={{ border: 0 }}
-              loading='lazy'
-              referrerPolicy='no-referrer-when-downgrade'
-              src={
-                'https://maps.google.com/maps?q=Carrer%20de%20Ametler%203%20-1B%2C%20Son%20Ver%C3%AD%20Nou%2C%20Llucmajor%2C%20Mallorca&z=12&iwloc=near&output=embed'
-              }
+          <div className='rounded-xl overflow-hidden shadow-lg h-[360px] flex items-center justify-center'>
+            <img
+              src='/contactus/KarteMallorca.jpeg'
+              alt='Mallorca map showing Palmside office location'
+              className='w-full h-full object-contain'
             />
           </div>
         </div>
